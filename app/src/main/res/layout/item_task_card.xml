@@ -4,44 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="328dp"
     android:layout_height="112dp"
-    android:padding="@dimen/spacing_medium"
-    >
+    android:layout_gravity="center_horizontal"
+    android:padding="@dimen/spacing_medium">
 
     <TextView
         android:id="@+id/card_task_title"
         style="@style/TextStyle.TitleMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Application Design Meeting"
-        android:textColor="@color/on_background_87"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        />
+        android:text="@string/card_task_title"
+        android:textColor="@color/on_background_87"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card_divider"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/card_task_description"
         style="@style/TextStyle.BodySmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:layout_marginStart="8dp"
-        android:text="Website UI Design for task to do Website UI Design for task to do"
+        android:text="@string/card_task_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/card_divider"
         app:layout_constraintTop_toBottomOf="@+id/card_task_title" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/card_divider"
         android:layout_width="2dp"
         android:layout_height="0dp"
         android:background="@drawable/shape_corner_radius"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/card_task_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/card_task_title" />
+
+    <ImageView
+        android:id="@+id/card_icon_time"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="@dimen/elevation_tiny"
+        android:src="@drawable/ic_clock"
+        app:layout_constraintBottom_toBottomOf="@+id/card_text_time"
+        app:layout_constraintEnd_toStartOf="@+id/card_text_time"
+        app:layout_constraintTop_toTopOf="@+id/card_text_time" />
+
+    <ImageView
+        android:id="@+id/card_icon_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/elevation_tiny"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintEnd_toStartOf="@+id/card_text_date"
+        app:layout_constraintTop_toTopOf="@+id/card_text_date" />
+
+    <TextView
+        android:id="@+id/card_text_date"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:text="@string/card_text_date"
+        app:layout_constraintBottom_toBottomOf=""
+        app:layout_constraintEnd_toEndOf="@+id/card_task_description"
+        app:layout_constraintTop_toBottomOf="@+id/card_task_description" />
+
+    <TextView
+        android:id="@+id/card_text_time"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginBottom="2dp"
+        android:text="@string/card_text_time"
+        app:layout_constraintBottom_toBottomOf="@+id/card_icon_date"
+        app:layout_constraintEnd_toStartOf="@+id/card_icon_date"
+        app:layout_constraintTop_toTopOf="@+id/card_icon_date" />
+
+    <ImageView
+        android:id="@+id/card_icon_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_user"
+        app:layout_constraintBottom_toBottomOf="@+id/card_icon_time"
+        app:layout_constraintStart_toStartOf="@+id/card_divider"
+        app:layout_constraintTop_toTopOf="@+id/card_icon_time" />
+
+    <TextView
+        android:id="@+id/card_text_person"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_tiny"
+        android:text="@string/card_text_person"
+        android:textColor="@color/done_color"
+        app:layout_constraintBottom_toBottomOf="@+id/card_icon_person"
+        app:layout_constraintStart_toEndOf="@+id/card_icon_person"
+        app:layout_constraintTop_toTopOf="@+id/card_icon_person" />
 </androidx.constraintlayout.widget.ConstraintLayout>
