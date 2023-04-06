@@ -5,4 +5,5 @@
     <string name="card_text_date">24-08-2023</string>
     <string name="card_text_time">21:30</string>
     <string name="card_text_person">Muhammed</string>
+    <string name="login">Login</string>
 </resources>
