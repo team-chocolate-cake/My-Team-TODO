@@ -24,12 +24,9 @@
     <dimen name="text_giant">22sp</dimen>
 
     <!--radius dimens-->
-    <dimen name="radius_tiny">4dp</dimen>
-    <dimen name="radius_small">8dp</dimen>
-    <dimen name="radius_semi_medium">12dp</dimen>
-    <dimen name="radius_medium">16dp</dimen>
+    <dimen name="radius_default">8dp</dimen>
     <dimen name="radius_large">24dp</dimen>
-    <dimen name="radius_giant">32dp</dimen>
+    <dimen name="radius_full">100dp</dimen>
     
     <!--elevation dimens-->
     <dimen name="elevation_tiny">4dp</dimen>
