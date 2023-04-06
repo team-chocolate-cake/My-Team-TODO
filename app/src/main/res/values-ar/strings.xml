@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_name">TODO App</string>
     <string name="card_task_title">اجتماع تصميم</string>
     <string name="card_task_description">تصميم واجهة مستخدم موقع الويب لمهمة القيام بتصميم واجهة مستخدم موقع الويب لمهمة يجب القيام بها</string>
     <string name="card_text_date">24–08–2023</string>
