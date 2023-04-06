@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Margin dimens-->
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_giant">32dp</dimen>
+
+    <!--padding dimens-->
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_giant">32dp</dimen>
+
+    <!--text dimens-->
+    <dimen name="text_tiny">11sp</dimen>
+    <dimen name="text_semi_small">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_semi_large">18sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_giant">22sp</dimen>
+
+    <!--radius dimens-->
+    <dimen name="radius_tiny">4dp</dimen>
+    <dimen name="radius_small">8dp</dimen>
+    <dimen name="radius_semi_medium">12dp</dimen>
+    <dimen name="radius_medium">16dp</dimen>
+    <dimen name="radius_large">24dp</dimen>
+    <dimen name="radius_giant">32dp</dimen>
+    
+    <!--elevation dimens-->
+    <dimen name="elevation_tiny">4dp</dimen>
+    <dimen name="elevation_small">8dp</dimen>
+    <dimen name="elevation_medium">10dp</dimen>
+    <dimen name="elevation_semi_large">12dp</dimen>
+    <dimen name="elevation_large">14dp</dimen>
+    <dimen name="elevation_giant">16dp</dimen>
+
+</resources>

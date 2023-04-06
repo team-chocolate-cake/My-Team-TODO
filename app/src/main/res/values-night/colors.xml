@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appbar_color">#152232</color>
+
+    <color name="primary">#3787EB</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#1E3148</color>
+    <color name="on_primary_container">#F6F6F6</color>
+    <color name="background">#0B1B2F</color>
+    <color name="on_background_87">#DEF6F6F6</color>
+    <color name="on_background_60">#99F6F6F6</color>
+    <color name="on_background_38">#61F6F6F6</color>
+</resources>
