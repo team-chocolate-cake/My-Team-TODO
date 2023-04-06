@@ -5,6 +5,7 @@
     android:layout_width="328dp"
     android:layout_height="112dp"
     android:layout_gravity="center_horizontal"
+    android:background="@drawable/shape_corner_radius"
     android:padding="@dimen/spacing_medium">
 
     <TextView
@@ -40,6 +41,7 @@
         android:layout_width="2dp"
         android:layout_height="0dp"
         android:background="@drawable/shape_corner_radius"
+        android:backgroundTint="@color/done_color"
         app:layout_constraintBottom_toBottomOf="@+id/card_task_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/card_task_title" />
@@ -50,18 +52,8 @@
         android:layout_height="16dp"
         android:layout_marginEnd="@dimen/elevation_tiny"
         android:src="@drawable/ic_clock"
-        app:layout_constraintBottom_toBottomOf="@+id/card_text_time"
         app:layout_constraintEnd_toStartOf="@+id/card_text_time"
         app:layout_constraintTop_toTopOf="@+id/card_text_time" />
-
-    <ImageView
-        android:id="@+id/card_icon_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/elevation_tiny"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintEnd_toStartOf="@+id/card_text_date"
-        app:layout_constraintTop_toTopOf="@+id/card_text_date" />
 
     <TextView
         android:id="@+id/card_text_date"
@@ -69,7 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_medium"
+        android:drawablePadding="@dimen/spacing_tiny"
         android:text="@string/card_text_date"
+        app:drawableStartCompat="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf=""
         app:layout_constraintEnd_toEndOf="@+id/card_task_description"
         app:layout_constraintTop_toBottomOf="@+id/card_task_description" />
@@ -80,20 +74,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/spacing_medium"
-        android:layout_marginBottom="2dp"
         android:text="@string/card_text_time"
-        app:layout_constraintBottom_toBottomOf="@+id/card_icon_date"
-        app:layout_constraintEnd_toStartOf="@+id/card_icon_date"
-        app:layout_constraintTop_toTopOf="@+id/card_icon_date" />
+        app:layout_constraintEnd_toStartOf="@+id/card_text_date"
+        app:layout_constraintTop_toTopOf="@+id/card_text_date" />
 
     <ImageView
         android:id="@+id/card_icon_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:src="@drawable/ic_user"
-        app:layout_constraintBottom_toBottomOf="@+id/card_icon_time"
         app:layout_constraintStart_toStartOf="@+id/card_divider"
-        app:layout_constraintTop_toTopOf="@+id/card_icon_time" />
+        app:layout_constraintTop_toBottomOf="@+id/card_divider" />
 
     <TextView
         android:id="@+id/card_text_person"
@@ -103,7 +95,6 @@
         android:layout_marginStart="@dimen/spacing_tiny"
         android:text="@string/card_text_person"
         android:textColor="@color/done_color"
-        app:layout_constraintBottom_toBottomOf="@+id/card_icon_person"
         app:layout_constraintStart_toEndOf="@+id/card_icon_person"
         app:layout_constraintTop_toTopOf="@+id/card_icon_person" />
 </androidx.constraintlayout.widget.ConstraintLayout>
