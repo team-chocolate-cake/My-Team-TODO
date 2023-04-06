@@ -5,5 +5,8 @@
     <string name="card_task_description">تصميم واجهة مستخدم موقع الويب لمهمة القيام بتصميم واجهة مستخدم موقع الويب لمهمة يجب القيام بها</string>
     <string name="card_text_date">24–08–2023</string>
     <string name="card_text_time">21:30</string>
-    <string name="card_text_person">محمد</string>
+    <string name="card_text_person">محمود</string>
+    <string name="login">تسجيل</string>
+    <string name="status_card_chips">3 To Do</string>
+
 </resources>
