@@ -54,4 +54,7 @@
     <style name="TextStyle.TitleLarge">
         <item name="android:textSize">@dimen/text_giant</item>
     </style>
+    <style name="CancelMyButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/background_cancel_button</item>
+    </style>
 </resources>
