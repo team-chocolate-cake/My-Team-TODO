@@ -3,8 +3,7 @@
     <color name="todo">#3787EB</color>
     <color name="done_color">#30966E</color>
     <color name="in_progress">#EF8100</color>
-    <color name="appbar_color">#5F9FEF</color>
-
+    <color name="appbar_color">#F6F6F6</color>
     <color name="primary">#3787EB</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="primary_container">#FFFFFF</color>
@@ -15,6 +14,6 @@
     <color name="on_background_87">#DE121212</color>
     <color name="on_background_60">#99121212</color>
     <color name="on_background_38">#610B1B2F</color>
-    <color name="background">#FFFFFF</color>
+    <color name="background">#FAFAFA</color>
     <color name="app_bar_color">#F6F6F6</color>
 </resources>

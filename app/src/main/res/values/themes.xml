@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.TODOApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -10,6 +10,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/app_bar_color</item>
         <item name="android:windowLightStatusBar">true</item>
+        <!-- Splash Screen-->
+        <item name="android:windowSplashscreenContent" tools:targetApi="s">@drawable/splash_logo</item>
     </style>
 
     <style name="TextStyle">

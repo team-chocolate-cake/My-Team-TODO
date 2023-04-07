@@ -9,5 +9,7 @@
         <item name="background">@color/background</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/background</item>
+        <!-- Splash Screen-->
+        <item name="android:windowSplashscreenContent" tools:targetApi="s">@drawable/splash_logo</item>
     </style>
 </resources>
