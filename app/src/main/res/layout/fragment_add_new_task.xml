@@ -60,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/description_edit_text_height"
         style="@style/EditText"
+        android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@+id/description_text"/>
 
     <androidx.appcompat.widget.AppCompatButton
