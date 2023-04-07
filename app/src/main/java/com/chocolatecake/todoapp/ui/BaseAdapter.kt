@@ -2,6 +2,7 @@ package com.chocolatecake.todoapp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
@@ -11,7 +12,6 @@ abstract class BaseAdapter<T : Any, VB : ViewBinding> : RecyclerView.Adapter<Bas
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
     abstract fun bindItem(binding: VB, item: T)
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,5 +25,36 @@ abstract class BaseAdapter<T : Any, VB : ViewBinding> : RecyclerView.Adapter<Bas
 
     override fun getItemCount(): Int = items.size
 
+    abstract fun <T> areItemsTheSame(
+        oldItemPosition: Int,
+        newItemPosition: Int,
+        newItems: List<T>
+    ): Boolean
+
+    fun submitList(newItems: List<T>) {
+        val diffResult = DiffUtil.calculateDiff(AppDiffUtil(items, newItems, ::areItemsTheSame))
+        items = newItems
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun getOldItems() = items
+
+    private class AppDiffUtil<T>(
+        private val oldList: List<T>,
+        private val newList: List<T>,
+        val function: (Int, Int, List<T>) -> Boolean
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize() = oldList.size
+
+        override fun getNewListSize() = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            function(oldItemPosition, newItemPosition, newList)
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList[oldItemPosition] == newList[newItemPosition]
+    }
+
     class BaseViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
 }
+
