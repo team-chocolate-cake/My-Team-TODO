@@ -9,6 +9,8 @@
         <item name="background">@color/background</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/background</item>
+        <!-- Splash Screen-->
+        <item name="android:windowSplashscreenContent" tools:targetApi="s">@drawable/splash_logo</item>
     </style>
 
     <style name="TextStyle">
@@ -52,5 +54,4 @@
     <style name="TextStyle.TitleLarge">
         <item name="android:textSize">@dimen/text_giant</item>
     </style>
-
 </resources>
