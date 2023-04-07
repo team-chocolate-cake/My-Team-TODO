@@ -7,4 +7,5 @@
     <string name="card_text_person">Muhammed</string>
     <string name="login">Login</string>
     <string name="status_card_chips">3 To Do</string>
+    <string name="search">search</string>
 </resources>

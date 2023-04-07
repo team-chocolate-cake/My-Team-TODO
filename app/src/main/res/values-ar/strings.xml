@@ -8,5 +8,6 @@
     <string name="card_text_person">محمود</string>
     <string name="login">تسجيل</string>
     <string name="status_card_chips">3 To Do</string>
+    <string name="search">search</string>
 
 </resources>
