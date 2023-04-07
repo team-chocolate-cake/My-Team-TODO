@@ -51,6 +51,7 @@
         android:fontFamily="@font/lato"
         android:textSize="@dimen/text_medium"
         app:backgroundTint="@null"
+        android:textAllCaps="false"
         android:textColor="@color/on_primary"
         android:layout_marginTop="@dimen/spacing_giant"/>
     <Button
@@ -58,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:textAllCaps="false"
         android:background="@drawable/background_cancel_button"
         android:fontFamily="@font/lato"
         android:textSize="@dimen/text_medium"

@@ -5,5 +5,5 @@
             android:topLeftRadius="@dimen/spacing_extra_large"
             android:topRightRadius="@dimen/spacing_extra_large" />
     <solid
-           android:color="@color/cardview_light_background"/>
+           android:color="@color/background"/>
 </shape>
