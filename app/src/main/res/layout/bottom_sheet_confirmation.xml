@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/this_will_be_added_to_your_personal_tasks"
+        android:text="@string/it_well_be_added_to_tasks"
         android:fontFamily="@font/lato"
         android:layout_marginTop="@dimen/spacing_small"
         android:textAlignment="center"

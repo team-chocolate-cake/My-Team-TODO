@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TODO App</string>
     <string name="are_you_sure">Are You Sure ?</string>
-    <string name="this_will_be_added_to_your_personal_tasks">this will be added to your personal tasks.</string>
+    <string name="it_well_be_added_to_tasks">this will be added to your personal tasks.</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
