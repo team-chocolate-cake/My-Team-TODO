@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.TODOApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -8,7 +8,8 @@
         <item name="colorPrimaryContainer">@color/primary_container</item>
         <item name="background">@color/background</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/background</item>
+        <item name="android:statusBarColor">@color/app_bar_color</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="TextStyle">
