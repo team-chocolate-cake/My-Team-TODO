@@ -1,0 +1,77 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="Add New Task"
+        app:titleTextColor="@color/on_primary_container_87" />
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_text"
+        style="@style/TextView"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+        android:id="@+id/title_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EditText"
+        app:layout_constraintTop_toBottomOf="@+id/title_text"/>
+
+    <TextView
+        android:id="@+id/assignee_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/assignee_text"
+        style="@style/TextView"
+        app:layout_constraintTop_toBottomOf="@+id/title_edit_text"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+        android:id="@+id/assignee_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EditText"
+        app:layout_constraintTop_toBottomOf="@+id/assignee_text"/>
+
+    <TextView
+        android:id="@+id/description_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description_text"
+        style="@style/TextView"
+        app:layout_constraintTop_toBottomOf="@+id/assignee_edit_text"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+        android:id="@+id/description_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/description_edit_text_height"
+        style="@style/EditText"
+        app:layout_constraintTop_toBottomOf="@+id/description_text"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        style="@style/TextStyle.BodyLarge"
+        android:textColor="@color/on_primary"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginBottom="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/button_selector"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
