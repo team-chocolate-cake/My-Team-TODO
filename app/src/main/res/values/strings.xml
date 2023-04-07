@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TODO App</string>
+    <string name="welcome_back_to_ticktask">Welcome Back to TickTask</string>
+    <string name="organize_your_brain_and_your_team">Organize your brain and your team</string>
+    <string name="username_label_login">Username</string>
+    <string name="password_label_field">password</string>
+    <string name="login_text">Login</string>
+    <string name="you_don_t_have_an_account">you don’t have an account ?</string>
+    <string name="register">Register</string>
+    <string name="Register">Register</string>
 </resources>

@@ -4,15 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/background">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_giant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/undraw_completed_tasks_vs6q_2_1_" />
 
     <TextView
+        android:id="@+id/welcome_login_text"
+        style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/spacing_giant"
+        android:layout_marginBottom="@dimen/spacing_tiny"
+        android:text="@string/welcome_back_to_ticktask"
+        android:textColor="@color/on_background_87"
+        android:textSize="@dimen/text_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_login" />
+
+    <TextView
+        android:id="@+id/text_description_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:text="@string/organize_your_brain_and_your_team"
+        android:textColor="@color/on_background_38"
+        android:textSize="@dimen/text_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_login_text" />
+
+    <TextView
+        android:id="@+id/text_label_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_giant"
+        android:text="@string/username_label_login"
+        android:textColor="@color/on_background_87"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_login" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editText_field_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@drawable/selector_field"
+        android:paddingHorizontal="@dimen/spacing_medium"
+        android:textColor="@color/on_background_60"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintTop_toBottomOf="@+id/text_label_username" />
+
+    <TextView
+        android:id="@+id/text_label_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:text="@string/password_label_field"
+        android:textColor="@color/on_background_87"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintTop_toBottomOf="@+id/editText_field_password"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editText_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:background="@drawable/selector_field"
+        android:inputType="textPassword"
+        android:paddingHorizontal="@dimen/spacing_medium"
+        android:textColor="@color/on_background_60"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintTop_toBottomOf="@+id/text_label_password" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_login"
+        style="@style/TextStyle.TitleMedium"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_giant"
+        android:background="@drawable/shape_corner_radius"
+        android:text="@string/login_text"
+        android:textAllCaps="false"
+        android:textColor="@color/on_primary"
+        app:layout_constraintTop_toBottomOf="@+id/editText_password"
+        tools:layout_editor_absoluteX="12dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_login"
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toBottomOf="@+id/button_login">
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="145dp"
+            android:layout_height="13dp"
+            android:gravity="center_horizontal"
+            android:text="@string/you_don_t_have_an_account"
+            android:textColor="@color/on_background_60" />
+
+        <TextView
+            android:id="@+id/text_register_body"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:text="@string/Register"
+            android:textColor="@color/primary" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

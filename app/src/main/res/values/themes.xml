@@ -8,7 +8,7 @@
         <item name="colorPrimaryContainer">@color/primary_container</item>
         <item name="background">@color/background</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/background</item>
+        <item name="android:statusBarColor">@color/background</item>
     </style>
 
     <style name="TextStyle">
