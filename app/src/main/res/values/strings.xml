@@ -5,4 +5,7 @@
     <string name="search">search</string>
     <string name="team">Team</string>
     <string name="personal">Personal</string>
+    <string name="to_do_task">%1$d To Do</string>
+    <string name="in_progress_task">%1$d In Progress</string>
+    <string name="done_task">%1$d Done</string>
 </resources>
