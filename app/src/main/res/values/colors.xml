@@ -15,4 +15,5 @@
     <color name="on_background_60">#99121212</color>
     <color name="on_background_38">#610B1B2F</color>
     <color name="background">#FAFAFA</color>
+    <color name="primary_dark">#2966B3</color>
 </resources>
