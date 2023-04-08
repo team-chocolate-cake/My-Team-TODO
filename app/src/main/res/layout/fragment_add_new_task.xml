@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
         app:navigationIconTint="@color/on_background_87"
-        app:title="Add New Task"
+        app:title="@string/title_add_new_task"
         app:titleTextAppearance="@style/TextStyle.TitleMedium"
         app:titleTextColor="@color/on_background_87" />
 
@@ -32,8 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextStyle.BodyMedium.EditTextStyle"
-        android:layout_marginStart="@dimen/spacing_medium"
-        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintTop_toBottomOf="@+id/title_text"/>
 
@@ -53,8 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextStyle.BodyMedium.EditTextStyle"
-        android:layout_marginStart="@dimen/spacing_medium"
-        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintTop_toBottomOf="@+id/assignee_text"/>
 
@@ -75,8 +73,7 @@
         android:layout_height="0dp"
         style="@style/TextStyle.BodyMedium.EditTextStyle"
         android:inputType="textMultiLine"
-        android:layout_marginStart="@dimen/spacing_medium"
-        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_small"
         android:layout_marginBottom="@dimen/spacing_medium"
         app:layout_constraintBottom_toTopOf="@+id/add_button"
@@ -86,12 +83,11 @@
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="@string/done"
         android:textAllCaps="false"
         style="@style/TextStyle.BodyLarge"
         android:textColor="@color/on_primary"
-        android:layout_marginStart="@dimen/spacing_medium"
-        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/button_selector"/>
