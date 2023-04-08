@@ -8,8 +8,8 @@
     android:padding="@dimen/spacing_medium">
 
     <View
-    android:layout_width="32dp"
-    android:layout_height="4dp"
+    android:layout_width="@dimen/spacing_giant"
+    android:layout_height="@dimen/spacing_tiny"
     android:layout_gravity="center"
     android:background="@drawable/drag_handle"
     android:layout_marginTop="@dimen/spacing_medium"/>
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_confierm"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/spacing_giant"
         android:contentDescription="@string/done"/>
 
     <TextView
