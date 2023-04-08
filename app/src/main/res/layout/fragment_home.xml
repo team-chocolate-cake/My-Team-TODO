@@ -17,12 +17,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/text_view_search"
+        android:id="@+id/edit_text_search"
         style="@style/TextStyle.BodyMedium"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginVertical="@dimen/elevation_large"
+        android:textColor="@color/on_background_87"
         android:background="@drawable/search_edit_text_background"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/spacing_small"
@@ -31,7 +32,7 @@
         android:hint="@string/search"
         android:inputType="text"
         android:padding="@dimen/spacing_medium"
-        android:textCursorDrawable="@drawable/cusom_cursor"
+        android:textCursorDrawable="@drawable/custom_cursor"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
@@ -39,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_bar_color"
-        app:layout_constraintTop_toBottomOf="@id/text_view_search"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:layout_constraintVertical_bias="1.0"
         app:tabGravity="fill"
         app:tabIndicator="@drawable/custom_tab_indicator"
