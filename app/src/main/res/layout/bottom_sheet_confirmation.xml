@@ -4,11 +4,13 @@
     android:id="@+id/confirmation_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/background"
     android:theme="@style/TopCornerCardView">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_medium"
         android:orientation="vertical">
 
         <View
@@ -19,7 +21,6 @@
             android:layout_marginTop="@dimen/spacing_medium"/>
 
         <ImageView
-            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
             android:fontFamily="@font/lato"
+            android:layout_gravity="center"
             android:text="@string/it_well_be_added_to_tasks"
             android:textAlignment="center"
             android:textColor="@color/on_primary_container_38"/>
@@ -51,9 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_giant"
-            android:background="@drawable/background_submit_button"
             android:fontFamily="@font/lato"
             android:text="@string/confirm"
+            android:background="@drawable/button_selector"
             android:textAllCaps="false"
             android:textColor="@color/on_primary"
             android:textSize="@dimen/text_medium"
@@ -64,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:background="@drawable/background_cancel_button"
+            android:background="@drawable/secondary_button_selector"
             android:fontFamily="@font/lato"
             android:text="@string/cancel"
             android:textAllCaps="false"
