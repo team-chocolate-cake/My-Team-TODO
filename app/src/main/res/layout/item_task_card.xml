@@ -59,6 +59,7 @@
             android:layout_height="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/elevation_tiny"
             android:src="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="@+id/card_text_time"
             app:layout_constraintEnd_toStartOf="@+id/card_text_time"
             app:layout_constraintTop_toTopOf="@+id/card_text_time"
             app:tint="@color/on_background_38" />
@@ -84,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:textColor="@color/on_background_38"
+            app:layout_constraintBottom_toBottomOf="@+id/card_text_date"
             app:layout_constraintEnd_toStartOf="@+id/card_text_date"
             app:layout_constraintTop_toTopOf="@+id/card_text_date"
             tools:text="21:30" />
