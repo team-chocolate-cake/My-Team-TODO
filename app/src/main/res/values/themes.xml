@@ -63,4 +63,28 @@
         <item name="android:inputType">text</item>
     </style>
 
+
+    <style name="TextStyle.LabelMedium.ChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipStartPadding">@dimen/spacing_medium</item>
+        <item name="chipEndPadding">@dimen/spacing_medium</item>
+        <item name="chipMinHeight">44dp</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+    </style>
+
+    <style name="TextStyle.LabelMedium.ChipStyle.Todo">
+        <item name="chipBackgroundColor">@color/chip_background_todo</item>
+    </style>
+
+    <style name="TextStyle.LabelMedium.ChipStyle.InProgress">
+        <item name="chipBackgroundColor">@color/chip_background_progress</item>
+    </style>
+
+    <style name="TextStyle.LabelMedium.ChipStyle.Done">
+        <item name="chipBackgroundColor">@color/chip_background_done</item>
+    </style>
+
 </resources>
