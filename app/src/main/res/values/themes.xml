@@ -55,7 +55,7 @@
         <item name="android:textSize">@dimen/text_giant</item>
     </style>
 
-    <style name="TopCornerCardview" parent="Widget.MaterialComponents.CardView">‏
+    <style name="TopCornerCardView" parent="Widget.MaterialComponents.CardView">‏
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">"@dimen/spacing_extra_large"</item>
         <item name="cornerSizeTopLeft">"@dimen/spacing_extra_large"</item>

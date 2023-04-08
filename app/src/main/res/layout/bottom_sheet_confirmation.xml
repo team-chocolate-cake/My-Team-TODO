@@ -4,14 +4,12 @@
     android:id="@+id/confirmation_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/TopCornerCardview">
+    android:theme="@style/TopCornerCardView">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_bottom_sheet_confirmation"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_medium">
+        android:orientation="vertical">
 
         <View
             android:layout_width="@dimen/height_giant"
@@ -40,7 +38,7 @@
             android:fontFamily="@font/lato"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
             android:fontFamily="@font/lato"
@@ -49,7 +47,7 @@
             android:textColor="@color/on_primary_container_38"/>
 
         <Button
-            android:id="@+id/confirm_button"
+            android:id="@+id/button_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_giant"
@@ -62,7 +60,7 @@
             app:backgroundTint="@null"/>
 
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/button_cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
