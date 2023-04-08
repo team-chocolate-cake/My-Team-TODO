@@ -6,7 +6,7 @@
     <string name="done">Done</string>
     <string name="title_add_new_task">Add New Task</string>
     <string name="welcome_back_to_ticktask">Welcome back to TickTask</string>
-    <string name="login_description">"orgamize your brain and your team "</string>
+    <string name="login_description">organize your brain and your team</string>
     <string name="username_label_login">Username</string>
     <string name="password_label_field">Password</string>
     <string name="login_text">Login</string>
