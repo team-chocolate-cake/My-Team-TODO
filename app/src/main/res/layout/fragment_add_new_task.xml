@@ -13,7 +13,8 @@
         app:navigationIcon="@drawable/ic_back"
         app:navigationIconTint="@color/on_background_87"
         app:title="Add New Task"
-        app:titleTextColor="@color/on_primary_container_87" />
+        app:titleTextAppearance="@style/TextStyle.TitleMedium"
+        app:titleTextColor="@color/on_background_87" />
 
     <TextView
         android:id="@+id/title_text"
