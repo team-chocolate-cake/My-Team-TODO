@@ -12,4 +12,5 @@
     <color name="on_background_60">#99F6F6F6</color>
     <color name="on_background_38">#61F6F6F6</color>
     <color name="background">#0B1B2F</color>
+    <color name="svg_background_color">#DEF2F2F2</color>
 </resources>
