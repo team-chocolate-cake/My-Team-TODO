@@ -55,19 +55,8 @@
         <item name="android:textSize">@dimen/text_giant</item>
     </style>
 
-    <style name="TextView">
-        <item name="android:textSize">@dimen/text_small</item>
-        <item name="android:textColor">@color/on_background_87</item>
-        <item name="android:layout_marginStart">@dimen/spacing_medium</item>
-        <item name="android:layout_marginTop">@dimen/spacing_medium</item>
-    </style>
-
-    <style name="EditText">
-        <item name="android:textSize">@dimen/text_semi_small</item>
+    <style name="TextStyle.BodyMedium.EditTextStyle">
         <item name="android:textColor">@color/on_background_60</item>
-        <item name="android:layout_marginTop">@dimen/spacing_small</item>
-        <item name="android:layout_marginStart">@dimen/spacing_medium</item>
-        <item name="android:layout_marginEnd">@dimen/spacing_medium</item>
         <item name="android:gravity">start</item>
         <item name="android:padding">@dimen/spacing_medium</item>
         <item name="android:background">@drawable/text_field_shape</item>

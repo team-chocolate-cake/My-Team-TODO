@@ -9,11 +9,9 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/appbar_height"
-        android:background="@color/background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@color/on_background_87"
         app:title="Add New Task"
         app:titleTextColor="@color/on_primary_container_87" />
 
@@ -22,14 +20,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_text"
-        style="@style/TextView"
+        android:textColor="@color/on_background_87"
+        style="@style/TextStyle.LabelLarge"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
         android:id="@+id/title_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/EditText"
+        style="@style/TextStyle.BodyMedium.EditTextStyle"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintTop_toBottomOf="@+id/title_text"/>
 
     <TextView
@@ -37,14 +41,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/assignee_text"
-        style="@style/TextView"
+        android:textColor="@color/on_background_87"
+        style="@style/TextStyle.LabelLarge"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
         app:layout_constraintTop_toBottomOf="@+id/title_edit_text"
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
         android:id="@+id/assignee_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/EditText"
+        style="@style/TextStyle.BodyMedium.EditTextStyle"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintTop_toBottomOf="@+id/assignee_text"/>
 
     <TextView
@@ -52,15 +62,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description_text"
-        style="@style/TextView"
+        style="@style/TextStyle.LabelLarge"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:textColor="@color/on_background_87"
         app:layout_constraintTop_toBottomOf="@+id/assignee_edit_text"
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
         android:id="@+id/description_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/description_edit_text_height"
-        style="@style/EditText"
+        android:layout_height="0dp"
+        style="@style/TextStyle.BodyMedium.EditTextStyle"
         android:inputType="textMultiLine"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        app:layout_constraintBottom_toTopOf="@+id/add_button"
         app:layout_constraintTop_toBottomOf="@+id/description_text"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -68,11 +86,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Done"
+        android:textAllCaps="false"
         style="@style/TextStyle.BodyLarge"
         android:textColor="@color/on_primary"
         android:layout_marginStart="@dimen/spacing_medium"
         android:layout_marginEnd="@dimen/spacing_medium"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="@dimen/spacing_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/button_selector"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
