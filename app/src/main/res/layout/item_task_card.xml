@@ -1,94 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
     android:layout_marginHorizontal="@dimen/spacing_medium"
     android:layout_marginVertical="@dimen/spacing_tiny"
-    android:background="@drawable/shape_corner_radius"
-    android:padding="@dimen/spacing_medium">
+    android:backgroundTint="@color/primary_container"
+    app:cardCornerRadius="@dimen/radius_default">
 
-    <TextView
-        android:id="@+id/card_task_title"
-        style="@style/TextStyle.TitleMedium"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="@string/card_task_title"
-        android:textColor="@color/on_background_87"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/card_divider"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="@dimen/spacing_medium">
 
-    <TextView
-        android:id="@+id/card_task_description"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="@string/card_task_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/card_divider"
-        app:layout_constraintTop_toBottomOf="@+id/card_task_title" />
+        <TextView
+            android:id="@+id/card_task_title"
+            style="@style/TextStyle.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/on_background_87"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_divider"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem/random" />
 
-    <View
-        android:id="@+id/card_divider"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_corner_radius"
-        android:backgroundTint="@color/done_color"
-        app:layout_constraintBottom_toBottomOf="@+id/card_task_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_task_title" />
+        <TextView
+            android:id="@+id/card_task_description"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/on_background_60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_divider"
+            app:layout_constraintTop_toBottomOf="@+id/card_task_title"
+            tools:text="@tools:sample/lorem/random" />
 
-    <ImageView
-        android:id="@+id/card_icon_time"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="@dimen/elevation_tiny"
-        android:src="@drawable/ic_clock"
-        app:layout_constraintEnd_toStartOf="@+id/card_text_time"
-        app:layout_constraintTop_toTopOf="@+id/card_text_time" />
+        <View
+            android:id="@+id/card_divider"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_corner_radius"
+            android:backgroundTint="@color/done_color"
+            app:layout_constraintBottom_toBottomOf="@+id/card_task_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_task_title" />
 
-    <TextView
-        android:id="@+id/card_text_date"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:drawablePadding="@dimen/spacing_tiny"
-        android:text="@string/card_text_date"
-        app:drawableStartCompat="@drawable/ic_calendar"
-        app:layout_constraintEnd_toEndOf="@+id/card_task_description"
-        app:layout_constraintTop_toBottomOf="@+id/card_task_description" />
+        <ImageView
+            android:id="@+id/card_icon_time"
+            android:layout_width="@dimen/spacing_medium"
+            android:layout_height="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/elevation_tiny"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintEnd_toStartOf="@+id/card_text_time"
+            app:layout_constraintTop_toTopOf="@+id/card_text_time"
+            app:tint="@color/on_background_38" />
 
-    <TextView
-        android:id="@+id/card_text_time"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_medium"
-        android:text="@string/card_text_time"
-        app:layout_constraintEnd_toStartOf="@+id/card_text_date"
-        app:layout_constraintTop_toTopOf="@+id/card_text_date" />
+        <TextView
+            android:id="@+id/card_text_date"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:drawablePadding="@dimen/spacing_tiny"
+            android:textColor="@color/on_background_38"
+            app:drawableStartCompat="@drawable/ic_calendar"
+            app:drawableTint="@color/on_background_38"
+            app:layout_constraintEnd_toEndOf="@+id/card_task_description"
+            app:layout_constraintTop_toBottomOf="@+id/card_task_description"
+            tools:text="24-08-2023" />
 
-    <TextView
-        android:id="@+id/card_text_person"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/spacing_tiny"
-        android:text="@string/card_text_person"
-        android:textColor="@color/done_color"
-        app:drawableStartCompat="@drawable/ic_user"
-        app:layout_constraintBottom_toBottomOf="@+id/card_icon_time"
-        app:layout_constraintStart_toStartOf="@+id/card_divider"
-        app:layout_constraintTop_toTopOf="@+id/card_icon_time" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/card_text_time"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:textColor="@color/on_background_38"
+            app:layout_constraintEnd_toStartOf="@+id/card_text_date"
+            app:layout_constraintTop_toTopOf="@+id/card_text_date"
+            tools:text="21:30" />
+
+        <TextView
+            android:id="@+id/card_text_person"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/spacing_tiny"
+            android:textColor="@color/done_color"
+            app:drawableStartCompat="@drawable/ic_user"
+            app:drawableTint="@color/done_color"
+            app:layout_constraintBottom_toBottomOf="@+id/card_icon_time"
+            app:layout_constraintStart_toStartOf="@+id/card_divider"
+            app:layout_constraintTop_toTopOf="@+id/card_icon_time"
+            tools:text="@tools:sample/lorem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+

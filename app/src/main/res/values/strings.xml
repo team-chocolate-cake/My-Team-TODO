@@ -1,11 +1,3 @@
 <resources>
     <string name="app_name">TODO App</string>
-    <string name="card_task_title">Application Design Meeting</string>
-    <string name="card_task_description">Website UI Design for task to do Website UI Design for task to do</string>
-    <string name="card_text_date">24-08-2023</string>
-    <string name="card_text_time">21:30</string>
-    <string name="card_text_person">Muhammed</string>
-    <string name="login">Login</string>
-    <string name="status_card_chips">3 To Do</string>
-    <string name="search">search</string>
 </resources>
