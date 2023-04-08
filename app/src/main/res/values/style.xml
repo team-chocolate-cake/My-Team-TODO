@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style  name="TextStyle.BodySmall.TextStyleStatus" >
+        <item name="android:background">@drawable/round_corner</item>
+        <item name="android:textColor">@color/primary_container</item>
+        <item name="android:paddingVertical" tools:targetApi="o">@dimen/spacing_small</item>
+        <item name="android:drawablePadding">@dimen/spacing_small</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/spacing_medium</item>
+        <item name="drawableLeftCompat">@drawable/ic_pen</item>
+
+
+    </style>
+
+
+</resources>

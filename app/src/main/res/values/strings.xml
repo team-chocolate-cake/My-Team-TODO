@@ -3,9 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task_details">Task Details</string>
-    <string name="text_tast">Using a social media management tool, the team schedules the posts to go live at optimal times, based on the audience\'s online behavior. They also monitor engagement metrics, such as likes, shares, and comments, and use A/B testing to optimize the content for maximum impact. Using a social media management tool, the team schedules the posts to go live at optimal times, based on the audience\'s online behavior. They also monitor engagement metrics, such as likes, shares, and comments, and use A/B testing to optimize the content for maximum impact.</string>
+    <string name="text_task">Using a social media management tool, the team schedules the posts to go live at optimal times, based on the audience\'s online behavior. They also monitor engagement metrics, such as likes, shares, and comments, and use A/B testing to optimize the content for maximum impact. Using a social media management tool, the team schedules the posts to go live at optimal times, based on the audience\'s online behavior. They also monitor engagement metrics, such as likes, shares, and comments, and use A/B testing to optimize the content for maximum impact.</string>
     <string name="txtHead">Create and schedule social media posts across relevant channels</string>
     <string name="person">By Muhammed</string>
     <string name="status">To Do</string>
-    <string name="title">Task Details</string>
+    <string name="title_details">Task Details</string>
 </resources>
