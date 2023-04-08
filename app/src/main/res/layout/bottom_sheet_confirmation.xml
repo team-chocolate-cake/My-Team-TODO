@@ -1,71 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/confirmation_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/background_bottom_sheet_confirmation"
-    android:padding="@dimen/spacing_medium">
+    android:theme="@style/TopCornerCardview">
 
-    <View
-    android:layout_width="@dimen/spacing_giant"
-    android:layout_height="@dimen/spacing_tiny"
-    android:layout_gravity="center"
-    android:background="@drawable/drag_handle"
-    android:layout_marginTop="@dimen/spacing_medium"/>
-
-    <ImageView
-        android:id="@+id/done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_confierm"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/spacing_giant"
-        android:contentDescription="@string/done"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/are_you_sure"
-        android:textAlignment="center"
-        android:layout_marginTop="@dimen/spacing_giant"
-        android:fontFamily="@font/lato"
-        android:textSize="@dimen/text_medium"
-        android:textColor="@color/on_background_87"/>
+        android:background="@drawable/background_bottom_sheet_confirmation"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/it_well_be_added_to_tasks"
-        android:fontFamily="@font/lato"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:textAlignment="center"
-        android:textColor="@color/on_primary_container_38"/>
+        <View
+            android:layout_width="@dimen/height_giant"
+            android:layout_height="@dimen/height_tiny"
+            android:layout_gravity="center"
+            android:background="@drawable/drag_handle"
+            android:layout_marginTop="@dimen/spacing_medium"/>
 
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm"
-        android:background="@drawable/background_submit_button"
-        android:fontFamily="@font/lato"
-        android:textSize="@dimen/text_medium"
-        app:backgroundTint="@null"
-        android:textAllCaps="false"
-        android:textColor="@color/on_primary"
-        android:layout_marginTop="@dimen/spacing_giant"/>
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        android:textAllCaps="false"
-        android:background="@drawable/background_cancel_button"
-        android:fontFamily="@font/lato"
-        android:textSize="@dimen/text_medium"
-        android:textColor="@color/on_primary_container_87"
-        app:backgroundTint="@null"
-        android:layout_marginTop="@dimen/spacing_small"/>
+        <ImageView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_giant"
+            android:contentDescription="@string/done"
+            app:srcCompat="@drawable/ic_confirmation" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_giant"
+            android:text="@string/are_you_sure"
+            android:layout_gravity="center"
+            android:textColor="@color/on_background_87"
+            android:textSize="@dimen/text_medium"
+            android:fontFamily="@font/lato"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:fontFamily="@font/lato"
+            android:text="@string/it_well_be_added_to_tasks"
+            android:textAlignment="center"
+            android:textColor="@color/on_primary_container_38"/>
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_giant"
+            android:background="@drawable/background_submit_button"
+            android:fontFamily="@font/lato"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/on_primary"
+            android:textSize="@dimen/text_medium"
+            app:backgroundTint="@null"/>
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:background="@drawable/background_cancel_button"
+            android:fontFamily="@font/lato"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/on_primary_container_87"
+            android:textSize="@dimen/text_medium"
+            app:backgroundTint="@null"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
