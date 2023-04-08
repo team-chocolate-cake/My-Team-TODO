@@ -30,5 +30,6 @@
     <dimen name="elevation_giant">16dp</dimen>
     <dimen name="appbar_height">56dp</dimen>
     <dimen name="description_edit_text_height">295dp</dimen>
+    <dimen name="height_field">48dp</dimen>
 
 </resources>
