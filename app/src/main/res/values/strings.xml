@@ -17,4 +17,9 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="login">Login</string>
+    <string name="do_you_have_an_account">Do you have an account ?</string>
+    <string name="validate">Password must be at least 8 characters long</string>
+    <string name="password">Password</string>
+    <string name="orginize_your_brain_and_your_team">Orginize your brain and your team</string>
 </resources>
