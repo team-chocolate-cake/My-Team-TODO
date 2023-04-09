@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">TODO App</string>
-    <string name="welcome_to_ticktask">Welcome to TickTask</string>
-    <string name="orginize_your_brain_and_your_team">Orginize your brain and your team</string>
-    <string name="do_you_have_an_account">Do you have an account ?</string>
+    <string name="title_text">Title</string>
+    <string name="assignee_text">Assignee</string>
+    <string name="description_text">Description</string>
+    <string name="done">Done</string>
+    <string name="title_add_new_task">Add New Task</string>
+    <string name="welcome_back_to_ticktask">Welcome back to TickTask</string>
+    <string name="login_description">organize your brain and your team</string>
+    <string name="username_label_login">Username</string>
+    <string name="password_label_field">Password</string>
+    <string name="login_text">Login</string>
+    <string name="you_don_t_have_an_account">you don\'t have an account ?</string>
     <string name="register">Register</string>
-    <string name="login">Login</string>
-    <string name="password">Password</string>
-    <string name="username">Username</string>
-    <string name="password_must_be_at_least_8_characters_long">Password must be at least 8 characters long</string>
+    <string name="are_you_sure">Are You Sure ?</string>
+    <string name="it_well_be_added_to_tasks">this will be added to your personal tasks.</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
 </resources>
