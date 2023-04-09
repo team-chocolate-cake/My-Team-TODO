@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TODO App</string>
     <string name="welcome_to_ticktask">Welcome to TickTask</string>
-    <string name="orginaze_your_brain_and_your_team">Orginaze your brain and your team</string>
+    <string name="orginize_your_brain_and_your_team">Orginize your brain and your team</string>
     <string name="do_you_have_an_account">Do you have an account ?</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
