@@ -119,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_view_validate"
-        android:text="Password must be at least 8 characters long"
+        android:text="@string/password_must_be_at_least_8_characters_long"
         android:fontFamily="@font/lato"
         style="@style/TextStyle.BodySmall"
         android:textColor="@color/error_color"
