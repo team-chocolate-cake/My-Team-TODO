@@ -87,4 +87,12 @@
         <item name="chipBackgroundColor">@color/chip_background_done</item>
     </style>
 
+
+    <style name="TopCornerCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">"@dimen/spacing_extra_large"</item>
+        <item name="cornerSizeTopLeft">"@dimen/spacing_extra_large"</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
 </resources>

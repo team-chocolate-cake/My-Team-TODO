@@ -12,4 +12,9 @@
     <string name="login_text">Login</string>
     <string name="you_don_t_have_an_account">you don\'t have an account ?</string>
     <string name="register">Register</string>
+    <string name="are_you_sure">Are You Sure ?</string>
+    <string name="it_well_be_added_to_tasks">this will be added to your personal tasks.</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
 </resources>

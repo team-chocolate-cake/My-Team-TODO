@@ -5,6 +5,7 @@
     <dimen name="spacing_small">8dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>
     <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_extra_large">28dp</dimen>
     <dimen name="spacing_giant">32dp</dimen>
 
     <!--text dimens-->
@@ -17,6 +18,7 @@
     <dimen name="text_giant">22sp</dimen>
 
     <!--radius dimens-->
+    <dimen name="radius_small">4dp</dimen>
     <dimen name="radius_default">8dp</dimen>
     <dimen name="radius_large">24dp</dimen>
     <dimen name="radius_full">100dp</dimen>
@@ -31,5 +33,9 @@
     <dimen name="appbar_height">56dp</dimen>
     <dimen name="description_edit_text_height">295dp</dimen>
     <dimen name="height_field">48dp</dimen>
+
+    <!--height dimens-->
+    <dimen name="height_tiny">4dp</dimen>
+    <dimen name="height_giant">32dp</dimen>
 
 </resources>
