@@ -1,18 +1,14 @@
 package com.chocolatecake.todoapp.data.repository
 
 import com.chocolatecake.todoapp.data.model.PersonTask
-import com.chocolatecake.todoapp.data.model.PersonalTaskList
+import com.chocolatecake.todoapp.data.model.PersonalTaskResponse
 
 class PersonRepository (private val personId : String){
 
-    fun getAllTasksOfPerson(list : List<PersonTask>) : PersonalTaskList
-        = PersonalTaskList(list)
-    /**
-    * @param title the title who you take it from title input field
-    * @param description the description who you take it from description
-    * @return PersonTask(...)
-    */
-    fun addNewPersonalTask(title : String, description : String ): PersonTask
+    fun getAllTasksOfPerson(list : List<PersonTask>, message : String, isSuccess : String?)
+        = PersonalTaskResponse(list, message, isSuccess)
+
+    fun addNewPersonalTask(title : String, description : String )
         = PersonTask(
                 idPersonalTask = this.personId,
                 titlePersonalTask = title,
@@ -21,5 +17,6 @@ class PersonRepository (private val personId : String){
             )
 
     fun changeStatus(){}
+
 
 }
