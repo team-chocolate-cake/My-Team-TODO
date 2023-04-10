@@ -34,7 +34,6 @@ class CreationTeamTaskService(
             .url(url)
             .post(body)
             .build()
-
         call(request)
     }
 }
