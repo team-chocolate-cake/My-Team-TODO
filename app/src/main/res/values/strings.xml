@@ -21,4 +21,11 @@
     <string name="validate" tools:ignore="MissingTranslation">Password must be at least 8 characters long</string>
     <string name="password" tools:ignore="MissingTranslation">Password</string>
     <string name="orginize_your_brain_and_your_team" tools:ignore="MissingTranslation">Organize your brain and your team</string>
+    <string name="hello_blank_fragment" tools:ignore="MissingTranslation">Hello blank fragment</string>
+    <string name="search" tools:ignore="MissingTranslation">search</string>
+    <string name="team" tools:ignore="MissingTranslation">Team</string>
+    <string name="personal" tools:ignore="MissingTranslation">Personal</string>
+    <string name="to_do_task" tools:ignore="MissingTranslation">%1$d To Do</string>
+    <string name="in_progress_task" tools:ignore="MissingTranslation">%1$d In Progress</string>
+    <string name="done_task" tools:ignore="MissingTranslation">%1$d Done</string>
 </resources>

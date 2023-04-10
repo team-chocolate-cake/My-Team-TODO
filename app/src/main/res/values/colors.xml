@@ -6,9 +6,7 @@
     <color name="appbar_color">#F6F6F6</color>
     <color name="primary">#3787EB</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="primary_dark">#2966B3</color>
     <color name="primary_container">#FFFFFF</color>
-    <color name="primary_container_dark">#E6E4E4</color>
     <color name="on_primary_container">#DE0B1B2F</color>
     <color name="on_primary_container_87">#DE0B1B2F</color>
     <color name="on_primary_container_60">#990B1B2F</color>
