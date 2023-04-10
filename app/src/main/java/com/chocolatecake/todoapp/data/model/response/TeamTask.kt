@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.data.model
+package com.chocolatecake.todoapp.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -7,6 +7,6 @@ data class TeamTask(
     @SerializedName("title") val titleTeamTask: String,
     @SerializedName ("description") val descriptionTeamTask: String,
     val assignee: String,
-//    @SerializedName ("status") val statusTeamTask: Int,
+    @SerializedName ("status") val statusTeamTask: Int,
     val creationTime: String
 )
