@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.base
+package com.chocolatecake.todoapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
