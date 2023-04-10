@@ -46,10 +46,12 @@
 
     <style name="TextStyle.TitleSmall">
         <item name="android:textSize">@dimen/text_small</item>
+        <item name="fontFamily">@font/lato_medium</item>
     </style>
 
     <style name="TextStyle.TitleMedium">
         <item name="android:textSize">@dimen/text_medium</item>
+        <item name="fontFamily">@font/lato_medium</item>
     </style>
 
     <style name="TextStyle.TitleLarge">
