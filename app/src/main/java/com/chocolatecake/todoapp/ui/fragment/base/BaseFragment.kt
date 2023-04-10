@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.fragment
+package com.chocolatecake.todoapp.ui.fragment.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

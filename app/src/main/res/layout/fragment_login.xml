@@ -7,9 +7,11 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageview_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_giant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/login_image" />
 
@@ -84,9 +86,6 @@
         android:textColor="@color/on_background_60"
         style="@style/TextStyle.BodyMedium"
         android:layout_marginTop="@dimen/spacing_small"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_dont_have_an_account_login"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_password" />
 
     <androidx.appcompat.widget.AppCompatButton

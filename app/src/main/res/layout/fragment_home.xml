@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true">
 
     <View
@@ -73,23 +73,22 @@
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/todo"
+            style="@style/TextStyle.LabelMedium.ChipStyle.Todo"
+            android:checked="true"
             android:text="@string/to_do_task"
             android:textColor="@color/on_primary" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#00ffffff"
-            android:text="@string/in_progress_task"
-            app:chipStrokeWidth="1dp" />
+            style="@style/TextStyle.LabelMedium.ChipStyle.InProgress"
+            android:text="@string/in_progress_task"/>
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#00ffffff"
-            android:text="@string/done_task"
-            app:chipStrokeWidth="1dp" />
+            style="@style/TextStyle.LabelMedium.ChipStyle.Done"
+            android:text="@string/done_task"/>
 
 
     </com.google.android.material.chip.ChipGroup>
@@ -99,10 +98,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
+        tools:listitem="@layout/item_task_card"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup"
         app:spanCount="10" />
 
@@ -118,5 +116,6 @@
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/on_primary" />
+        app:tint="@color/on_primary"
+        android:contentDescription="@string/title_add_new_task" />
 </androidx.constraintlayout.widget.ConstraintLayout>

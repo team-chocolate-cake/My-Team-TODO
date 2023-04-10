@@ -15,7 +15,7 @@
         android:padding="@dimen/spacing_medium">
 
         <TextView
-            android:id="@+id/card_task_title"
+            android:id="@+id/text_view_task_title"
             style="@style/TextStyle.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
-            android:id="@+id/card_task_description"
+            android:id="@+id/text_view_task_description"
             style="@style/TextStyle.BodySmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:textColor="@color/on_background_60"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/card_divider"
-            app:layout_constraintTop_toBottomOf="@+id/card_task_title"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_task_title"
             tools:text="@tools:sample/lorem/random" />
 
         <View
@@ -49,9 +49,9 @@
             android:layout_height="0dp"
             android:background="@drawable/shape_corner_radius"
             android:backgroundTint="@color/done_color"
-            app:layout_constraintBottom_toBottomOf="@+id/card_task_description"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_task_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/card_task_title" />
+            app:layout_constraintTop_toTopOf="@id/text_view_task_title" />
 
         <ImageView
             android:id="@+id/card_icon_time"
@@ -59,13 +59,13 @@
             android:layout_height="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/elevation_tiny"
             android:src="@drawable/ic_clock"
-            app:layout_constraintBottom_toBottomOf="@+id/card_text_time"
-            app:layout_constraintEnd_toStartOf="@+id/card_text_time"
-            app:layout_constraintTop_toTopOf="@+id/card_text_time"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_time"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_time"
+            app:layout_constraintTop_toTopOf="@+id/text_view_time"
             app:tint="@color/on_background_38" />
 
         <TextView
-            android:id="@+id/card_text_date"
+            android:id="@+id/text_view_date"
             style="@style/TextStyle.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,24 +74,24 @@
             android:textColor="@color/on_background_38"
             app:drawableStartCompat="@drawable/ic_calendar"
             app:drawableTint="@color/on_background_38"
-            app:layout_constraintEnd_toEndOf="@+id/card_task_description"
-            app:layout_constraintTop_toBottomOf="@+id/card_task_description"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_task_description"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_task_description"
             tools:text="24-08-2023" />
 
         <TextView
-            android:id="@+id/card_text_time"
+            android:id="@+id/text_view_time"
             style="@style/TextStyle.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:textColor="@color/on_background_38"
-            app:layout_constraintBottom_toBottomOf="@+id/card_text_date"
-            app:layout_constraintEnd_toStartOf="@+id/card_text_date"
-            app:layout_constraintTop_toTopOf="@+id/card_text_date"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_date"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_date"
+            app:layout_constraintTop_toTopOf="@+id/text_view_date"
             tools:text="21:30" />
 
         <TextView
-            android:id="@+id/card_text_person"
+            android:id="@+id/text_view_assignee"
             style="@style/TextStyle.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
