@@ -8,7 +8,8 @@
         <item name="colorPrimaryContainer">@color/primary_container</item>
         <item name="background">@color/background</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/background</item>
+        <item name="android:statusBarColor">@color/appbar_color</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Splash Screen-->
         <item name="android:windowSplashscreenContent" tools:targetApi="s">@drawable/splash_logo</item>
     </style>
@@ -45,13 +46,56 @@
 
     <style name="TextStyle.TitleSmall">
         <item name="android:textSize">@dimen/text_small</item>
+        <item name="fontFamily">@font/lato_medium</item>
     </style>
 
     <style name="TextStyle.TitleMedium">
         <item name="android:textSize">@dimen/text_medium</item>
+        <item name="fontFamily">@font/lato_medium</item>
     </style>
 
     <style name="TextStyle.TitleLarge">
         <item name="android:textSize">@dimen/text_giant</item>
+    </style>
+
+    <style name="TextStyle.BodyMedium.EditTextStyle">
+        <item name="android:textColor">@color/on_background_60</item>
+        <item name="android:gravity">start</item>
+        <item name="android:padding">@dimen/spacing_medium</item>
+        <item name="android:background">@drawable/text_field_shape</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+
+    <style name="TextStyle.LabelMedium.ChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipStartPadding">@dimen/spacing_medium</item>
+        <item name="chipEndPadding">@dimen/spacing_medium</item>
+        <item name="chipMinHeight">44dp</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+    </style>
+
+    <style name="TextStyle.LabelMedium.ChipStyle.Todo">
+        <item name="chipBackgroundColor">@color/chip_background_todo</item>
+    </style>
+
+    <style name="TextStyle.LabelMedium.ChipStyle.InProgress">
+        <item name="chipBackgroundColor">@color/chip_background_progress</item>
+    </style>
+
+    <style name="TextStyle.LabelMedium.ChipStyle.Done">
+        <item name="chipBackgroundColor">@color/chip_background_done</item>
+    </style>
+
+
+    <style name="TopCornerCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">"@dimen/spacing_extra_large"</item>
+        <item name="cornerSizeTopLeft">"@dimen/spacing_extra_large"</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 </resources>
