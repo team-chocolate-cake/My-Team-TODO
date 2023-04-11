@@ -1,6 +1,7 @@
 package com.chocolatecake.todoapp.ui.fragment.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.util.Constant
+import com.chocolatecake.todoapp.util.isUsernameValid
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
@@ -19,9 +21,9 @@ class RegistrationFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         validationOfUsername()
         validationOfPassword()
+        matchPassword()
         return binding.root
     }
-
     private fun validationOfPassword() {
         binding.apply {
             editTextPassword.addTextChangedListener { passwordText ->
@@ -36,7 +38,6 @@ class RegistrationFragment : Fragment() {
             }
         }
     }
-
     private fun validationOfUsername(){
         binding.apply {
             editTextUsername.addTextChangedListener { editable->
@@ -64,22 +65,19 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun isUsernameValid(username: String): String {
-        for(i in username.trim().indices){
-            if(isSpecial(username[i])) return Constant.ERROR_VALIDATION_USER_NAME_SPECIAL
-            else if(isSpace(username[i])) return Constant.ERROR_VALIDATION_USER_NAME_SPACE
-            else if(username[0].isDigit()) return Constant.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT
-            else if(username.length < Constant.VALIDATION_USERNAME_LENGTH)
-                return Constant.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT
+    private fun matchPassword(){
+        binding.apply {
+            editTextConfirmPassword.addTextChangedListener {confirmPassword ->
+                if(editTextPassword.text.toString() == editTextConfirmPassword.text.toString())
+                    textViewValidateConfirm.visibility = View.GONE
+                else{
+                    textViewValidateConfirm.text = Constant.ERROR_VALIDATION_CONFIRM_PASSWORD_MISMATCH
+                    textViewValidateConfirm.visibility = View.VISIBLE
+                }
+
+            }
         }
-        return ""
     }
 
-    private fun isSpace(char: Char) = char == ' '
-
-    private fun isSpecial(char: Char): Boolean {
-        val specialChars = "!@#$%^&*()-+=<>?,./;:'\"[]{}\\|"
-        return specialChars.contains(char)
-    }
 
 }

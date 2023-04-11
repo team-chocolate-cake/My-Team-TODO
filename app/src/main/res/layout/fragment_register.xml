@@ -152,6 +152,7 @@
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
         android:layout_marginEnd="@dimen/spacing_large"
+        android:inputType="textPassword"
         android:background="@drawable/selector_field"
         android:drawableEnd="@drawable/ic_eye"
         android:drawablePadding="@dimen/spacing_medium"
@@ -163,6 +164,19 @@
         android:textColorHint="@color/on_background_60"
         app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
         app:layout_constraintTop_toBottomOf="@id/text_view_confirm_password" />
+
+    <TextView
+        android:id="@+id/text_view_validate_confirm"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:visibility="gone"
+        android:textColor="@color/error_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_confirm_password"
+        tools:text="@string/validate" />
 
     <Button
         android:id="@+id/button_register"
