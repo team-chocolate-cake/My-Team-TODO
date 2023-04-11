@@ -57,13 +57,15 @@
 
     <TextView
         android:id="@+id/text_view_description"
+        style="@style/TextStyle.TitleSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/text_medium"
         android:layout_marginTop="@dimen/text_medium"
-        style="@style/TextStyle.TitleSmall"
-        tools:text="@tools:sample/lorem/random"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_status" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_status"
+        tools:layout_editor_absoluteX="16dp"
+        tools:text="@tools:sample/lorem/random" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
