@@ -9,7 +9,7 @@ object Utils {
             .host(HOST)
             .addPathSegment(path)
             .apply {
-                if (!subPath.isNullOrEmpty()) { // Check if subPath is not empty or null
+                if (subPath.isNotEmpty()) { // Check if subPath is not empty or null
                     addPathSegment(subPath)
                 }
             }
