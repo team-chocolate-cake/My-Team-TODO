@@ -18,7 +18,7 @@ class PersonalTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl("personal")
+        val url = getUrl()
         val request = Request.Builder()
             .url(url)
             .build()
@@ -31,7 +31,7 @@ class PersonalTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl("personal")
+        val url = getUrl()
 
         val requestBody = FormBody.Builder()
             .add("title", personTaskRequest.titlePersonalTask)
@@ -51,7 +51,7 @@ class PersonalTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl("personal")
+        val url = getUrl()
 
         val requestBody = FormBody.Builder()
             .add("id", id)
@@ -66,12 +66,12 @@ class PersonalTaskService(
         call(request, onFailure, onSuccess)
     }
 
-    private fun getUrl(path: String): HttpUrl {
+    private fun getUrl(): HttpUrl {
         return HttpUrl.Builder()
             .scheme(Utils.SCHEME)
             .host(Utils.HOST)
             .addPathSegment("todo")
-            .addPathSegment(path)
+            .addPathSegment("personal")
             .build()
     }
 
