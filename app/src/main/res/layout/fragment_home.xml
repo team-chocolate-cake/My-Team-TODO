@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true">
 
@@ -20,20 +21,22 @@
         android:id="@+id/edit_text_search"
         style="@style/TextStyle.BodyMedium"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_medium"
-        android:layout_marginVertical="@dimen/elevation_large"
-        android:textColor="@color/on_background_87"
+        android:layout_marginTop="@dimen/spacing_large"
         android:background="@drawable/search_edit_text_background"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/spacing_small"
-        android:imeOptions="flagNoFullscreen"
+        android:drawableTint="@color/on_background_38"
         android:gravity="center_vertical"
         android:hint="@string/search"
+        android:imeOptions="flagNoFullscreen"
         android:inputType="text"
         android:padding="@dimen/spacing_medium"
+        android:textColor="@color/on_background_87"
         android:textCursorDrawable="@drawable/custom_cursor"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="154dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -43,8 +46,13 @@
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:layout_constraintVertical_bias="1.0"
         app:tabGravity="fill"
+        android:layout_marginTop="@dimen/spacing_medium"
         app:tabIndicator="@drawable/custom_tab_indicator"
-        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorColor="@color/indicator_color"
+        android:layout_marginHorizontal="@dimen/spacing_giant"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorAnimationDuration="300"
         app:tabMode="fixed"
         app:tabTextColor="@color/on_background_87">
 
@@ -64,6 +72,7 @@
         android:id="@+id/chipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:layout_marginStart="@dimen/spacing_medium"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,9 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextStyle.LabelMedium.ChipStyle.Todo"
-            android:checked="true"
-            android:text="@string/to_do_task"
-            android:textColor="@color/on_primary" />
+            android:checked="false"
+            android:text="@string/to_do_task" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
@@ -98,6 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
+        android:paddingTop="@dimen/spacing_medium"
         tools:listitem="@layout/item_task_card"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
