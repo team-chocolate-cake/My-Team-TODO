@@ -10,7 +10,7 @@ import com.chocolatecake.todoapp.data.model.request.UserRequest
 import com.chocolatecake.todoapp.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.util.Constant
-import com.chocolatecake.todoapp.util.isUsernameValid
+import com.chocolatecake.todoapp.util.getUsernameStatus
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
@@ -32,28 +32,28 @@ class RegistrationFragment : Fragment() {
     private fun validationOfUsername() {
         binding.apply {
             editTextUsername.addTextChangedListener {
-                when{
-                    isUsernameValid(editTextUsername.text.toString()) == Constant.ERROR_VALIDATION_USER_NAME_SPECIAL-> {
+                val editTextContent =  editTextUsername.text.toString().getUsernameStatus()
+                when (editTextContent) {
+                    Constant.ERROR_VALIDATION_USER_NAME_SPECIAL -> {
                         textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_SPECIAL
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-                    isUsernameValid(editTextUsername.text.toString()) == Constant.ERROR_VALIDATION_USER_NAME_SPACE-> {
+                    Constant.ERROR_VALIDATION_USER_NAME_SPACE -> {
                         textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_SPACE
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-                    isUsernameValid(editTextUsername.text.toString()) == Constant.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT-> {
+                    Constant.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT -> {
                         textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-                    isUsernameValid(editTextUsername.text.toString()) == Constant.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT -> {
+                    Constant.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT -> {
                         textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-
                     else -> {
                         textViewValidateUserName.visibility = View.GONE
                         validationUserName = true
@@ -98,10 +98,10 @@ class RegistrationFragment : Fragment() {
     private fun checkValidationRegister(){
         binding.buttonRegister.setOnClickListener {
             if(validationUserName && validationPassword && validationConfirm){
-                val auth = AuthService({
-                    TODO("ايرور بطعم الجوكليت كيك")
-                }, {
-                  ""
+                val auth = AuthService(onFailure = {
+                    TODO("ايرور")
+                }, onSuccess = {
+                    navigateToHomeScreen()
                 })
                 val username = binding.editTextUsername.text.toString()
                 val password = binding.editTextPassword.text.toString()
@@ -111,9 +111,7 @@ class RegistrationFragment : Fragment() {
         }
     }
     private fun navigateToHomeScreen(){}
-    private fun navigateToLoginScreen(){
-
-    }
+    private fun navigateToLoginScreen(){}
 
 }
 
