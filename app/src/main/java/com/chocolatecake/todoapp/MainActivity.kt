@@ -1,8 +1,7 @@
-package com.chocolatecake.todoapp.ui.activity
+package com.chocolatecake.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.chocolatecake.todoapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

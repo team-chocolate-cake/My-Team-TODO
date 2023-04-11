@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">TODO App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -8,32 +8,4 @@
     <string name="person">By Muhammed</string>
     <string name="status">To Do</string>
     <string name="title_details">Task Details</string>
-    <string name="title_text" tools:ignore="MissingTranslation">Title</string>
-    <string name="assignee_text" tools:ignore="MissingTranslation">Assignee</string>
-    <string name="description_text" tools:ignore="MissingTranslation">Description</string>
-    <string name="done" tools:ignore="MissingTranslation">Done</string>
-    <string name="title_add_new_task" tools:ignore="MissingTranslation">Add New Task</string>
-    <string name="welcome_back_to_ticktask" tools:ignore="MissingTranslation">Welcome back to TickTask</string>
-    <string name="login_description" tools:ignore="MissingTranslation">organize your brain and your team</string>
-    <string name="username_label_login" tools:ignore="MissingTranslation">Username</string>
-    <string name="password_label_field" tools:ignore="MissingTranslation">Password</string>
-    <string name="login_text" tools:ignore="MissingTranslation">Login</string>
-    <string name="you_don_t_have_an_account" tools:ignore="MissingTranslation">you don\'t have an account ?</string>
-    <string name="register" tools:ignore="MissingTranslation">Register</string>
-    <string name="are_you_sure" tools:ignore="MissingTranslation">Are You Sure ?</string>
-    <string name="it_well_be_added_to_tasks" tools:ignore="MissingTranslation">this will be added to your personal tasks.</string>
-    <string name="confirm" tools:ignore="MissingTranslation">Confirm</string>
-    <string name="cancel" tools:ignore="MissingTranslation">Cancel</string>
-    <string name="login" tools:ignore="MissingTranslation">Login</string>
-    <string name="do_you_have_an_account" tools:ignore="MissingTranslation">Do you have an account ?</string>
-    <string name="validate" tools:ignore="MissingTranslation">Password must be at least 8 characters long</string>
-    <string name="password" tools:ignore="MissingTranslation">Password</string>
-    <string name="orginize_your_brain_and_your_team" tools:ignore="MissingTranslation">Organize your brain and your team</string>
-    <string name="hello_blank_fragment" tools:ignore="MissingTranslation">Hello blank fragment</string>
-    <string name="search" tools:ignore="MissingTranslation">search</string>
-    <string name="team" tools:ignore="MissingTranslation">Team</string>
-    <string name="personal" tools:ignore="MissingTranslation">Personal</string>
-    <string name="to_do_task" tools:ignore="MissingTranslation">%1$d To Do</string>
-    <string name="in_progress_task" tools:ignore="MissingTranslation">%1$d In Progress</string>
-    <string name="done_task" tools:ignore="MissingTranslation">%1$d Done</string>
 </resources>
