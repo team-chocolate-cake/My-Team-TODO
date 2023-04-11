@@ -1,16 +1,14 @@
-package com.chocolatecake.todoapp.data.network.services.team
+package com.chocolatecake.todoapp.data.network.services.personal
 
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
-import com.chocolatecake.todoapp.data.model.request.TeamTaskRequest
+import com.chocolatecake.todoapp.data.model.response.PersonTask
 import com.chocolatecake.todoapp.data.network.services.HttpClient
 import com.chocolatecake.todoapp.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.data.network.services.utils.Utils
-import okhttp3.FormBody
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import com.google.gson.Gson
 
-class TeamTaskService(
+class PersonalTaskService(
     private val preferences: TaskSharedPreferences,
     onFailure: (message: String?) -> Unit,
     onSuccess: (body: String?) -> Unit,
@@ -25,7 +23,7 @@ class TeamTaskService(
             .scheme(Utils.SCHEME)
             .host(Utils.HOST)
             .addPathSegment("todo")
-            .addPathSegment("team")
+            .addPathSegment("personal")
             .build()
 
         val request = Request.Builder()
@@ -35,23 +33,22 @@ class TeamTaskService(
         call(request)
     }
 
-    fun createTask(teamTaskRequest: TeamTaskRequest) {
+    fun createTask(personTask: PersonTask) {
         val url = HttpUrl.Builder()
             .scheme(Utils.SCHEME)
             .host(Utils.HOST)
             .addPathSegment("todo")
-            .addPathSegment("team")
+            .addPathSegment("personal")
             .build()
 
-        val body = FormBody.Builder()
-            .add("title", teamTaskRequest.title)
-            .add("description", teamTaskRequest.description)
-            .add("assignee", teamTaskRequest.assignee)
+        val requestBody = FormBody.Builder()
+            .add("title", personTask.titlePersonalTask)
+            .add("description", personTask.descriptionPersonalTask)
             .build()
 
         val request = Request.Builder()
             .url(url)
-            .post(body)
+            .post(requestBody)
             .build()
 
         call(request)
@@ -62,17 +59,17 @@ class TeamTaskService(
             .scheme(Utils.SCHEME)
             .host(Utils.HOST)
             .addPathSegment("todo")
-            .addPathSegment("team")
+            .addPathSegment("personal")
             .build()
 
-        val body = FormBody.Builder()
+        val requestBody = FormBody.Builder()
             .add("id", id)
             .add("status", status.toString())
             .build()
 
         val request = Request.Builder()
             .url(url)
-            .put(body)
+            .put(requestBody)
             .build()
 
         call(request)
