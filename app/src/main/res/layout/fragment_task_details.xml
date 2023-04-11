@@ -15,7 +15,7 @@
         app:title="@string/tiltle_task"
         app:titleTextAppearance="@style/TextStyle.TitleMedium"
         app:titleTextColor="@color/on_primary_container_87"
-        tools:layout_editor_absoluteX="-36dp" />
+         />
 
     <TextView
         android:id="@+id/text_view_title"
@@ -62,7 +62,6 @@
         android:layout_marginHorizontal="@dimen/text_medium"
         android:layout_marginTop="@dimen/text_medium"
         app:layout_constraintTop_toBottomOf="@+id/text_view_status"
-        tools:layout_editor_absoluteX="16dp"
         tools:text="@tools:sample/lorem/random" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
