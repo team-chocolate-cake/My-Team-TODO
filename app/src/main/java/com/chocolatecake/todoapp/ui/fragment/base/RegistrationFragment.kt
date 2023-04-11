@@ -96,7 +96,6 @@ class RegistrationFragment : Fragment() {
         }
     }
     private fun checkValidationRegister(){
-
         binding.buttonRegister.setOnClickListener {
             if(validationUserName && validationPassword && validationConfirm){
                 val auth = AuthService({
@@ -108,13 +107,12 @@ class RegistrationFragment : Fragment() {
                 val password = binding.editTextPassword.text.toString()
                 val newUser = UserRequest(username, password)
                 auth.register(newUser)
-
             }
-
-
         }
-
     }
+    private fun navigateToHomeScreen(){}
+
+
 
 }
 
