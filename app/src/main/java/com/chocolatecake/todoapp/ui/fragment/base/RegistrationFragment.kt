@@ -111,8 +111,9 @@ class RegistrationFragment : Fragment() {
         }
     }
     private fun navigateToHomeScreen(){}
+    private fun navigateToLoginScreen(){
 
-
+    }
 
 }
 
