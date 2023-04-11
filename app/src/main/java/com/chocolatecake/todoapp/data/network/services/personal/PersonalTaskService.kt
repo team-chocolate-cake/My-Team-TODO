@@ -1,19 +1,17 @@
 package com.chocolatecake.todoapp.data.network.services.personal
 
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
-import com.chocolatecake.todoapp.data.model.response.PersonTask
+import com.chocolatecake.todoapp.data.model.response.PersonTaskRequset
 import com.chocolatecake.todoapp.data.network.services.HttpClient
 import com.chocolatecake.todoapp.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.data.network.services.utils.Utils
 import okhttp3.*
-import com.google.gson.Gson
 
 class PersonalTaskService(
     private val preferences: TaskSharedPreferences,
     onFailure: (message: String?) -> Unit,
     onSuccess: (body: String?) -> Unit,
 ) : BaseService(onFailure, onSuccess) {
-
     override val client: OkHttpClient by lazy {
         HttpClient(preferences).getClient()
     }
@@ -33,7 +31,7 @@ class PersonalTaskService(
         call(request)
     }
 
-    fun createTask(personTask: PersonTask) {
+    fun createTask(personTaskRequest: PersonTaskRequset) {
         val url = HttpUrl.Builder()
             .scheme(Utils.SCHEME)
             .host(Utils.HOST)
@@ -42,8 +40,8 @@ class PersonalTaskService(
             .build()
 
         val requestBody = FormBody.Builder()
-            .add("title", personTask.titlePersonalTask)
-            .add("description", personTask.descriptionPersonalTask)
+            .add("title", personTaskRequest.titlePersonalTask)
+            .add("description", personTaskRequest.descriptionPersonalTask)
             .build()
 
         val request = Request.Builder()

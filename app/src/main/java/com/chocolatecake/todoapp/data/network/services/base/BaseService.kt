@@ -5,7 +5,7 @@ import java.io.IOException
 
 abstract class BaseService(
     private val onFailure: (message: String?) -> Unit,
-    private val onSuccess: (body: String?) -> Unit,
+    private val onSuccess: (body: String?) -> Unit
 ) {
     abstract val client: OkHttpClient
 
@@ -19,7 +19,6 @@ abstract class BaseService(
                 override fun onResponse(call: Call, response: Response) {
                     onSuccess(response.body?.string().toString())
                 }
-
             })
     }
 }
