@@ -15,53 +15,55 @@
         app:navigationIconTint="@color/on_primary_container_87"
         app:title="@string/title_details"
         app:titleTextAppearance="@style/TextStyle.TitleMedium"
-        app:titleTextColor="@color/on_primary_container_87" />
+        app:titleTextColor="@color/on_primary_container_87"
+        tools:layout_editor_absoluteX="-36dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_view_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_large"
         android:fontFamily="@font/lato"
-        android:text="@string/txtHead"
+        tools:text="@tools:sample/lorem"
         android:textColor="@color/on_background_87"
         android:textSize="@dimen/text_medium"
         android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_view_assignee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginStart="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_tiny"
-        android:text="@string/person"
+        tools:text="@tools:sample/lorem"
         android:textColor="@color/on_background_38"
         android:textSize="@dimen/text_semi_small"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_title" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/text_view_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/text_large"
         style="@style/TextStyle.BodySmall.TextStyleStatus"
-        android:text="@string/status"
+        tools:text="@string/status"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_assignee"
         />
 
     <TextView
+        android:id="@+id/text_view_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/text_medium"
         android:layout_marginTop="@dimen/text_medium"
         style="@style/TextStyle.TitleSmall"
-        android:text="@string/text_task"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        tools:text="@tools:sample/lorem/random"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_status" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
