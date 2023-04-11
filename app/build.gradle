@@ -54,6 +54,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     // GSON
     implementation 'com.google.code.gson:gson:2.9.0'
-    // Fragment
-    implementation "androidx.fragment:fragment:1.5.6"
+
 }

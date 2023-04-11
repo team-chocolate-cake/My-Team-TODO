@@ -5,52 +5,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import com.chocolatecake.todoapp.data.model.request.UserRequest
 import com.chocolatecake.todoapp.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
-import com.chocolatecake.todoapp.util.Constant
 import com.chocolatecake.todoapp.util.getUsernameStatus
 
-class RegistrationFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
+class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding
+        = FragmentRegisterBinding::inflate
     private var validationUserName : Boolean = false
     private var validationPassword : Boolean = false
     private var validationConfirm : Boolean = false
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        validationOfUsername()
-        validationOfPassword()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUsernameValidation()
+        setPasswordValidation()
         matchPassword()
-        checkValidationRegister()
-        return binding.root
+        registerButtonClickHandler()
     }
-    private fun validationOfUsername() {
+
+    private fun setupUsernameValidation() {
         binding.apply {
             editTextUsername.addTextChangedListener {
-                val editTextContent =  editTextUsername.text.toString().getUsernameStatus()
-                when (editTextContent) {
-                    Constant.ERROR_VALIDATION_USER_NAME_SPECIAL -> {
-                        textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_SPECIAL
+                when (getUsernameStatus(editTextUsername.text.toString())) {
+                    ERROR_VALIDATION_USER_NAME_SPECIAL -> {
+                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_SPECIAL
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-                    Constant.ERROR_VALIDATION_USER_NAME_SPACE -> {
-                        textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_SPACE
+                    ERROR_VALIDATION_USER_NAME_SPACE -> {
+                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_SPACE
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-                    Constant.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT -> {
-                        textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT
+                    ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT -> {
+                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
-                    Constant.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT -> {
-                        textViewValidateUserName.text = Constant.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT
+                    ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT -> {
+                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT
                         textViewValidateUserName.visibility = View.VISIBLE
                         validationUserName = false
                     }
@@ -62,13 +57,13 @@ class RegistrationFragment : Fragment() {
             }
         }
     }
-    private fun validationOfPassword() {
+    private fun setPasswordValidation() {
         binding.apply {
             editTextPassword.addTextChangedListener { passwordText ->
                 val passwordLength = passwordText!!.length
                 when {
-                    passwordLength < Constant.VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text = Constant.ERROR_VALIDATION_PASSWORD_TEXT_LENGTH
+                    passwordLength < VALIDATION_PASSWORD_LENGTH -> {
+                        textViewValidatePassword.text = ERROR_VALIDATION_PASSWORD_TEXT_LENGTH
                         textViewValidatePassword.visibility = View.VISIBLE
                         validationPassword =  false
                     }
@@ -82,25 +77,26 @@ class RegistrationFragment : Fragment() {
     }
     private fun matchPassword(){
         binding.apply {
-            editTextConfirmPassword.addTextChangedListener {confirmPassword ->
+            editTextConfirmPassword.addTextChangedListener {
                 if(editTextPassword.text.toString() == editTextConfirmPassword.text.toString()){
                     textViewValidateConfirm.visibility = View.GONE
                     validationConfirm = true
                 }
                 else{
-                    textViewValidateConfirm.text = Constant.ERROR_VALIDATION_CONFIRM_PASSWORD_MISMATCH
+                    textViewValidateConfirm.text = ERROR_VALIDATION_CONFIRM_PASSWORD_MISMATCH
                     textViewValidateConfirm.visibility = View.VISIBLE
                     validationConfirm = false
                 }
             }
         }
     }
-    private fun checkValidationRegister(){
+    private fun registerButtonClickHandler(){
         binding.buttonRegister.setOnClickListener {
             if(validationUserName && validationPassword && validationConfirm){
                 val auth = AuthService(onFailure = {
-                    TODO("ايرور")
+
                 }, onSuccess = {
+
                     navigateToHomeScreen()
                 })
                 val username = binding.editTextUsername.text.toString()
@@ -113,6 +109,16 @@ class RegistrationFragment : Fragment() {
     private fun navigateToHomeScreen(){}
     private fun navigateToLoginScreen(){}
 
+     companion object{
+        const val VALIDATION_PASSWORD_LENGTH = 8
+        const val VALIDATION_USERNAME_LENGTH = 3
+        const val ERROR_VALIDATION_PASSWORD_TEXT_LENGTH = "Please should be greater than 8 character"
+        const val ERROR_VALIDATION_USER_NAME_SPECIAL = "Should don't have special %$@.."
+        const val ERROR_VALIDATION_USER_NAME_SPACE = "Should don't have space"
+        const val ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT = "Should not start with number"
+        const val ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT = "Should length grater than $VALIDATION_USERNAME_LENGTH"
+        const val ERROR_VALIDATION_CONFIRM_PASSWORD_MISMATCH = "The password mismatch"
+    }
 }
 
 
