@@ -11,37 +11,32 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 
 class TeamTaskService(
-    private val preferences: TaskSharedPreferences,
-    onFailure: (message: String?) -> Unit,
-    onSuccess: (body: String?) -> Unit,
-) : BaseService(onFailure, onSuccess) {
+    private val preferences: TaskSharedPreferences
+) : BaseService() {
 
     override val client: OkHttpClient by lazy {
         HttpClient(preferences).getClient()
     }
 
-    fun getAllTasks() {
-        val url = HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("team")
-            .build()
+    fun getAllTasks(
+        onFailure: (message: String?) -> Unit,
+        onSuccess: (body: String?) -> Unit
+    ) {
+        val url = getUrl("team")
 
         val request = Request.Builder()
             .url(url)
             .build()
 
-        call(request)
+        call(request, onFailure, onSuccess)
     }
 
-    fun createTask(teamTaskRequest: TeamTaskRequest) {
-        val url = HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("team")
-            .build()
+    fun createTask(
+        teamTaskRequest: TeamTaskRequest,
+        onFailure: (message: String?) -> Unit,
+        onSuccess: (body: String?) -> Unit
+    ) {
+        val url = getUrl("team")
 
         val body = FormBody.Builder()
             .add("title", teamTaskRequest.title)
@@ -54,16 +49,15 @@ class TeamTaskService(
             .post(body)
             .build()
 
-        call(request)
+        call(request, onFailure, onSuccess)
     }
 
-    fun updateStatus(id: String, status: Int) {
-        val url = HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("team")
-            .build()
+    fun updateStatus(
+        id: String, status: Int,
+        onFailure: (message: String?) -> Unit,
+        onSuccess: (body: String?) -> Unit
+    ) {
+        val url = getUrl("team")
 
         val body = FormBody.Builder()
             .add("id", id)
@@ -75,9 +69,16 @@ class TeamTaskService(
             .put(body)
             .build()
 
-        call(request)
+        call(request, onFailure, onSuccess)
     }
-
+    private fun getUrl(path: String): HttpUrl {
+        return HttpUrl.Builder()
+            .scheme(Utils.SCHEME)
+            .host(Utils.HOST)
+            .addPathSegment("todo")
+            .addPathSegment(path)
+            .build()
+    }
     companion object {
         const val STATUS_TODO = 0
         const val STATUS_PROGRESS = 1

@@ -8,36 +8,30 @@ import com.chocolatecake.todoapp.data.network.services.utils.Utils
 import okhttp3.*
 
 class PersonalTaskService(
-    private val preferences: TaskSharedPreferences,
-    onFailure: (message: String?) -> Unit,
-    onSuccess: (body: String?) -> Unit,
-) : BaseService(onFailure, onSuccess) {
+    private val preferences: TaskSharedPreferences
+) : BaseService() {
     override val client: OkHttpClient by lazy {
         HttpClient(preferences).getClient()
     }
 
-    fun getAllTasks() {
-        val url = HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("personal")
-            .build()
-
+    fun getAllTasks(
+        onFailure: (message: String?) -> Unit,
+        onSuccess: (body: String?) -> Unit
+    ) {
+        val url = getUrl("personal")
         val request = Request.Builder()
             .url(url)
             .build()
 
-        call(request)
+        call(request, onFailure, onSuccess)
     }
 
-    fun createTask(personTaskRequest: PersonTaskRequset) {
-        val url = HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("personal")
-            .build()
+    fun createTask(
+        personTaskRequest: PersonTaskRequset,
+        onFailure: (message: String?) -> Unit,
+        onSuccess: (body: String?) -> Unit
+    ) {
+        val url = getUrl("personal")
 
         val requestBody = FormBody.Builder()
             .add("title", personTaskRequest.titlePersonalTask)
@@ -49,16 +43,15 @@ class PersonalTaskService(
             .post(requestBody)
             .build()
 
-        call(request)
+        call(request, onFailure, onSuccess)
     }
 
-    fun updateStatus(id: String, status: Int) {
-        val url = HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("personal")
-            .build()
+    fun updateStatus(
+        id: String, status: Int,
+        onFailure: (message: String?) -> Unit,
+        onSuccess: (body: String?) -> Unit
+    ) {
+        val url = getUrl("personal")
 
         val requestBody = FormBody.Builder()
             .add("id", id)
@@ -70,7 +63,16 @@ class PersonalTaskService(
             .put(requestBody)
             .build()
 
-        call(request)
+        call(request, onFailure, onSuccess)
+    }
+
+    private fun getUrl(path: String): HttpUrl {
+        return HttpUrl.Builder()
+            .scheme(Utils.SCHEME)
+            .host(Utils.HOST)
+            .addPathSegment("todo")
+            .addPathSegment(path)
+            .build()
     }
 
     companion object {
