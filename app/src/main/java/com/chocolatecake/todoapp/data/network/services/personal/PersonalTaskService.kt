@@ -13,12 +13,11 @@ class PersonalTaskService(
     override val client: OkHttpClient by lazy {
         HttpClient(preferences).getClient()
     }
-
+    private val url = Utils.getUrl("todo","personal")
     fun getAllTasks(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl()
         val request = Request.Builder()
             .url(url)
             .build()
@@ -31,8 +30,6 @@ class PersonalTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl()
-
         val requestBody = FormBody.Builder()
             .add("title", personTaskRequest.titlePersonalTask)
             .add("description", personTaskRequest.descriptionPersonalTask)
@@ -51,8 +48,6 @@ class PersonalTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl()
-
         val requestBody = FormBody.Builder()
             .add("id", id)
             .add("status", status.toString())
@@ -65,16 +60,6 @@ class PersonalTaskService(
 
         call(request, onFailure, onSuccess)
     }
-
-    private fun getUrl(): HttpUrl {
-        return HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("personal")
-            .build()
-    }
-
     companion object {
         const val STATUS_TODO = 0
         const val STATUS_PROGRESS = 1

@@ -3,11 +3,16 @@ package com.chocolatecake.todoapp.data.network.services.utils
 import okhttp3.HttpUrl
 
 object Utils {
-    fun getUrl(path: String): HttpUrl {
+    fun getUrl(path: String, subPath: String): HttpUrl {
         return HttpUrl.Builder()
             .scheme(SCHEME)
             .host(HOST)
             .addPathSegment(path)
+            .apply {
+                if (!subPath.isNullOrEmpty()) { // Check if subPath is not empty or null
+                    addPathSegment(subPath)
+                }
+            }
             .build()
     }
     const val SCHEME ="https"

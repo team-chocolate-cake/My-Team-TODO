@@ -18,12 +18,12 @@ class TeamTaskService(
         HttpClient(preferences).getClient()
     }
 
+    private val url = Utils.getUrl("todo","team")
+
     fun getAllTasks(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl()
-
         val request = Request.Builder()
             .url(url)
             .build()
@@ -36,8 +36,6 @@ class TeamTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl()
-
         val body = FormBody.Builder()
             .add("title", teamTaskRequest.title)
             .add("description", teamTaskRequest.description)
@@ -57,7 +55,6 @@ class TeamTaskService(
         onFailure: (message: String?) -> Unit,
         onSuccess: (body: String?) -> Unit
     ) {
-        val url = getUrl()
 
         val body = FormBody.Builder()
             .add("id", id)
@@ -70,14 +67,6 @@ class TeamTaskService(
             .build()
 
         call(request, onFailure, onSuccess)
-    }
-    private fun getUrl(): HttpUrl {
-        return HttpUrl.Builder()
-            .scheme(Utils.SCHEME)
-            .host(Utils.HOST)
-            .addPathSegment("todo")
-            .addPathSegment("team")
-            .build()
     }
     companion object {
         const val STATUS_TODO = 0
