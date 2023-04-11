@@ -75,6 +75,18 @@
         app:layout_constraintTop_toBottomOf="@id/text_view_username" />
 
     <TextView
+        android:id="@+id/text_view_validate_user_name"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textColor="@color/error_color"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
+
+    <TextView
         android:id="@+id/text_view_password"
         style="@style/TextStyle.TitleSmall"
         android:layout_width="wrap_content"
@@ -99,7 +111,7 @@
         android:drawablePadding="@dimen/spacing_medium"
         android:drawableTint="@color/on_background_60"
         android:maxLines="1"
-        android:inputType="textPassword"
+        android:inputType= "textPassword"
         android:paddingHorizontal="@dimen/spacing_medium"
         android:paddingVertical="@dimen/spacing_semi_medium"
         android:textColor="@color/on_background_60"
@@ -108,13 +120,13 @@
         app:layout_constraintTop_toBottomOf="@id/text_view_password" />
 
     <TextView
-        android:id="@+id/text_view_validate"
+        android:id="@+id/text_view_validate_password"
         style="@style/TextStyle.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
-        android:visibility="gone"
+        android:visibility="visible"
         android:textColor="@color/error_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_password"
@@ -130,7 +142,7 @@
         android:text="@string/confirm_password"
         android:textColor="@color/on_background_87"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_validate" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_validate_password" />
 
     <EditText
         android:id="@+id/edit_text_confirm_password"
