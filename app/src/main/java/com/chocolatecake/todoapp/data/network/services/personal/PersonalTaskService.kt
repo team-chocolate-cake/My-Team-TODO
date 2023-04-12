@@ -9,62 +9,51 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class PersonalTaskService(
-    private val preferences: TaskSharedPreferences
-) : BaseService() {
+class PersonalTaskService(private val preferences: TaskSharedPreferences): BaseService() {
     override val client: OkHttpClient by lazy {
         HttpClient(preferences).getClient()
     }
     private val url = Utils.getUrl("todo","personal")
+
     fun getAllTasks(
         onFailure: (message: String?) -> Unit,
-        onSuccess: (body: String?) -> Unit
+        onSuccess: (response: Response) -> Unit
     ) {
         val request = Request.Builder()
             .url(url)
             .build()
-
         call(request, onFailure, onSuccess)
     }
 
     fun createTask(
         personTaskRequest: PersonalTaskRequest,
         onFailure: (message: String?) -> Unit,
-        onSuccess: (body: String?) -> Unit
+        onSuccess: (response: Response) -> Unit
     ) {
         val requestBody = FormBody.Builder()
             .add("title", personTaskRequest.title)
             .add("description", personTaskRequest.description)
             .build()
-
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
             .build()
-
         call(request, onFailure, onSuccess)
     }
 
     fun updateStatus(
         id: String, status: Int,
         onFailure: (message: String?) -> Unit,
-        onSuccess: (body: String?) -> Unit
+        onSuccess: (response: Response) -> Unit
     ) {
         val requestBody = FormBody.Builder()
             .add("id", id)
             .add("status", status.toString())
             .build()
-
         val request = Request.Builder()
             .url(url)
             .put(requestBody)
             .build()
-
         call(request, onFailure, onSuccess)
-    }
-    companion object {
-        const val STATUS_TODO = 0
-        const val STATUS_PROGRESS = 1
-        const val STATUS_DONE = 2
     }
 }

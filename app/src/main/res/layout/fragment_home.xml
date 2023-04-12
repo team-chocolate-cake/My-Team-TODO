@@ -117,5 +117,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/on_primary"
-        android:contentDescription="@string/title_add_new_personal_task" />
+        android:contentDescription="@string/title_add_new_task" />
 </androidx.constraintlayout.widget.ConstraintLayout>
