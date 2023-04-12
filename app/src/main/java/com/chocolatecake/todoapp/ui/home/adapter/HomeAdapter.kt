@@ -65,7 +65,9 @@ class HomeAdapter (
                 textViewTaskTitle.text = currentItem.titleTeamTask
                 textViewTaskDescription.text = currentItem.descriptionTeamTask
                 textViewAssignee.text = currentItem.assignee
-                textViewTime.text = currentItem.creationTime
+                val creationTime=currentItem.creationTime.split("T")
+                textViewTime.text = creationTime[0]
+                textViewDate.text = creationTime[1].substring(0, 5)
                 when (currentItem.statusTeamTask) {
                     TO_DO_STATUS -> cardDivider
                         .setBackgroundColor(
@@ -93,12 +95,13 @@ class HomeAdapter (
                 root.setOnClickListener{
                     onClickTask(currentItem.idTeamTask)
                 }
-                // TODO: we need to extract the time & date in here "Banan"
             }
             else if (currentItem is PersonTaskRequset) {
                 textViewTaskTitle.text = currentItem.titlePersonalTask
                 textViewTaskDescription.text = currentItem.descriptionPersonalTask
-                textViewTime.text = currentItem.creationTime
+                val creationTime=currentItem.creationTime.split("T")
+                textViewTime.text = creationTime[0]
+                textViewDate.text = creationTime[1].substring(0, 5)
                 when (currentItem.statusPersonTask) {
                     TO_DO_STATUS -> cardDivider
                         .setBackgroundColor(
@@ -126,9 +129,7 @@ class HomeAdapter (
                 root.setOnClickListener{
                     onClickTask(currentItem.idPersonalTask)
                 }
-                // TODO: we need to extract the time & date in here "Banan"
-            }
-
+                    }
         }
     }
 
@@ -146,6 +147,5 @@ class HomeAdapter (
         const val TO_DO_STATUS = 0
         const val IN_PROGRESS_STATUS = 1
         const val DONE_STATUS = 2
-
     }
 }
