@@ -1,6 +1,8 @@
 package com.chocolatecake.todoapp.ui.fragment.add_new_task
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,24 +13,21 @@ import com.chocolatecake.todoapp.data.model.request.TeamTaskRequest
 import com.chocolatecake.todoapp.data.network.services.personal.PersonalTaskService
 import com.chocolatecake.todoapp.data.network.services.team.TeamTaskService
 import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
-import com.chocolatecake.todoapp.ui.fragment.base.BaseFragment
+import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 
 class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddNewTaskBinding
         get() = FragmentAddNewTaskBinding::inflate
+    private lateinit var sharedPreferences: TaskSharedPreferences
 
-    private val sharedPreferences = TaskSharedPreferences()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = TaskSharedPreferences()
+        sharedPreferences.initPreferences(requireContext())
         addCallBacks()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
+    }
     private fun addCallBacks() {
         binding.buttonAdd.setOnClickListener {
             if (inputFieldsAreVaild()) {
@@ -53,24 +52,22 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
                     assignee.isNotEmpty()
         }
     }
-
     private fun pushTaskToApi() {
         if (retrieveTypeFromArguments()) {
+            createToast(retrieveTypeFromArguments().toString())
             createPersonalTask()
         } else {
+            createToast(retrieveTypeFromArguments().toString())
             createTeamTask()
         }
     }
-
     private fun createPersonalTask() {
         val personalTaskService = PersonalTaskService(sharedPreferences)
         val personalTaskRequest = createPersonalTaskRequestObject()
         personalTaskService.createTask(
-            personalTaskRequest,
-            ::onCreateTaskSuccess,
+            personalTaskRequest, ::onCreateTaskSuccess,
             ::onCreateTaskFailure
         )
-
     }
 
     private fun createPersonalTaskRequestObject(): PersonalTaskRequest {
@@ -89,10 +86,6 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
         createToast("task created successfully")
     }
 
-    private fun createToast(message: String?) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
     private fun onCreateTaskFailure(message: String?) {
         createToast("error occurred")
     }
@@ -103,16 +96,23 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
         val description = binding.editTextDescription.text.toString().trim()
         return TeamTaskRequest(title, description, assignee)
     }
+
     companion object {
         const val IS_PERSONAL = true
-        fun newInstance(isPersonal:Boolean)  =
-            AddNewTaskFragment().apply{
+        fun newInstance(isPersonal: Boolean) =
+            AddNewTaskFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(IS_PERSONAL.toString(), isPersonal)
                 }
             }
     }
-    private fun retrieveTypeFromArguments(): Boolean =
-        arguments?.getBoolean(IS_PERSONAL.toString(),true)!!
 
+    private fun retrieveTypeFromArguments(): Boolean =
+        arguments?.getBoolean(IS_PERSONAL.toString(), true)!!
+
+    private fun createToast(message: String?) {
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+    }
 }
