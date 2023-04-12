@@ -20,7 +20,7 @@ class AuthService(
     fun login(userRequest: UserRequest,onFailure: (message: String?) -> Unit,
               onSuccess: (body: String?) -> Unit,) {
         val request = Request.Builder()
-            .url(getUrl("login",""))
+            .url(getUrl("login"))
             .addHeader(
                 "Authorization",
                 Credentials.basic(userRequest.username, userRequest.password)
@@ -38,7 +38,7 @@ class AuthService(
             .add("teamId", teamId)
             .build()
         val request = Request.Builder()
-            .url(getUrl("signup",""))
+            .url(getUrl("signup"))
             .post(body)
             .build()
 
