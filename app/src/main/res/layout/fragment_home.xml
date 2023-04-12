@@ -51,12 +51,14 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/team" />
+            android:text="@string/team"
+            />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/personal" />
+            android:text="@string/personal"
+            />
 
     </com.google.android.material.tabs.TabLayout>
 
