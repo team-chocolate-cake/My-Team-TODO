@@ -3,11 +3,9 @@ package com.chocolatecake.todoapp.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TableLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.chocolatecake.todoapp.R
@@ -27,8 +25,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = TaskSharedPreferences()
         sharedPreferences.initPreferences(requireContext())
+        sharedPreferences.token = "J0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczovL3RoZS1jaGFuY2Uub3JnLyIsInN1YiI6IjYyNzdkNzMzLTRkN2ItNDZkZS1hMDNmLWI5MGViODEzYWQwYSIsInRlYW1JZCI6IjdjMzBhMDQwLTFiYWQtNDk2Ni1hN2YxLTZhZjk4ZGMzZmFiMyIsImlzcyI6Imh0dHBzOi8vdGhlLWNoYW5jZS5vcmcvIiwiZXhwIjoxNjgxNDgwNjQxfQ.MHFN4S1Pu2ax2CoVzPDs61cGVQ-SEoiZVQAo8-C2yBQ"
         addCallBacks()
-
 
     }
 
@@ -41,15 +39,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.apply {
-                    when (tab?.position) {
-                        0 -> {
-                            Toast.makeText(requireContext(), "t", Toast.LENGTH_SHORT).show()
+                    when (tab.position) {
+                        TEAM_POSITION -> {
                             fetchTeamTask()
-
                         }
-                        1 -> {
-                            Toast.makeText(requireContext(), "p", Toast.LENGTH_SHORT).show()
-                            fetchPersonTask()
+                        PERSONAL_POSITION -> {
+
+                            fetchPersonalTask()
                         }
                     }
                 }
@@ -70,43 +66,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         fragmentTransaction.commit()
     }
 
-    private fun onCreateTaskSuccess(body: String?) {
+    private fun onCreateTasksSuccess(body: String?) {
         createToast("task created successfully")
     }
 
-    private fun onCreateTaskFailure(message: String?) {
+    private fun onCreateTasksFailure(message: String?) {
         createToast("error occurred")
     }
 
     private fun fetchTeamTask() {
         val teamTaskService = TeamTaskService(sharedPreferences)
         teamTaskService.getAllTasks(
-            ::onCreateTaskFailure, ::onCreateTaskSuccess
+            onFailure = ::onCreateTasksFailure, onSuccess =  ::onCreateTasksSuccess
         )
     }
 
-    private fun fetchPersonTask() {
+    private fun fetchPersonalTask() {
         val personTaskService = PersonalTaskService(sharedPreferences)
         personTaskService.getAllTasks(
-            ::onCreateTaskFailure, ::onCreateTaskSuccess
+            onFailure =  ::onCreateTasksFailure,  onSuccess = ::onCreateTasksSuccess
         )
-    }
-
-    private fun checkUserSection(section: Int): Boolean {
-
-
-        return if (section == IS_PERSONAL) {
-            true
-        } else if (section == IS_TEAM) {
-            false
-        } else false
-
-    }
-
-
-    companion object {
-        val IS_TEAM = 1
-        val IS_PERSONAL = 2
     }
 
     private fun createToast(message: String?) {
@@ -114,4 +93,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
+    companion object {
+        val TEAM_POSITION = 0
+        val PERSONAL_POSITION = 1
+    }
+
+
 }
