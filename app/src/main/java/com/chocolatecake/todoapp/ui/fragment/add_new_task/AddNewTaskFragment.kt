@@ -55,10 +55,10 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
     }
 
     private fun pushTaskToApi() {
-        if (true) {
-            createTeamTask()
-        } else {
+        if (retrieveTypeFromArguments()) {
             createPersonalTask()
+        } else {
+            createTeamTask()
         }
     }
 
@@ -103,6 +103,16 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
         val description = binding.editTextDescription.text.toString().trim()
         return TeamTaskRequest(title, description, assignee)
     }
-
+    companion object {
+        const val IS_PERSONAL = true
+        fun newInstance(isPersonal:Boolean)  =
+            AddNewTaskFragment().apply{
+                arguments = Bundle().apply {
+                    putBoolean(IS_PERSONAL.toString(), isPersonal)
+                }
+            }
+    }
+    private fun retrieveTypeFromArguments(): Boolean =
+        arguments?.getBoolean(IS_PERSONAL.toString(),true)!!
 
 }
