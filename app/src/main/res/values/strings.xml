@@ -4,7 +4,8 @@
     <string name="assignee_text" tools:ignore="MissingTranslation">Assignee</string>
     <string name="description_text" tools:ignore="MissingTranslation">Description</string>
     <string name="done" tools:ignore="MissingTranslation">Done</string>
-    <string name="title_add_new_task" tools:ignore="MissingTranslation">Add New Task</string>
+    <string name="title_add_new_personal_task" tools:ignore="MissingTranslation">Add New Personal Task</string>
+    <string name="title_add_new_team_task" tools:ignore="MissingTranslation">Add New Team Task</string>
     <string name="welcome_back_to_ticktask" tools:ignore="MissingTranslation">Welcome back to TickTask</string>
     <string name="login_description" tools:ignore="MissingTranslation">organize your brain and your team</string>
     <string name="username_label_login" tools:ignore="MissingTranslation">Username</string>
