@@ -21,7 +21,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupUsernameValidation()
         setPasswordValidation()
-        matchPassword()
+        validatePasswordMatch()
         registerButtonClickHandler()
     }
 
@@ -75,7 +75,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
     }
-    private fun matchPassword(){
+    private fun validatePasswordMatch(){
         binding.apply {
             editTextConfirmPassword.addTextChangedListener {
                 if(editTextPassword.text.toString() == editTextConfirmPassword.text.toString()){
