@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -65,6 +66,18 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view_username" />
 
     <TextView
+        android:id="@+id/text_view_username_validate"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:visibility="gone"
+        android:textColor="@color/error_color"
+        app:layout_constraintStart_toStartOf="@id/edit_text_username"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_username"
+        tools:text="@string/validate" />
+
+    <TextView
         android:id="@+id/text_view_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,7 +86,7 @@
         android:textColor="@color/on_background_87"
         style="@style/TextStyle.LabelLarge"
         app:layout_constraintStart_toStartOf="@+id/edit_text_password"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_username_validate" />
 
     <EditText
         android:id="@+id/edit_text_password"
@@ -82,11 +95,25 @@
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:background="@drawable/selector_field"
         android:lines="1"
+        android:inputType="textPassword"
         android:paddingHorizontal="@dimen/spacing_medium"
         android:textColor="@color/on_background_60"
         style="@style/TextStyle.BodyMedium"
+        android:drawableEnd="@drawable/ic_eye"
         android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintTop_toBottomOf="@+id/text_view_password" />
+
+    <TextView
+        android:id="@+id/text_view_password_validate"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:visibility="visible"
+        android:textColor="@color/error_color"
+        app:layout_constraintStart_toStartOf="@id/edit_text_password"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_password"
+        tools:text="@string/validate" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_login"
@@ -99,7 +126,7 @@
         android:text="@string/login_text"
         android:textAllCaps="false"
         android:textColor="@color/on_primary"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_password_validate" />
 
 
     <TextView
