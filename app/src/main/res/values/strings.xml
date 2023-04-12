@@ -28,7 +28,11 @@
     <string name="to_do_task" tools:ignore="MissingTranslation">%1$d To Do</string>
     <string name="in_progress_task" tools:ignore="MissingTranslation">%1$d In Progress</string>
     <string name="done_task" tools:ignore="MissingTranslation">%1$d Done</string>
-    <string name="username">Username</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="welcome">Welcome to TickTask</string>
+    <string name="username" tools:ignore="MissingTranslation">Username</string>
+    <string name="confirm_password" tools:ignore="MissingTranslation">Confirm Password</string>
+    <string name="welcome" tools:ignore="MissingTranslation">Welcome to TickTask</string>
+    <string name="status_todo" tools:ignore="MissingTranslation">TO DO</string>
+    <string name="status_inprogress" tools:ignore="MissingTranslation">In Progress</string>
+    <string name="status_done" tools:ignore="MissingTranslation">Done</string>
+    <string name="tiltle_task" tools:ignore="MissingTranslation">Task Details</string>
 </resources>
