@@ -25,8 +25,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
         customizeLayout(retrieveTypeFromArguments())
         sharedPreferences = TaskSharedPreferences()
         sharedPreferences.initPreferences(requireContext())
-        sharedPreferences.token =
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczovL3RoZS1jaGFuY2Uub3JnLyIsInN1YiI6IjE1NzRhMDA0LWY2ZWEtNGMxNC1iMTRhLTRmY2QwZjZkNzhhMiIsInRlYW1JZCI6IjdjMzBhMDQwLTFiYWQtNDk2Ni1hN2YxLTZhZjk4ZGMzZmFiMyIsImlzcyI6Imh0dHBzOi8vdGhlLWNoYW5jZS5vcmcvIiwiZXhwIjoxNjgxNDMxMDAzfQ.T0GR646YF4eQg1rMQ-kQxkF3VjPS3RwI_0jCmyIcLVU"
+        sharedPreferences.token = ""
         addCallBacks()
     }
     private fun addCallBacks() {
