@@ -9,7 +9,7 @@ abstract class BaseService {
     fun call(
         request: Request,
         onFailure: (message: String?) -> Unit,
-        onSuccess: (body: String?) -> Unit
+        onSuccess: (response: Response) -> Unit
     ) {
         client.newCall(request)
             .enqueue(object : Callback {
@@ -18,7 +18,7 @@ abstract class BaseService {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    onSuccess(response.body?.string().toString())
+                    onSuccess(response)
                 }
             })
     }
