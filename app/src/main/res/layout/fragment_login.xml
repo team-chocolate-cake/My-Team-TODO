@@ -88,20 +88,45 @@
         app:layout_constraintStart_toStartOf="@+id/edit_text_password"
         app:layout_constraintTop_toBottomOf="@+id/text_view_username_validate" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/edit_text_password"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/height_field"-->
+<!--        android:layout_marginHorizontal="@dimen/spacing_medium"-->
+<!--        android:background="@drawable/selector_field"-->
+<!--        android:lines="1"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:paddingHorizontal="@dimen/spacing_medium"-->
+<!--        android:textColor="@color/on_background_60"-->
+<!--        style="@style/TextStyle.BodyMedium"-->
+<!--        android:drawableEnd="@drawable/ic_eye"-->
+<!--        android:layout_marginTop="@dimen/spacing_small"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_view_password" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_password"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_field"
+        android:layout_height="48dp"
         android:layout_marginHorizontal="@dimen/spacing_medium"
-        android:background="@drawable/selector_field"
-        android:lines="1"
-        android:inputType="textPassword"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:textColor="@color/on_background_60"
-        style="@style/TextStyle.BodyMedium"
-        android:drawableEnd="@drawable/ic_eye"
-        android:layout_marginTop="@dimen/spacing_small"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_password" />
+        android:layout_marginTop="@dimen/spacing_medium"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
+        app:passwordToggleTint="@color/on_background_60"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textAppearance="@style/TextStyle.BodyMedium"
+            android:background="@drawable/selector_field"
+            tools:text="test"
+            android:textColor="@color/on_background_60" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_view_password_validate"
