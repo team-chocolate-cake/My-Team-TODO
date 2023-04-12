@@ -6,223 +6,262 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <ImageView
-        android:id="@+id/register_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:src="@drawable/svg_register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/register_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:src="@drawable/svg_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view_welcome_to_ticktask"
-        style="@style/TextStyle.TitleMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_giant"
-        android:fontFamily="@font/lato"
-        android:text="@string/welcome"
-        android:textAlignment="center"
-        android:textColor="@color/on_background_87"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_image" />
+        <TextView
+            android:id="@+id/text_view_welcome_to_ticktask"
+            style="@style/TextStyle.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_giant"
+            android:fontFamily="@font/lato"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textColor="@color/on_background_87"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_image" />
 
-    <TextView
-        android:id="@+id/text_view_organize"
-        style="@style/TextStyle.TitleMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_tiny"
-        android:text="@string/orginize_your_brain_and_your_team"
-        android:textAlignment="center"
-        android:textColor="@color/on_background_38"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_welcome_to_ticktask" />
+        <TextView
+            android:id="@+id/text_view_organize"
+            style="@style/TextStyle.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:text="@string/orginize_your_brain_and_your_team"
+            android:textAlignment="center"
+            android:textColor="@color/on_background_38"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_welcome_to_ticktask" />
 
-    <TextView
-        android:id="@+id/text_view_username"
-        style="@style/TextStyle.TitleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_giant"
-        android:fontFamily="@font/lato"
-        android:text="@string/username"
-        android:textColor="@color/on_background_87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_organize" />
+        <TextView
+            android:id="@+id/text_view_username"
+            style="@style/TextStyle.TitleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_giant"
+            android:fontFamily="@font/lato"
+            android:text="@string/username"
+            android:textColor="@color/on_background_87"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_organize" />
 
-    <EditText
-        android:id="@+id/edit_text_username"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:background="@drawable/selector_field"
-        android:fontFamily="@font/lato"
-        android:maxLines="1"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:paddingVertical="@dimen/spacing_semi_medium"
-        android:textColor="@color/on_background_60"
-        android:textColorHint="@color/on_background_60"
-        app:layout_constraintStart_toStartOf="@+id/text_view_username"
-        app:layout_constraintTop_toBottomOf="@id/text_view_username" />
+        <EditText
+            android:id="@+id/edit_text_username"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_large"
+            android:background="@drawable/selector_field"
+            android:fontFamily="@font/lato"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:paddingVertical="@dimen/spacing_semi_medium"
+            android:textColor="@color/on_background_60"
+            android:textColorHint="@color/on_background_60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_view_username"
+            app:layout_constraintTop_toBottomOf="@id/text_view_username" />
 
-    <TextView
-        android:id="@+id/text_view_validate_user_name"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:textColor="@color/error_color"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
+        <TextView
+            android:id="@+id/text_view_validate_user_name"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:textColor="@color/error_color"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
 
-    <TextView
-        android:id="@+id/text_view_password"
-        style="@style/TextStyle.TitleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:text="@string/password"
-        android:textColor="@color/on_background_87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_username" />
+        <TextView
+            android:id="@+id/text_view_password"
+            style="@style/TextStyle.TitleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/password"
+            android:textColor="@color/on_background_87"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_username" />
 
-    <EditText
-        android:id="@+id/edit_text_password"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:background="@drawable/selector_field"
-        android:drawableEnd="@drawable/ic_eye"
-        android:drawablePadding="@dimen/spacing_medium"
-        android:drawableTint="@color/on_background_60"
-        android:maxLines="1"
-        android:inputType= "textPassword"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:paddingVertical="@dimen/spacing_semi_medium"
-        android:textColor="@color/on_background_60"
-        android:textColorHint="@color/on_background_60"
-        app:layout_constraintStart_toStartOf="@+id/text_view_password"
-        app:layout_constraintTop_toBottomOf="@id/text_view_password" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_large"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:layout_constraintStart_toStartOf="@+id/text_view_password"
+            app:layout_constraintTop_toBottomOf="@id/text_view_password"
+            app:passwordToggleEnabled="true">
 
-    <TextView
-        android:id="@+id/text_view_validate_password"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:visibility="visible"
-        android:textColor="@color/error_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_password"
-        tools:text="@string/validate" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edit_text_password"
+                style="@style/TextStyle.BodySmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_field"
+                android:drawablePadding="@dimen/spacing_medium"
+                android:drawableTint="@color/on_background_60"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/spacing_medium"
+                android:paddingVertical="@dimen/spacing_semi_medium"
+                android:textColor="@color/on_background_60"
+                android:textColorHint="@color/on_background_60"
+                app:boxBackgroundColor="@drawable/selector_field" />
 
-    <TextView
-        android:id="@+id/text_view_confirm_password"
-        style="@style/TextStyle.TitleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:text="@string/confirm_password"
-        android:textColor="@color/on_background_87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_validate_password" />
 
-    <EditText
-        android:id="@+id/edit_text_confirm_password"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:inputType="textPassword"
-        android:background="@drawable/selector_field"
-        android:drawableEnd="@drawable/ic_eye"
-        android:drawablePadding="@dimen/spacing_medium"
-        android:drawableTint="@color/on_background_60"
-        android:maxLines="1"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:paddingVertical="@dimen/spacing_semi_medium"
-        android:textColor="@color/on_background_60"
-        android:textColorHint="@color/on_background_60"
-        app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
-        app:layout_constraintTop_toBottomOf="@id/text_view_confirm_password" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/text_view_validate_confirm"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:visibility="gone"
-        android:textColor="@color/error_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_confirm_password"
-        tools:text="@string/validate" />
+        <TextView
+            android:id="@+id/text_view_validate_password"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:textColor="@color/error_color"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
+            tools:text="@string/validate" />
 
-    <Button
-        android:id="@+id/button_register"
-        style="@style/TextStyle.TitleMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_medium"
-        android:layout_marginTop="@dimen/spacing_giant"
-        android:layout_marginEnd="@dimen/spacing_medium"
-        android:background="@drawable/button_selector"
-        android:text="@string/register"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/on_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_confirm_password" />
+        <TextView
+            android:id="@+id/text_view_confirm_password"
+            style="@style/TextStyle.TitleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/confirm_password"
+            android:textColor="@color/on_background_87"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_validate_password" />
 
-    <TextView
-        android:id="@+id/text_view_do_you_have_an_account"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_giant"
-        android:fontFamily="@font/lato"
-        android:text="@string/do_you_have_an_account"
-        android:textColor="@color/on_primary_container_87"
-        android:textSize="@dimen/text_semi_small"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_login"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_large"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
+            app:layout_constraintTop_toBottomOf="@id/text_view_confirm_password"
+            app:passwordToggleEnabled="true">
 
-    <TextView
-        android:id="@+id/text_view_login"
-        style="@style/TextStyle.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_tiny"
-        android:layout_marginBottom="@dimen/spacing_giant"
-        android:fontFamily="@font/lato"
-        android:text="@string/login"
-        android:textColor="@color/primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_view_do_you_have_an_account" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edit_text_confirm_password"
+                style="@style/TextStyle.BodySmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_field"
+                android:drawableEnd="@drawable/ic_eye"
+                android:drawablePadding="@dimen/spacing_medium"
+                android:drawableTint="@color/on_background_60"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/spacing_medium"
+                android:paddingVertical="@dimen/spacing_semi_medium"
+                android:textColor="@color/on_background_60"
+                android:textColorHint="@color/on_background_60"
+                app:boxBackgroundColor="@drawable/selector_field" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/text_view_validate_confirm"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:textColor="@color/error_color"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_confirm_password"
+            tools:text="@string/validate" />
+
+        <Button
+            android:id="@+id/button_register"
+            style="@style/TextStyle.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_giant"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:background="@drawable/button_selector"
+            android:text="@string/register"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/on_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_confirm_password" />
+
+        <TextView
+            android:id="@+id/text_view_do_you_have_an_account"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_giant"
+            android:fontFamily="@font/lato"
+            android:text="@string/do_you_have_an_account"
+            android:textColor="@color/on_primary_container_87"
+            android:textSize="@dimen/text_semi_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_login"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_login"
+            style="@style/TextStyle.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:layout_marginBottom="@dimen/spacing_giant"
+            android:fontFamily="@font/lato"
+            android:text="@string/login"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_view_do_you_have_an_account" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_reload"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_do_you_have_an_account"
+            app:layout_constraintEnd_toEndOf="@+id/button_register"
+            app:layout_constraintStart_toStartOf="@+id/button_register"
+            app:layout_constraintTop_toBottomOf="@+id/button_register" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
