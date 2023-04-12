@@ -55,4 +55,6 @@ dependencies {
     // GSON
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    implementation "com.airbnb.android:lottie:3.4.0"
+
 }
