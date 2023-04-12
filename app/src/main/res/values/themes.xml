@@ -107,4 +107,30 @@
         <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/spacing_medium</item>
         <item name="drawableLeftCompat">@drawable/ic_pen</item>
     </style>
+
+    <style name="TextStyle.BodyMedium.SearchBoxStyle">
+        <item name="android:background">@drawable/search_edit_text_background</item>
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:drawablePadding">@dimen/spacing_small</item>
+        <item name="android:drawableTint">@color/on_background_38</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:imeOptions">flagNoFullscreen</item>
+        <item name="android:inputType">text</item>
+        <item name="android:padding">@dimen/spacing_medium</item>
+        <item name="android:textColorHint">@color/on_background_38</item>
+        <item name="android:textColor">@color/on_background_87</item>
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+    </style>
+
+    <style name="TabLayoutStyle">
+        <item name="tabGravity">fill</item>
+        <item name="tabIndicator">@drawable/custom_tab_indicator</item>
+        <item name="tabIndicatorAnimationDuration">300</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabIndicatorColor">@color/indicator_color</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabTextColor">@color/on_background_87</item>
+    </style>
 </resources>
