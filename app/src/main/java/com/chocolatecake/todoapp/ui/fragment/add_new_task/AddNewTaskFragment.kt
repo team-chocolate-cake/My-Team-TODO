@@ -6,29 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
-import com.chocolatecake.todoapp.data.model.request.PersonalTaskRequest
-import com.chocolatecake.todoapp.data.model.request.TeamTaskRequest
-import com.chocolatecake.todoapp.data.network.services.personal.PersonalTaskService
-import com.chocolatecake.todoapp.data.network.services.team.TeamTaskService
 import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 
-class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
-
+class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTaskView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddNewTaskBinding
         get() = FragmentAddNewTaskBinding::inflate
-    private lateinit var sharedPreferences: TaskSharedPreferences
+
+    private lateinit var presenter: AddNewTaskPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         customizeLayout(retrieveTypeFromArguments())
-        sharedPreferences = TaskSharedPreferences()
-        sharedPreferences.initPreferences(requireContext())
-        sharedPreferences.token = ""
-        addCallBacks()
+        presenter = AddNewTaskPresenter(requireContext(), this)
+        setUp()
     }
-    private fun addCallBacks() {
+    private fun setUp() {
         binding.buttonAdd.setOnClickListener {
             val isPersonal = retrieveTypeFromArguments()
             checkInputField(isPersonal)
@@ -71,47 +64,15 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
             }
         }
     }
-
     private fun pushTaskToApi() {
-        if (retrieveTypeFromArguments()) {
-            createToast(retrieveTypeFromArguments().toString())
-            createPersonalTask()
-        } else {
-            createToast(retrieveTypeFromArguments().toString())
-            createTeamTask()
-        }
-    }
-
-    private fun createPersonalTask() {
-        val personalTaskService = PersonalTaskService(sharedPreferences)
-        val personalTaskRequest = createPersonalTaskRequestObject()
-        personalTaskService.createTask(
-            personalTaskRequest, onFailure = ::onCreateTaskFailure,
-            onSuccess = ::onCreateTaskSuccess
-        )
-    }
-    private fun createTeamTask() {
-        val teamTaskService = TeamTaskService(sharedPreferences)
-        val teamTaskRequest = createTeamTaskRequestObject()
-        teamTaskService.createTask(teamTaskRequest, onFailure = ::onCreateTaskFailure,
-            onSuccess = ::onCreateTaskSuccess)
-    }
-    private fun createPersonalTaskRequestObject(): PersonalTaskRequest {
         val title = binding.editTextTitle.text.toString().trim()
         val description = binding.editTextDescription.text.toString().trim()
-        return PersonalTaskRequest(title, description)
-    }
-    private fun createTeamTaskRequestObject(): TeamTaskRequest {
-        val title = binding.editTextTitle.text.toString().trim()
         val assignee = binding.editTextAssignee.text.toString().trim()
-        val description = binding.editTextDescription.text.toString().trim()
-        return TeamTaskRequest(title, description, assignee)
-    }
-    private fun onCreateTaskSuccess(body: String?) {
-        createToast(body)
-    }
-    private fun onCreateTaskFailure(message: String?) {
-        createToast(message)
+        if (retrieveTypeFromArguments()) {
+            presenter.createPersonalTask(title, description)
+        } else {
+            presenter.createTeamTask(title, description, assignee)
+        }
     }
     companion object {
         const val IS_PERSONAL = true
@@ -126,8 +87,14 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
         return arguments?.getBoolean(IS_PERSONAL.toString(), true)!!
     }
     private fun createToast(message: String?) {
-       activity?.runOnUiThread {
-           Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-       }
+        context?.let {
+            Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+    override fun onCreateTaskFailure() {
+        createToast("Failure")
+    }
+    override fun onCreateTaskSuccess() {
+        createToast("Success")
     }
 }

@@ -8,6 +8,7 @@ import com.chocolatecake.todoapp.data.network.services.utils.Utils
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 
 class PersonalTaskService(private val preferences: TaskSharedPreferences): BaseService() {
     override val client: OkHttpClient by lazy {
