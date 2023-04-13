@@ -33,15 +33,14 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>() {
         addCallBacks()
     }
 
-    private fun isUserConfirmedTaskCreation(): Boolean {
-        return true
+    private fun showBottomSheetDialog() {
+        CreateTaskConfirmDialog(::createTask)
+            .show(childFragmentManager, "newTaskTag")
     }
 
     private fun addCallBacks() {
         binding.buttonAdd.setOnClickListener {
-            if (isUserConfirmedTaskCreation()) {
-                createTask()
-            }
+            showBottomSheetDialog()
         }
         binding.appbar.setNavigationOnClickListener {
             returnToHomeFragment()
