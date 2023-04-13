@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/background"
-    android:theme="@style/TopCornerCardView">
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,10 @@
         android:orientation="vertical">
 
         <View
-            android:layout_width="@dimen/height_giant"
-            android:layout_height="@dimen/height_tiny"
+            android:layout_width="32dp"
+            android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@drawable/drag_handle"
-            android:layout_marginTop="@dimen/spacing_medium"/>
+            android:background="@drawable/drag_handle" />
 
         <ImageView
             android:layout_width="wrap_content"
