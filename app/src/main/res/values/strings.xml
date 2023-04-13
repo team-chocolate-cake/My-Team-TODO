@@ -36,4 +36,5 @@
     <string name="status_inprogress" tools:ignore="MissingTranslation">In Progress</string>
     <string name="status_done" tools:ignore="MissingTranslation">Done</string>
     <string name="tiltle_task" tools:ignore="MissingTranslation">Task Details</string>
+    <string name="please_fill_fields"  tools:ignore="MissingTranslation">please fill all fields</string>
 </resources>
