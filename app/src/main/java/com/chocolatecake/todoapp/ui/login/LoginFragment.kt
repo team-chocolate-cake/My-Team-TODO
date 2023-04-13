@@ -93,7 +93,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     }
 
     override fun onSuccessLogin() {
-        //requireActivity().navigateExclusive(HomeFragment())
+        requireActivity().navigateExclusive(HomeFragment())
     }
 
     private fun showSnackbar(message: String?) {
