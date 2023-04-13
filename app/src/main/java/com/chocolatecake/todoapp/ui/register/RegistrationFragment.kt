@@ -5,43 +5,59 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.data.model.request.UserRequest
-import com.chocolatecake.todoapp.data.network.services.identity.AuthService
+import com.chocolatecake.todoapp.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
+import com.chocolatecake.todoapp.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.ui.home.HomeFragment
+import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.util.getUsernameStatus
 
-class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
-    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding
-        = FragmentRegisterBinding::inflate
-    private var validationUserName : Boolean = false
-    private var validationPassword : Boolean = false
-    private var validationConfirm : Boolean = false
+class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterView {
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
+        FragmentRegisterBinding::inflate
+    private var validationUserName: Boolean = false
+    private var validationPassword: Boolean = false
+    private var validationConfirm: Boolean = false
+    private var registrationPresenter = RegistrationPresenter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        addCallBacks()
         setupUsernameValidation()
         setPasswordValidation()
         validatePasswordMatch()
         registerButtonClickHandler()
     }
 
+    private fun addCallBacks() {
+        registrationPresenter.iRegisterView = this
+        binding.apply {
+            textViewLogin.setOnClickListener {
+                changeFragment(LoginFragment())
+            }
+        }
+    }
+
     private fun setupUsernameValidation() {
         binding.apply {
-            editTextUsername.addTextChangedListener {
-                when (getUsernameStatus(editTextUsername.text.toString())) {
-                    ERROR_VALIDATION_USER_NAME_SPECIAL -> {
-                        setErrorUsername(ERROR_VALIDATION_USER_NAME_SPECIAL)
+            textInputTextInputLayoutUsername.addTextChangedListener {
+                when (getUsernameStatus(textInputTextInputLayoutUsername.text.toString(), requireContext())) {
+                    getString(R.string.error_validation_user_name_special) -> {
+                        setErrorUsername(getString(R.string.error_validation_user_name_special))
                     }
-                    ERROR_VALIDATION_USER_NAME_SPACE -> {
-                        setErrorUsername(ERROR_VALIDATION_USER_NAME_SPACE)
+                    getString(R.string.error_validation_user_name_space) -> {
+                        setErrorUsername(getString(R.string.error_validation_user_name_space))
 
                     }
-                    ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT -> {
-                        setErrorUsername(ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT)
+                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> {
+                        setErrorUsername(getString(R.string.error_validation_user_name_should_grater_the_limit))
                     }
-                    ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT -> {
-                        setErrorUsername(ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT)
+                    getString(R.string.error_validation_user_name_start_with_digit) -> {
+                        setErrorUsername(getString(R.string.error_validation_user_name_start_with_digit))
                     }
                     else -> {
                         textViewValidateUserName.visibility = View.GONE
@@ -51,71 +67,87 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
     }
+
     private fun setPasswordValidation() {
         binding.apply {
-            editTextPassword.addTextChangedListener { passwordText ->
+            textInputEditTextPassword.addTextChangedListener { passwordText ->
                 val passwordLength = passwordText!!.length
                 when {
                     passwordLength < VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text = ERROR_VALIDATION_PASSWORD_TEXT_LENGTH
+                        textViewValidatePassword.text =
+                            getText(R.string.error_validation_password_text_length)
                         textViewValidatePassword.visibility = View.VISIBLE
-                        validationPassword =  false
+                        validationPassword = false
                     }
                     else -> {
                         textViewValidatePassword.visibility = View.GONE
-                        validationPassword =  true
+                        validationPassword = true
                     }
                 }
             }
         }
     }
-    private fun validatePasswordMatch(){
+
+    private fun validatePasswordMatch() {
         binding.apply {
-            editTextConfirmPassword.addTextChangedListener {
-                if(editTextPassword.text.toString() == editTextConfirmPassword.text.toString()){
+            textInputEditTextConfirmPassword.addTextChangedListener {
+                if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
                     textViewValidateConfirm.visibility = View.GONE
                     validationConfirm = true
-                }
-                else{
-                    textViewValidateConfirm.text = ERROR_VALIDATION_CONFIRM_PASSWORD_MISMATCH
+                } else {
+                    textViewValidateConfirm.text =
+                        getText(R.string.error_validation_confirm_password_mismatch)
                     textViewValidateConfirm.visibility = View.VISIBLE
                     validationConfirm = false
                 }
             }
         }
     }
-    private fun setErrorUsername(error : String){
+
+    private fun setErrorUsername(error: String) {
         binding.textViewValidateUserName.text = error
         binding.textViewValidateUserName.visibility = View.VISIBLE
-        validationUserName =  false
+        validationUserName = false
     }
-    private fun registerButtonClickHandler(){
+
+    private fun registerButtonClickHandler() {
         binding.buttonRegister.setOnClickListener {
-            if(validationUserName && validationPassword && validationConfirm){
-                val auth = AuthService(onFailure = {
-                }, onSuccess = {
-                    navigateToHomeScreen()
-                })
-                val username = binding.editTextUsername.text.toString()
-                val password = binding.editTextPassword.text.toString()
+            if (validationUserName && validationPassword && validationConfirm) {
+                val username = binding.textInputTextInputLayoutUsername.text.toString()
+                val password = binding.textInputEditTextPassword.text.toString()
                 val newUser = UserRequest(username, password)
-                auth.register(newUser)
+                registrationPresenter.makeRequest(newUser)
             }
         }
     }
-    private fun navigateToHomeScreen(){}
-    private fun navigateToLoginScreen(){}
 
-     companion object{
+    private fun changeFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container_view, fragment)
+            commit()
+        }
+    }
+
+    override fun onSuccess(response: RegisterResponse) {
+        requireActivity().runOnUiThread {
+            binding.progressBarReload.visibility = View.GONE
+            if (!response.isSuccess) {
+                setErrorUsername(getString(R.string.error_validation_user_name_already_exists))
+            } else {
+                changeFragment(HomeFragment())
+            }
+        }
+    }
+
+    override fun onFailure(message: String?) {
+        requireActivity().runOnUiThread {
+            binding.progressBarReload.visibility = View.GONE
+            setErrorUsername(getString(R.string.no_internet_connection))
+        }
+    }
+
+    companion object {
         const val VALIDATION_PASSWORD_LENGTH = 8
         const val VALIDATION_USERNAME_LENGTH = 3
-        const val ERROR_VALIDATION_PASSWORD_TEXT_LENGTH = "Please should be greater than 8 character"
-        const val ERROR_VALIDATION_USER_NAME_SPECIAL = "Should don't have special %$@.."
-        const val ERROR_VALIDATION_USER_NAME_SPACE = "Should don't have space"
-        const val ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT = "Should not start with number"
-        const val ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT = "Should length grater than $VALIDATION_USERNAME_LENGTH"
-        const val ERROR_VALIDATION_CONFIRM_PASSWORD_MISMATCH = "The password mismatch"
     }
 }
-
-
