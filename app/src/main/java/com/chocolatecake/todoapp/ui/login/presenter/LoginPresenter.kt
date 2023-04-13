@@ -13,13 +13,17 @@ class LoginPresenter(
     private val context: Context,
 ) {
     private val authService: AuthService by lazy { AuthService() }
-    private val preferences by lazy { TaskSharedPreferences()}
+    private val preferences by lazy {
+        TaskSharedPreferences().also {
+            it.initPreferences(context = context)
+        }
+    }
 
     fun clickableLoginButton(userRequest: UserRequest) {
         authService.login(
             userRequest = userRequest,
             onFailure = {
-                view.onFailureLogin(it)
+                view.onFailure("Pleas check connection with internet")
             },
             onSuccess = {
                 val auth = it.body?.string().toString()
@@ -30,19 +34,15 @@ class LoginPresenter(
     }
 
     private fun checkSuccessResponse(loginResponse: LoginResponse) {
-        when (loginResponse.isSuccess) {
-            true -> {
-                view.onSuccessLogin()
+        if (loginResponse.isSuccess) {
+            view.onSuccessLogin()
 
-                preferences.apply {
-                    initPreferences(context = context)
-                    token = loginResponse.value?.token
-                    expireDate = loginResponse.value?.expireAt
-                }
+            preferences.apply {
+                initPreferences(context = context)
+                token = loginResponse.value?.token
             }
-            else -> {
-                view.onFailureResponse(loginResponse.message)
-            }
+        } else {
+            view.onFailure(loginResponse.message)
         }
     }
 }

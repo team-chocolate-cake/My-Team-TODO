@@ -3,7 +3,6 @@ package com.chocolatecake.todoapp.ui.login
 import com.chocolatecake.todoapp.data.model.response.LoginResponse
 
 interface LoginView {
-    fun onFailureLogin(message :String?)
+    fun onFailure(message :String?)
     fun onSuccessLogin()
-    fun onFailureResponse(message: String?)
 }
