@@ -39,7 +39,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         Log.i("login", "message onFailureLogin $message")
 
         requireActivity().runOnUiThread {
-            showToast(message= message)
+            showToast(message= "Pleas check connection with internet ")
         }
 
     }
