@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.data.model.response.PersonTaskRequset
+import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.ItemFiltersBinding
 import com.chocolatecake.todoapp.databinding.ItemTaskCardBinding
@@ -96,7 +96,7 @@ class HomeAdapter (
                     onClickTask(currentItem.idTeamTask)
                 }
             }
-            else if (currentItem is PersonTaskRequset) {
+            else if (currentItem is PersonalTask) {
                 textViewTaskTitle.text = currentItem.titlePersonalTask
                 textViewTaskDescription.text = currentItem.descriptionPersonalTask
                 val creationTime=currentItem.creationTime.split("T")

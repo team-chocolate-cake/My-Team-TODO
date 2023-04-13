@@ -1,8 +1,11 @@
 package com.chocolatecake.todoapp.ui.home
 
+import com.chocolatecake.todoapp.data.model.response.PersonalTask
+import com.chocolatecake.todoapp.data.model.response.TeamTask
+
 interface HomeView {
-    fun onAllTasksFailuer(message:String)
-    fun onTeamTasksSucsess(body:String?)
-    fun onPersonalTasksSucsess(body:String?)
+    fun onAllTasksFailure(message: String?)
+    fun onTeamTasksSuccess(teamTasks: List<TeamTask>?)
+    fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>?)
 
 }

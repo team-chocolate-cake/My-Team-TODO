@@ -41,11 +41,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.apply {
                     when (tab.position) {
                         TEAM_POSITION -> {
-                            fetchTeamTask()
+                            //getTeamTask()
                         }
                         PERSONAL_POSITION -> {
 
-                            fetchPersonalTask()
+                            //getPersonalTask()
                         }
                     }
                 }
@@ -74,19 +74,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         createToast("error occurred")
     }
 
-    private fun fetchTeamTask() {
-        val teamTaskService = TeamTaskService(sharedPreferences)
-        teamTaskService.getAllTasks(
-            onFailure = ::onCreateTasksFailure, onSuccess =  ::onCreateTasksSuccess
-        )
-    }
 
-    private fun fetchPersonalTask() {
-        val personTaskService = PersonalTaskService(sharedPreferences)
-        personTaskService.getAllTasks(
-            onFailure =  ::onCreateTasksFailure,  onSuccess = ::onCreateTasksSuccess
-        )
-    }
 
     private fun createToast(message: String?) {
         Handler(Looper.getMainLooper()).post {
