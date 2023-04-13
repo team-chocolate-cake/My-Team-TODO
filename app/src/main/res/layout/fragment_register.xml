@@ -83,8 +83,7 @@
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
         android:textColor="@color/error_color"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_password"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username" />
 
@@ -98,7 +97,7 @@
         android:text="@string/password"
         android:textColor="@color/on_background_87"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_layout_username" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_validate_user_name" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password"
@@ -126,7 +125,7 @@
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
         android:textColor="@color/error_color"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
         tools:text="@string/validate" />
@@ -157,7 +156,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:drawableEnd="@drawable/ic_eye"
             style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -226,10 +224,12 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_do_you_have_an_account"
-        app:layout_constraintEnd_toEndOf="@+id/button_register"
-        app:layout_constraintStart_toStartOf="@+id/button_register"
-        app:layout_constraintTop_toBottomOf="@+id/button_register" />
+        android:layout_marginTop="@dimen/spacing_giant"
+        android:visibility="visible"
+        android:indeterminateTint="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_confirm_password" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ fun getUsernameStatus(username: String, context: Context): String {
             isSpecial(username[i]) -> return context.getString(R.string.error_validation_user_name_special)
             isSpace(username[i]) -> return context.getString(R.string.error_validation_user_name_space)
             isDigit(username[0]) -> return context.getString(R.string.error_validation_user_name_start_with_digit)
+
             username.length < RegistrationFragment.VALIDATION_USERNAME_LENGTH -> return context.getString(
                 R.string.error_validation_user_name_should_grater_the_limit
             )

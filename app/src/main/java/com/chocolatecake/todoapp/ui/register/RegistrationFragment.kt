@@ -45,13 +45,15 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterV
     private fun setupUsernameValidation() {
         binding.apply {
             textInputTextInputLayoutUsername.addTextChangedListener {
-                when (getUsernameStatus(textInputTextInputLayoutUsername.text.toString(), requireContext())) {
+                when (getUsernameStatus(
+                    textInputTextInputLayoutUsername.text.toString(),
+                    requireContext()
+                )) {
                     getString(R.string.error_validation_user_name_special) -> {
                         setErrorUsername(getString(R.string.error_validation_user_name_special))
                     }
                     getString(R.string.error_validation_user_name_space) -> {
                         setErrorUsername(getString(R.string.error_validation_user_name_space))
-
                     }
                     getString(R.string.error_validation_user_name_should_grater_the_limit) -> {
                         setErrorUsername(getString(R.string.error_validation_user_name_should_grater_the_limit))
@@ -73,6 +75,12 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterV
             textInputEditTextPassword.addTextChangedListener { passwordText ->
                 val passwordLength = passwordText!!.length
                 when {
+                    passwordText.toString().isEmpty() -> {
+                        textViewValidatePassword.text =
+                            getText(R.string.password_cannot_be_empty)
+                        textViewValidatePassword.visibility = View.VISIBLE
+                        validationPassword = false
+                    }
                     passwordLength < VALIDATION_PASSWORD_LENGTH -> {
                         textViewValidatePassword.text =
                             getText(R.string.error_validation_password_text_length)
@@ -94,6 +102,12 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterV
                 if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
                     textViewValidateConfirm.visibility = View.GONE
                     validationConfirm = true
+                } else if (textInputEditTextPassword.text.isNullOrEmpty()) {
+                    textViewValidateConfirm.text =
+                        getText(R.string.confirm_password_cannot_be_empty)
+                    textViewValidateConfirm.visibility = View.VISIBLE
+                    validationConfirm = false
+
                 } else {
                     textViewValidateConfirm.text =
                         getText(R.string.error_validation_confirm_password_mismatch)
@@ -117,6 +131,8 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterV
                 val password = binding.textInputEditTextPassword.text.toString()
                 val newUser = UserRequest(username, password)
                 registrationPresenter.makeRequest(newUser)
+                it.visibility = View.GONE
+                binding.progressBarReload.visibility = View.VISIBLE
             }
         }
     }
@@ -124,6 +140,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterV
     private fun changeFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container_view, fragment)
+            addToBackStack(null)
             commit()
         }
     }
@@ -131,6 +148,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), IRegisterV
     override fun onSuccess(response: RegisterResponse) {
         requireActivity().runOnUiThread {
             binding.progressBarReload.visibility = View.GONE
+            binding.buttonRegister.visibility = View.VISIBLE
             if (!response.isSuccess) {
                 setErrorUsername(getString(R.string.error_validation_user_name_already_exists))
             } else {
