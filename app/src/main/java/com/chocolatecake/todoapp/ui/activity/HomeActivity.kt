@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.chocolatecake.todoapp.R
 
 import com.chocolatecake.todoapp.databinding.ActivityHomeBinding
-import com.chocolatecake.todoapp.ui.fragment.base.RegistrationFragment
+import com.chocolatecake.todoapp.ui.register.RegistrationFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityHomeBinding
@@ -19,7 +19,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initialFragment(){
         val transition = supportFragmentManager.beginTransaction()
-        transition.add(R.id.fragment_container, registerFragment)
+        transition.add(R.id.fragment_container_view, registerFragment)
         transition.commit()
     }
 }
