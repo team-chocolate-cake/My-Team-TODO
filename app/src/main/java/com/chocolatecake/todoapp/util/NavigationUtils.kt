@@ -4,13 +4,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.chocolatecake.todoapp.R
 
-
-enum class NavigationState {
+private enum class NavigationState {
     ADD,
     REPLACE,
     REMOVE,
 }
-
 
 fun FragmentActivity.navigateTo(to: Fragment) {
     changeNavigation(this, NavigationState.ADD, to)
@@ -33,11 +31,9 @@ private fun changeNavigation(activity: FragmentActivity, state: NavigationState,
             transaction.add(R.id.fragment_container_view, to!!)
             transaction.addToBackStack("fragment")
         }
-
         NavigationState.REMOVE -> {
             fragmentManager.popBackStack()
         }
-
         NavigationState.REPLACE -> {
             transaction.replace(R.id.fragment_container_view, to!!)
         }
