@@ -9,7 +9,9 @@ import com.google.gson.Gson
 class LoginPresenter(
     private val view :LoginView
 ) {
-    lateinit var authService: AuthService
+    private val authService: AuthService by lazy{
+        AuthService()
+    }
 
     fun clickableLoginButton(userRequest: UserRequest){
         authService.login(
@@ -18,7 +20,7 @@ class LoginPresenter(
                 view.onFailureLogin(it)
             },
             onSuccess = {
-                val auth = it.body.toString()
+                val auth = it.body?.string().toString()
                 val loginResponse = Gson().fromJson(auth, LoginResponse::class.java)
 
                 onSuccessResponse(loginResponse)
