@@ -24,7 +24,7 @@ class AuthService: BaseService() {
             .url(getUrl("login"))
             .addHeader(
                 "Authorization",
-                Credentials.basic(userRequest.username, userRequest.password)
+                Credentials.basic("jjjjjjjjjjjj", "kkkkkkkkkll")
             )
             .build()
         call(request, onFailure, onSuccess)

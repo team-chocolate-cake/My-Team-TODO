@@ -13,37 +13,36 @@ import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.login.presenter.LoginPresenter
 
-    class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
+    private var presenter: LoginPresenter = LoginPresenter(this)
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
+        get() = FragmentLoginBinding::inflate
 
-        private var presenter: LoginPresenter = LoginPresenter(this)
-        val userRequest: UserRequest = UserRequest(username = "Jinan", password = "123457777")
-
-        override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
-            get() = FragmentLoginBinding::inflate
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            setUp()
-        }
-
-        private fun setUp() {
-            binding.buttonLogin.setOnClickListener {
-                presenter.clickableLoginButton(userRequest)
-            }
-        }
-
-        override fun onFailureLogin(message: String?) {
-            Log.i("login", "message onFailureLogin $message")
-        }
-
-
-        override fun onSuccessLogin() {
-
-        }
-
-        override fun onSuccessResponse(message: String?) {
-            Log.i("login", "message onSuccessResponse $message")
-        }
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUp()
     }
+
+    private fun setUp() {
+        binding.buttonLogin.setOnClickListener {
+            val userRequest = UserRequest(
+                username = binding.editTextUsername.text.toString(),
+                password = binding.editTextInputPassword.text.toString(),
+            )
+            presenter.clickableLoginButton(userRequest)
+        }
+    }
+
+    override fun onFailureLogin(message: String?) {
+        println("hghhgghghghhghghghghghghg"+ message)
+        Log.i("login", "message onFailureLogin $message")
+    }
+
+    override fun onSuccessLogin() {
+        //to nav home page
+    }
+
+    override fun onFailureResponse(message: String?) {
+        Log.i("login", "message onFailureResponse $message")
+    }
+}
