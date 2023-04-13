@@ -1,20 +1,25 @@
 package com.chocolatecake.todoapp.util
 
+import android.content.Context
+import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.ui.register.RegistrationFragment
 import java.lang.Character.isDigit
 
-fun getUsernameStatus(username : String): String {
-    for(i in username.trim().indices){
+fun getUsernameStatus(username: String, context: Context): String {
+    for (i in username.trim().indices) {
         when {
-            isSpecial(username[i]) -> return RegistrationFragment.ERROR_VALIDATION_USER_NAME_SPECIAL
-            isSpace(username[i]) -> return RegistrationFragment.ERROR_VALIDATION_USER_NAME_SPACE
-            isDigit(username[0]) -> return RegistrationFragment.ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT
-            username.length < RegistrationFragment.VALIDATION_USERNAME_LENGTH -> return RegistrationFragment.ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT
+            isSpecial(username[i]) -> return context.getString(R.string.error_validation_user_name_special)
+            isSpace(username[i]) -> return context.getString(R.string.error_validation_user_name_space)
+            isDigit(username[0]) -> return context.getString(R.string.error_validation_user_name_start_with_digit)
+            username.length < RegistrationFragment.VALIDATION_USERNAME_LENGTH -> return context.getString(
+                R.string.error_validation_user_name_should_grater_the_limit
+            )
         }
     }
     return ""
 }
-fun isSpace(char : Char) = char == ' '
+
+fun isSpace(char: Char) = char == ' '
 fun isSpecial(char: Char): Boolean {
     val specialChars = "!@#$%^&*()-+=<>?,./;:'\"[]{}\\|"
     return specialChars.contains(char)
