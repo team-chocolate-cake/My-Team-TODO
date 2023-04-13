@@ -1,6 +1,6 @@
 package com.chocolatecake.todoapp.util
 
-import com.chocolatecake.todoapp.ui.fragment.base.RegistrationFragment
+import com.chocolatecake.todoapp.ui.register.RegistrationFragment
 import java.lang.Character.isDigit
 
 fun getUsernameStatus(username : String): String {

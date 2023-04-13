@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.fragment.base
+package com.chocolatecake.todoapp.ui.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.data.model.request.UserRequest
 import com.chocolatecake.todoapp.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
+import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.util.getUsernameStatus
 
 class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
@@ -30,24 +31,17 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
             editTextUsername.addTextChangedListener {
                 when (getUsernameStatus(editTextUsername.text.toString())) {
                     ERROR_VALIDATION_USER_NAME_SPECIAL -> {
-                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_SPECIAL
-                        textViewValidateUserName.visibility = View.VISIBLE
-                        validationUserName = false
+                        setErrorUsername(ERROR_VALIDATION_USER_NAME_SPECIAL)
                     }
                     ERROR_VALIDATION_USER_NAME_SPACE -> {
-                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_SPACE
-                        textViewValidateUserName.visibility = View.VISIBLE
-                        validationUserName = false
+                        setErrorUsername(ERROR_VALIDATION_USER_NAME_SPACE)
+
                     }
                     ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT -> {
-                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT
-                        textViewValidateUserName.visibility = View.VISIBLE
-                        validationUserName = false
+                        setErrorUsername(ERROR_VALIDATION_USER_NAME_SHOULD_GRATER_THE_LIMIT)
                     }
                     ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT -> {
-                        textViewValidateUserName.text = ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT
-                        textViewValidateUserName.visibility = View.VISIBLE
-                        validationUserName = false
+                        setErrorUsername(ERROR_VALIDATION_USER_NAME_START_WITH_DIGIT)
                     }
                     else -> {
                         textViewValidateUserName.visibility = View.GONE
@@ -90,13 +84,16 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
     }
+    private fun setErrorUsername(error : String){
+        binding.textViewValidateUserName.text = error
+        binding.textViewValidateUserName.visibility = View.VISIBLE
+        validationUserName =  false
+    }
     private fun registerButtonClickHandler(){
         binding.buttonRegister.setOnClickListener {
             if(validationUserName && validationPassword && validationConfirm){
                 val auth = AuthService(onFailure = {
-
                 }, onSuccess = {
-
                     navigateToHomeScreen()
                 })
                 val username = binding.editTextUsername.text.toString()
