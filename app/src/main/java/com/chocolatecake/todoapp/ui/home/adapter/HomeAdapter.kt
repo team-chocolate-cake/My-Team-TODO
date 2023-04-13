@@ -10,7 +10,7 @@ import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.ItemFiltersBinding
 import com.chocolatecake.todoapp.databinding.ItemTaskCardBinding
-import com.chocolatecake.todoapp.ui.home.model.HomeItem
+import com.chocolatecake.todoapp.ui.home.data.HomeItem
 
 class HomeAdapter (
     private var items: List<HomeItem<Any>>,
