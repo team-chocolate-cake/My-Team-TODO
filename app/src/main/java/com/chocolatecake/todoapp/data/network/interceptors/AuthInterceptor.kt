@@ -9,12 +9,7 @@ class AuthInterceptor(private val preferences: TaskSharedPreferences) : Intercep
     override fun intercept(chain: Interceptor.Chain): Response {
         val token = preferences.token
         return if (token.isNullOrBlank()) {
-            Response.Builder()
-                .code(401)
-                .message("Unauthorized")
-                .protocol(Protocol.HTTP_1_1)
-                .request(chain.request())
-                .build()
+            chain.proceed(chain.request())
         } else {
             val authReq = chain.request().newBuilder()
                 .header("Authorization", "Bearer $token")

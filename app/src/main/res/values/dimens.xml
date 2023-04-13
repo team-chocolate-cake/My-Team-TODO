@@ -8,6 +8,7 @@
     <dimen name="spacing_large">24dp</dimen>
     <dimen name="spacing_extra_large">28dp</dimen>
     <dimen name="spacing_giant">32dp</dimen>
+    <dimen name="spacing_extra_giant">56dp</dimen>
 
     <!--text dimens-->
     <dimen name="text_tiny">11sp</dimen>
