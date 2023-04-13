@@ -133,4 +133,26 @@
         <item name="tabMode">fixed</item>
         <item name="tabTextColor">@color/on_background_87</item>
     </style>
+
+    <style name="TextInputLayoutStyle">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="android:layout_marginStart">@dimen/spacing_large</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_large</item>
+    </style>
+
+    <style name="TextStyle.BodySmall.TextInputEditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/on_background_60</item>
+        <item name="android:textColorHint">@color/on_background_60</item>
+        <item name="android:background">@drawable/selector_field</item>
+        <item name="android:layout_marginStart">@dimen/spacing_medium</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_medium</item>
+        <item name="android:layout_marginTop">@dimen/spacing_semi_medium</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_semi_medium</item>
+        <item name="android:drawableTint">@color/on_background_60</item>
+        <item name="android:drawablePadding">@dimen/spacing_medium</item>
+        <item name="boxBackgroundColor">@drawable/selector_field</item>
+    </style>
 </resources>
