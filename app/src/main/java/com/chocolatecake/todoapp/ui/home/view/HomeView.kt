@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.home
+package com.chocolatecake.todoapp.ui.home.view
 
 import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
@@ -8,4 +8,5 @@ interface HomeView {
     fun onTeamTasksSuccess(teamTasks: List<TeamTask>?)
     fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>?)
 
+    fun onUnauthorizedResponse()
 }
