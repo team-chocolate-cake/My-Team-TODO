@@ -2,7 +2,7 @@ package com.chocolatecake.todoapp.util
 
 import android.content.Context
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.ui.register.RegistrationFragment
+import com.chocolatecake.todoapp.ui.register.RegisterFragment
 import java.lang.Character.isDigit
 
 fun getUsernameStatus(username: String, context: Context): String {
@@ -12,7 +12,7 @@ fun getUsernameStatus(username: String, context: Context): String {
             isSpace(username[i]) -> return context.getString(R.string.error_validation_user_name_space)
             isDigit(username[0]) -> return context.getString(R.string.error_validation_user_name_start_with_digit)
 
-            username.length < RegistrationFragment.VALIDATION_USERNAME_LENGTH -> return context.getString(
+            username.length < RegisterFragment.VALIDATION_USERNAME_LENGTH -> return context.getString(
                 R.string.error_validation_user_name_should_grater_the_limit
             )
         }

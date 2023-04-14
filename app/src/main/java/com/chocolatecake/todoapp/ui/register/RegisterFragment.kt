@@ -16,7 +16,7 @@ import com.chocolatecake.todoapp.ui.home.view.HomeFragment
 import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.util.*
 
-class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
         FragmentRegisterBinding::inflate
     private var validationUserName: Boolean = false
