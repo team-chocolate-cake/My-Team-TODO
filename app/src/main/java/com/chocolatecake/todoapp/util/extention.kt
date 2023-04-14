@@ -11,11 +11,11 @@ fun View.hide() {
 }
 
 fun String.passwordLength(): Boolean {
-    return this.length < 8
+    return this.trim().length < 8
 
 }
 
 fun String.usernameLength(): Boolean {
-    return this.length < 3
+    return this.trim().length < 3
 }
 
