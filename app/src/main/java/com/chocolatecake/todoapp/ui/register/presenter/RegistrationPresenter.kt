@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.presenter
+package com.chocolatecake.todoapp.ui.register.presenter
 
 import android.content.Context
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
@@ -29,9 +29,10 @@ class RegistrationPresenter(private val registerView: RegisterView, private val 
                         onFailure = { message ->
                             registerView.onFailure(message)
                         },
-                        onSuccess = { loginSuccess->
+                        onSuccess = { loginSuccess ->
                             val loginBody = loginSuccess.body?.string().toString()
-                            val loginResponse =  Gson().fromJson(loginBody, LoginResponse::class.java)
+                            val loginResponse =
+                                Gson().fromJson(loginBody, LoginResponse::class.java)
                             preferences.token = loginResponse.value?.token
                             registerView.onLoginSuccess(loginResponse)
                         })
@@ -42,7 +43,8 @@ class RegistrationPresenter(private val registerView: RegisterView, private val 
             },
             onFailure = { registerView.onFailure(it) })
     }
-    fun checkToken(): Boolean{
+
+    fun checkToken(): Boolean {
         return preferences.token.isNullOrEmpty()
     }
 
