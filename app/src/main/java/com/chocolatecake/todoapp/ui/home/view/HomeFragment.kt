@@ -20,6 +20,7 @@ import com.chocolatecake.todoapp.ui.home.model.Status
 import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
 import com.chocolatecake.todoapp.ui.login.LoginFragment
+import com.chocolatecake.todoapp.util.hide
 import com.chocolatecake.todoapp.util.navigateExclusive
 import com.chocolatecake.todoapp.util.navigateTo
 import com.chocolatecake.todoapp.util.showSnackbar
@@ -107,8 +108,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onAllTasksFailure(message: String?) {
-        requireActivity().showSnackbar(message = message, binding.root)
+        showNoNetworkError()
     }
+     private fun showNoNetworkError(){
+         binding.recyclerView.hide()
+     }
+
 
     override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
