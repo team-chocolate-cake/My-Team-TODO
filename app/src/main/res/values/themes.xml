@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TODOApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.TODOApp" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
@@ -93,6 +93,7 @@
 
     <style name="TopCornerCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cornerFamily">rounded</item>
+
         <item name="cornerSizeTopRight">"@dimen/spacing_extra_large"</item>
         <item name="cornerSizeTopLeft">"@dimen/spacing_extra_large"</item>
         <item name="cornerSizeBottomRight">0dp</item>
