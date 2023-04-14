@@ -15,13 +15,11 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddNewTaskBinding
         get() = FragmentAddNewTaskBinding::inflate
 
-    private val presenter: AddNewTaskPresenter by lazy {
-        AddNewTaskPresenter(requireContext(), this)
-    }
+    private val presenter: AddNewTaskPresenter by lazy { AddNewTaskPresenter(requireContext(), this) }
+    private val isPersonal: Boolean by lazy { retrieveTypeFromArguments() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val isPersonal = retrieveTypeFromArguments()
         setPersonalOrTeamLayout(isPersonal)
         addCallBacks()
     }
@@ -31,7 +29,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
             if (isInputValid()) {
                 showBottomSheetDialog()
             } else {
-                requireActivity().showSnackbar(
+                activity?.showSnackbar(
                     message = getString(R.string.please_fill_fields),
                     binding.root
                 )
@@ -43,7 +41,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     private fun showBottomSheetDialog() {
-        CreateTaskConfirmDialog(retrieveTypeFromArguments(), ::createTask)
+        CreateTaskConfirmDialog(isPersonal, ::createTask)
             .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
     }
 
@@ -53,7 +51,6 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     private fun isInputValid(): Boolean {
-        val isPersonal = retrieveTypeFromArguments()
         return if (isPersonal) {
             isPersonalInputValid()
         } else {
@@ -85,7 +82,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     private fun returnToHomeFragment() {
-        requireActivity().navigateBack()
+        activity?.navigateBack()
     }
 
     private fun setPersonalOrTeamLayout(isPersonal: Boolean) {
@@ -118,7 +115,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
         val description = binding.editTextDescription.text.toString().trim()
         val assignee = binding.editTextAssignee.text.toString().trim()
 
-        if (retrieveTypeFromArguments()) {
+        if (isPersonal) {
             presenter.createPersonalTask(title, description)
         } else {
             presenter.createTeamTask(title, description, assignee)
@@ -127,25 +124,24 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
 
 
     private fun retrieveTypeFromArguments(): Boolean {
-        return arguments?.getBoolean(IS_PERSONAL.toString(), true)!!
+        return arguments?.getBoolean(IS_PERSONAL, true)!!
     }
 
-
     override fun onCreateTaskFailure() {
-        requireActivity().showSnackbar(message = "Failure", binding.root)
+        activity?.showSnackbar(message = "Failure", binding.root)
     }
 
     override fun onCreateTaskSuccess() {
-        requireActivity().showSnackbar(message = "Success", binding.root)
+        activity?.showSnackbar(message = "Success", binding.root)
     }
 
     companion object {
-        private const val IS_PERSONAL = true
+        private const val IS_PERSONAL = "IS_PERSONAL"
         private const val BOTTOM_SHEET_DIALOG = "newTaskTag"
         fun newInstance(isPersonal: Boolean) =
             AddNewTaskFragment().apply {
                 arguments = Bundle().apply {
-                    putBoolean(IS_PERSONAL.toString(), isPersonal)
+                    putBoolean(IS_PERSONAL, isPersonal)
                 }
             }
     }

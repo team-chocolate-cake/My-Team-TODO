@@ -12,13 +12,7 @@ import com.chocolatecake.todoapp.ui.home.view.HomeView
 import com.google.gson.Gson
 
 class HomePresenter(private val homeView: HomeView, private val context: Context) {
-    private val preferences by lazy {
-        TaskSharedPreferences().also {
-            it.initPreferences(context)
-            it.token =
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczovL3RoZS1jaGFuY2Uub3JnLyIsInN1YiI6IjYyNzdkNzMzLTRkN2ItNDZkZS1hMDNmLWI5MGViODEzYWQwYSIsInRlYW1JZCI6IjdjMzBhMDQwLTFiYWQtNDk2Ni1hN2YxLTZhZjk4ZGMzZmFiMyIsImlzcyI6Imh0dHBzOi8vdGhlLWNoYW5jZS5vcmcvIiwiZXhwIjoxNjgxNjE3NTQ1fQ.Wep9eEuMl0t2_oXbwbh5nGQ5_VI8eWqUkz-1z1Ol3UU"
-        }
-    }
+    private val preferences by lazy { TaskSharedPreferences().also { it.initPreferences(context) } }
     private val personalTaskService by lazy { PersonalTaskService(preferences) }
     private val teamTaskService by lazy { TeamTaskService(preferences) }
 
