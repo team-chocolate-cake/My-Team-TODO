@@ -12,5 +12,5 @@ interface HomeView {
 
     fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>)
     fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>)
-    fun onStatusCountsSuccess(statusList: List<Int>)
+    fun onStatusCountsSuccess(statusList: Triple<Int?, Int?, Int?>)
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -85,6 +86,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                 presenter.searchTeamTasks(searchQuery)
             }
         }
+        binding.chipGroup.setOnCheckedStateChangeListener { _, _ ->
+            searchQuery = searchQuery.copy(status = getSelectedChips())
+            if (isPersonal) {
+                presenter.searchPersonalTasks(searchQuery)
+            } else {
+                presenter.searchTeamTasks(searchQuery)
+            }
+        }
     }
 
     private fun getSelectedChips(): List<Status> {
@@ -138,13 +147,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         runOnUi { homeAdapter.updateList(itemsList) }
     }
 
-    override fun onStatusCountsSuccess(statusList: List<Int>) {
+    override fun onStatusCountsSuccess(statusList: Triple<Int?, Int?, Int?>) {
         runOnUi { updateChipsStatus(statusList) }
     }
 
-    private fun updateChipsStatus(tasksCount: List<Int>) {
-        binding.chipGroup.forEachIndexed { index, view ->
-            (view as Chip).text = String.format(view.text.toString(), tasksCount[index])
+    private fun updateChipsStatus(tasksCount: Triple<Int?, Int?, Int?>) {
+        with(binding) {
+            chipGroup.children.forEach {
+                when (it.id) {
+                    R.id.toDoChip -> {
+                        toDoChip.text = getString(R.string.to_do_task, tasksCount.first)
+                    }
+                    R.id.InProgressChip -> {
+                        InProgressChip.text =
+                            getString(R.string.in_progress_task, tasksCount.second)
+                    }
+                    R.id.DoneChip -> {
+                        DoneChip.text = getString(R.string.done_task, tasksCount.third)
+                    }
+                }
+            }
         }
     }
 
