@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.fragment.add_new_task
+package com.chocolatecake.todoapp.ui.add_new_task.presenter
 
 import android.content.Context
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
@@ -6,7 +6,7 @@ import com.chocolatecake.todoapp.data.model.request.PersonalTaskRequest
 import com.chocolatecake.todoapp.data.model.request.TeamTaskRequest
 import com.chocolatecake.todoapp.data.network.services.personal.PersonalTaskService
 import com.chocolatecake.todoapp.data.network.services.team.TeamTaskService
-import okhttp3.Response
+import com.chocolatecake.todoapp.ui.add_new_task.view.AddNewTaskView
 
 class AddNewTaskPresenter(private val context: Context,private val addNewTaskView: AddNewTaskView) {
     private var sharedPreferences = TaskSharedPreferences().also {

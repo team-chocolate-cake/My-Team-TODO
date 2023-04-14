@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.fragment.add_new_task
+package com.chocolatecake.todoapp.ui.add_new_task.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
+import com.chocolatecake.todoapp.ui.add_new_task.presenter.AddNewTaskPresenter
 
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 
@@ -17,7 +18,6 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     private val presenter: AddNewTaskPresenter by lazy {
         AddNewTaskPresenter(requireContext(), this)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +40,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     private fun showBottomSheetDialog() {
-        CreateTaskConfirmDialog(::createTask)
+        CreateTaskConfirmDialog(retrieveTypeFromArguments(),::createTask)
             .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
     }
 

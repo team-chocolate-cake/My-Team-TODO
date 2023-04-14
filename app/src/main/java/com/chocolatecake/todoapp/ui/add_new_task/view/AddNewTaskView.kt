@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.ui.fragment.add_new_task
+package com.chocolatecake.todoapp.ui.add_new_task.view
 
 interface AddNewTaskView {
     fun onCreateTaskFailure()

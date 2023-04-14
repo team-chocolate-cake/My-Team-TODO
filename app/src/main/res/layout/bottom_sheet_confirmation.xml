@@ -38,12 +38,13 @@
             android:fontFamily="@font/lato"/>
 
         <TextView
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
             android:fontFamily="@font/lato"
             android:layout_gravity="center"
-            android:text="@string/it_well_be_added_to_tasks"
+            android:text="@string/question_description_personal"
             android:textAlignment="center"
             android:textColor="@color/on_primary_container_38"/>
 
