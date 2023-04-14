@@ -20,7 +20,7 @@ class TaskDetailsPresenter(private val context: Context) {
             it.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczovL3RoZS1jaGFuY2Uub3JnLyIsInN1YiI6IjE1NzRhMDA0LWY2ZWEtNGMxNC1iMTRhLTRmY2QwZjZkNzhhMiIsInRlYW1JZCI6IjdjMzBhMDQwLTFiYWQtNDk2Ni1hN2YxLTZhZjk4ZGMzZmFiMyIsImlzcyI6Imh0dHBzOi8vdGhlLWNoYW5jZS5vcmcvIiwiZXhwIjoxNjgxNjQyMzcwfQ.zcHNx__neZb0uTmM-y4PbB76CfjF2_eB1vi9yO_aHAE"
         }
     }
-    fun getTeamTaskById(id: String = myId) {
+    fun getTeamTaskById(id: String) {
         TeamTaskService(preferences).getAllTasks(
             onSuccess = {
                 val result = Gson().fromJson(it.body?.string().toString(), TeamTasksResponse::class.java)
