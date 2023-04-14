@@ -19,7 +19,8 @@
     <string name="cancel" tools:ignore="MissingTranslation">Cancel</string>
     <string name="login" tools:ignore="MissingTranslation">Login</string>
     <string name="do_you_have_an_account" tools:ignore="MissingTranslation">Do you have an account ?</string>
-    <string name="validate" tools:ignore="MissingTranslation">Password must be at least 8 characters long</string>
+    <string name="password_validate" tools:ignore="MissingTranslation">Password must be at least 8 characters long</string>
+    <string name="username_validate" tools:ignore="MissingTranslation">Username must be at least 3 characters long</string>
     <string name="password" tools:ignore="MissingTranslation">Password</string>
     <string name="orginize_your_brain_and_your_team" tools:ignore="MissingTranslation">Organize your brain and your team</string>
     <string name="hello_blank_fragment" tools:ignore="MissingTranslation">Hello blank fragment</string>

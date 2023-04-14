@@ -134,4 +134,13 @@
         <item name="tabMode">fixed</item>
         <item name="tabTextColor">@color/on_background_87</item>
     </style>
+
+    <style name="TextStyle.BodySmall.TextInputEditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/on_background_60</item>
+        <item name="android:textColorHint">@color/on_background_60</item>
+        <item name="android:background">@drawable/selector_field</item>
+        <item name="android:drawableTint">@color/on_background_60</item>
+        <item name="boxBackgroundColor">@drawable/selector_field</item>
+    </style>
 </resources>
