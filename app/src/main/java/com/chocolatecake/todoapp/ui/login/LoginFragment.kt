@@ -14,9 +14,11 @@ import com.chocolatecake.todoapp.util.*
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
-    private val presenter by lazy { LoginPresenter(view = this, context = requireContext()) }
+
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
         get() = FragmentLoginBinding::inflate
+
+    private val presenter by lazy { LoginPresenter(view = this, context = requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,15 +52,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         }
     }
 
-    fun showProgressBar() {
-        binding.buttonLogin.hide()
-        binding.progressBar.show()
-    }
-
-    fun hideProgressBar() {
-        binding.progressBar.hide()
-        binding.buttonLogin.show()
-    }
 
     private fun checkUsernameValidate() {
         binding.editTextUsername.apply {
@@ -84,6 +77,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         }
     }
 
+
     override fun onFailure(message: String?) {
         requireActivity().runOnUiThread {
             requireActivity().showSnackbar(message = message, binding.root)
@@ -95,9 +89,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         requireActivity().navigateExclusive(HomeFragment())
     }
 
+
     private fun onClickRegisterButton() {
         binding.textViewRegisterBody.setOnClickListener {
             //requireActivity().navigateTo(RegisterFragment())
         }
+    }
+
+
+    fun showProgressBar() {
+        binding.buttonLogin.hide()
+        binding.progressBar.show()
+    }
+
+    fun hideProgressBar() {
+        binding.progressBar.hide()
+        binding.buttonLogin.show()
     }
 }

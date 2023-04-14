@@ -26,8 +26,7 @@ class LoginPresenter(
                 view.onFailure("Pleas check connection with internet")
             },
             onSuccess = {
-                val auth = it.body?.string().toString()
-                val loginResponse = Gson().fromJson(auth, LoginResponse::class.java)
+                val loginResponse = Gson().fromJson(it.body?.string().toString(), LoginResponse::class.java)
                 checkSuccessResponse(loginResponse)
             },
         )
