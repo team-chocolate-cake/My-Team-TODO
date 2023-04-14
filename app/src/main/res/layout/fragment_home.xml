@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_giant"
         android:layout_marginTop="@dimen/spacing_medium"
+        android:clipToPadding="false"
         android:background="@color/appbar_color"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
@@ -49,7 +50,7 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <LinearLayout
+    <HorizontalScrollView
         android:id="@+id/layout_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,7 +96,7 @@
                 tools:text="5 Done" />
 
         </com.google.android.material.chip.ChipGroup>
-    </LinearLayout>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
