@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.data.model.request.UserRequest
 import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
-import com.chocolatecake.todoapp.ui.home.HomeFragment
+import com.chocolatecake.todoapp.ui.home.view.HomeFragment
 import com.chocolatecake.todoapp.ui.login.presenter.LoginPresenter
 import com.chocolatecake.todoapp.util.*
 
@@ -46,7 +47,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
                         showProgressBar()
                     }
                 } else {
-                    requireActivity().showSnackbar(message = "fill fields please", binding.root)
+                    requireActivity().showSnackbar(
+                        message = getString(R.string.please_fill_fields),
+                        binding.root
+                    )
                 }
             }
         }
@@ -92,7 +96,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     private fun onClickRegisterButton() {
         binding.textViewRegisterBody.setOnClickListener {
-           // requireActivity().navigateTo(RegisterFragment())
+            // requireActivity().navigateTo(RegisterFragment())
         }
     }
 

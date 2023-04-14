@@ -1,6 +1,7 @@
 package com.chocolatecake.todoapp.data.network.services.personal
 
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
+import com.chocolatecake.todoapp.data.model.request.PersonalTaskRequest
 import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.network.services.HttpClient
 import com.chocolatecake.todoapp.data.network.services.base.BaseService
@@ -24,13 +25,13 @@ class PersonalTaskService(private val preferences: TaskSharedPreferences): BaseS
     }
 
     fun createTask(
-        personTaskRequest: PersonalTask,
+        personTaskRequest: PersonalTaskRequest,
         onFailure: (message: String?) -> Unit,
         onSuccess: (response: Response) -> Unit
     ) {
         val requestBody = FormBody.Builder()
-            .add("title", personTaskRequest.titlePersonalTask)
-            .add("description", personTaskRequest.descriptionPersonalTask)
+            .add("title", personTaskRequest.title)
+            .add("description", personTaskRequest.description)
             .build()
         val request = Request.Builder()
             .url(url)

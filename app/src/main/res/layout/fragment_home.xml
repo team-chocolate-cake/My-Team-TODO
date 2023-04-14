@@ -118,7 +118,6 @@
         android:layout_marginBottom="@dimen/spacing_extra_giant"
         android:backgroundTint="@color/primary"
         android:clickable="true"
-        android:contentDescription="@string/title_add_new_task"
         android:focusable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"

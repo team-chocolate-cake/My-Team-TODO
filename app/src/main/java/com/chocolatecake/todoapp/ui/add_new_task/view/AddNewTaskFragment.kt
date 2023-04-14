@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
 import com.chocolatecake.todoapp.ui.add_new_task.presenter.AddNewTaskPresenter
-
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.util.navigateBack
+import com.chocolatecake.todoapp.util.showSnackbar
 
 class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTaskView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddNewTaskBinding
@@ -31,7 +31,10 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
             if (isInputValid()) {
                 showBottomSheetDialog()
             } else {
-                createToast(getString(R.string.please_fill_fields))
+                requireActivity().showSnackbar(
+                    message = getString(R.string.please_fill_fields),
+                    binding.root
+                )
             }
         }
         binding.appbar.setNavigationOnClickListener {
@@ -40,7 +43,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     private fun showBottomSheetDialog() {
-        CreateTaskConfirmDialog(retrieveTypeFromArguments(),::createTask)
+        CreateTaskConfirmDialog(retrieveTypeFromArguments(), ::createTask)
             .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
     }
 
@@ -82,7 +85,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     private fun returnToHomeFragment() {
-        parentFragmentManager.popBackStack()
+        requireActivity().navigateBack()
     }
 
     private fun setPersonalOrTeamLayout(isPersonal: Boolean) {
@@ -127,18 +130,13 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
         return arguments?.getBoolean(IS_PERSONAL.toString(), true)!!
     }
 
-    private fun createToast(message: String?) {
-        context?.let {
-            Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreateTaskFailure() {
-        createToast("Failure")
+        requireActivity().showSnackbar(message = "Failure", binding.root)
     }
 
     override fun onCreateTaskSuccess() {
-        createToast("Success")
+        requireActivity().showSnackbar(message = "Success", binding.root)
     }
 
     companion object {

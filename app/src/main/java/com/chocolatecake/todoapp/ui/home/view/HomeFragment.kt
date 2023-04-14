@@ -1,20 +1,17 @@
 package com.chocolatecake.todoapp.ui.home.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
+import com.chocolatecake.todoapp.ui.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.home.adapter.HomeAdapter
 import com.chocolatecake.todoapp.ui.home.model.HomeItem
@@ -23,6 +20,9 @@ import com.chocolatecake.todoapp.ui.home.model.Status
 import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
 import com.chocolatecake.todoapp.ui.login.LoginFragment
+import com.chocolatecake.todoapp.util.navigateExclusive
+import com.chocolatecake.todoapp.util.navigateTo
+import com.chocolatecake.todoapp.util.showSnackbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 
@@ -48,8 +48,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
 
     private fun addCallBacks() {
         binding.floatingActionButton.setOnClickListener {
-//            val addNewTaskFragment = AddNewTaskFragment.newInstance(true)
-//            replaceFragment(addNewTaskFragment)
+            val addNewTaskFragment = AddNewTaskFragment.newInstance(isPersonal)
+            requireActivity().navigateTo(addNewTaskFragment)
         }
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -106,15 +106,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         return statusList.toList()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container_view, fragment).addToBackStack(null)
-        fragmentTransaction.commit()
-    }
-
     override fun onAllTasksFailure(message: String?) {
-        createToast(message)
+        requireActivity().showSnackbar(message = message, binding.root)
     }
 
     override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
@@ -130,7 +123,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onUnauthorizedResponse() {
-        replaceFragment(LoginFragment())
+        requireActivity().navigateExclusive(LoginFragment())
     }
 
     override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
@@ -190,13 +183,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     private fun onClickTask(id: String) {
-        createToast(id)
-    }
-
-    private fun createToast(message: String?) {
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
+        requireActivity().showSnackbar(message = id, binding.root)
+        // todo: navigate to details
     }
 
     private fun runOnUi(runner: () -> Unit) = activity?.runOnUiThread { runner() }
