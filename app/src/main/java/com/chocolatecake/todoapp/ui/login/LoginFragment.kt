@@ -67,7 +67,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     private fun checkPasswordValidate() {
         binding.editTextInputPassword.apply {
             doOnTextChanged { text, start, before, count ->
-                if (text.toString().trim().passwordLength() && text.toString().isNotEmpty()) {
+               if (text.toString().passwordLength() && text.toString().isNotEmpty()) {
                     binding.textViewPasswordValidate.show()
                 } else {
                     binding.textViewPasswordValidate.hide()
