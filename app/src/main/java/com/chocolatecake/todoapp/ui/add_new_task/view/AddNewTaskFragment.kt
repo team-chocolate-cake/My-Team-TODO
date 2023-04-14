@@ -8,14 +8,21 @@ import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
 import com.chocolatecake.todoapp.ui.add_new_task.presenter.AddNewTaskPresenter
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.util.hide
 import com.chocolatecake.todoapp.util.navigateBack
+import com.chocolatecake.todoapp.util.show
 import com.chocolatecake.todoapp.util.showSnackbar
 
 class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTaskView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddNewTaskBinding
         get() = FragmentAddNewTaskBinding::inflate
-
-    private val presenter: AddNewTaskPresenter by lazy { AddNewTaskPresenter(requireContext(), this) }
+    lateinit var createTaskConfirmDialog: CreateTaskConfirmDialog
+    private val presenter: AddNewTaskPresenter by lazy {
+        AddNewTaskPresenter(
+            requireContext(),
+            this
+        )
+    }
     private val isPersonal: Boolean by lazy { retrieveTypeFromArguments() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,18 +43,17 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
             }
         }
         binding.appbar.setNavigationOnClickListener {
-            returnToHomeFragment()
+            activity?.navigateBack()
         }
     }
 
     private fun showBottomSheetDialog() {
-        CreateTaskConfirmDialog(isPersonal, ::createTask)
-            .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+        createTaskConfirmDialog = CreateTaskConfirmDialog(isPersonal, ::createTask)
+        createTaskConfirmDialog.show(childFragmentManager, BOTTOM_SHEET_DIALOG)
     }
 
     private fun createTask() {
         createAndPushTaskToApi()
-        returnToHomeFragment()
     }
 
     private fun isInputValid(): Boolean {
@@ -78,11 +84,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     private fun noStringIsEmpty(vararg values: String): Boolean {
         return values.all { it.isNotEmpty() }
     }
-
-    private fun returnToHomeFragment() {
-        activity?.navigateBack()
-    }
-
+    
     private fun setPersonalOrTeamLayout(isPersonal: Boolean) {
         binding.apply {
             if (isPersonal) {
@@ -96,19 +98,20 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
 
     private fun showAssigneeInputField() {
         binding.apply {
-            editTextAssignee.visibility = View.VISIBLE
-            textViewAssignee.visibility = View.VISIBLE
+            editTextAssignee.show() 
+            textViewAssignee.show()
         }
     }
 
     private fun removeAssigneeInputField() {
         binding.apply {
-            editTextAssignee.visibility = View.GONE
-            textViewAssignee.visibility = View.GONE
+            editTextAssignee.hide()
+            textViewAssignee.hide()
         }
     }
 
     private fun createAndPushTaskToApi() {
+
         val title = binding.editTextTitle.text.toString().trim()
         val description = binding.editTextDescription.text.toString().trim()
         val assignee = binding.editTextAssignee.text.toString().trim()
@@ -125,11 +128,17 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     override fun onCreateTaskFailure() {
-        activity?.showSnackbar(message = "Failure", binding.root)
+        activity?.runOnUiThread {
+            createTaskConfirmDialog.dismiss()
+            activity?.showSnackbar(message = getString(R.string.no_internet_connection), binding.root)
+        }
     }
 
     override fun onCreateTaskSuccess() {
-        activity?.showSnackbar(message = "Success", binding.root)
+        activity?.runOnUiThread {
+            activity?.navigateBack()
+            activity?.showSnackbar(message = "Added Successfully", binding.root)
+        }
     }
 
     companion object {

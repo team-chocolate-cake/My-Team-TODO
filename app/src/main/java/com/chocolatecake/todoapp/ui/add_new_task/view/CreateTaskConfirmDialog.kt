@@ -28,14 +28,14 @@ class CreateTaskConfirmDialog(private val isPersonal: Boolean, private val creat
     }
 
     private fun addCallBacks() {
-        if (isPersonal){
+        if (isPersonal) {
             binding.description.text = resources.getString(R.string.question_description_personal)
-        }else{
+        } else {
             binding.description.text = resources.getString(R.string.question_description_team)
         }
-            binding.buttonConfirm.setOnClickListener {
-                createTask()
-            }
+        binding.buttonConfirm.setOnClickListener {
+            createTask()
+        }
         binding.buttonCancel.setOnClickListener {
             dismiss()
         }
