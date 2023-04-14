@@ -29,7 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addCallBacks()
-        presenter.getTeamTask(setOf(0))
+        presenter.getTeamTask(setOf(0,1,2))
     }
 
     private fun addCallBacks() {
@@ -42,10 +42,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                 binding.apply {
                     when (tab.position) {
                         TEAM_POSITION -> {
-                            presenter.getTeamTask(setOf(0))
+                            presenter.getPersonalTask(setOf(0,1,2))
                         }
                         PERSONAL_POSITION -> {
-                            presenter.getPersonalTask(setOf(0))
+                            presenter.getPersonalTask(setOf(0,1,2))
                             createToast(presenter.getPersonalTask(setOf(0)).toString())
                         }
                     }
@@ -134,7 +134,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     private fun onSelectedStatusChanged(statusList: Set<Int>) {
-//        presenter.getTeamTask(statusList)
+       presenter.getTeamTask(statusList)
     }
 
     private fun createToast(message: String?) {

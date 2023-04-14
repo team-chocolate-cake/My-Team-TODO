@@ -95,7 +95,6 @@ class HomeAdapter(
         }
     }
 
-
     class TeamTaskViewHolder(
         private val binding: ItemTaskCardBinding,
         private val onClickTask: (String) -> Unit
