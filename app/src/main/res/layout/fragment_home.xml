@@ -31,6 +31,7 @@
         style="@style/TabLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         android:layout_marginHorizontal="@dimen/spacing_giant"
         android:layout_marginTop="@dimen/spacing_medium"
         android:background="@color/appbar_color"
