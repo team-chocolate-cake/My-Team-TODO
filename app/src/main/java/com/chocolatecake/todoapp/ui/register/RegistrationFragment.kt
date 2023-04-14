@@ -1,6 +1,7 @@
 package com.chocolatecake.todoapp.ui.register
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
     }
 
     private fun addCallBacks() {
-        checkToken()
+//        checkToken()
         setupUsernameValidation()
         setPasswordValidation()
         validatePasswordMatch()
@@ -65,10 +66,18 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                     textInputEditTextLayoutUsername.text.toString(),
                     requireContext()
                 )) {
-                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(getString(R.string.error_validation_user_name_special))
-                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(getString(R.string.error_validation_user_name_space))
-                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(getString(R.string.error_validation_user_name_should_grater_the_limit))
-                    getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(getString(R.string.error_validation_user_name_start_with_digit))
+                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_special)
+                    )
+                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_space)
+                    )
+                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_should_grater_the_limit)
+                    )
+                    getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_start_with_digit)
+                    )
                     else -> {
                         textViewValidateUserName.hide()
                         validationUserName = true
@@ -84,7 +93,8 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                 val passwordLength = passwordText!!.length
                 when {
                     passwordLength < VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text = getText(R.string.error_validation_password_text_length)
+                        textViewValidatePassword.text =
+                            getText(R.string.error_validation_password_text_length)
                         textViewValidatePassword.show()
                         validationPassword = false
                     }
@@ -104,7 +114,8 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                     textViewValidateConfirm.hide()
                     validationConfirmPassword = true
                 } else {
-                    textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
+                    textViewValidateConfirm.text =
+                        getText(R.string.error_validation_confirm_password_mismatch)
                     textViewValidateConfirm.show()
                     validationConfirmPassword = false
                 }
@@ -142,6 +153,10 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                     textViewValidatePassword.show()
                     textViewValidatePassword.text = getText(R.string.password_cannot_be_empty)
                 }
+            }
+            if (binding.textInputEditTextConfirmPassword.text.toString() != binding.textInputEditTextPassword.text.toString()) {
+                binding.textViewValidateConfirm.show()
+                binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
             }
         }
     }
