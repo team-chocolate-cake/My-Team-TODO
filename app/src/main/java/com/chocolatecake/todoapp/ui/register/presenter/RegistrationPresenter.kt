@@ -25,17 +25,7 @@ class RegistrationPresenter(private val registerView: RegisterView, private val 
                 val body = it?.body?.string().toString()
                 val registerResponse = Gson().fromJson(body, RegisterResponse::class.java)
                 if (registerResponse.isSuccess) {
-                    auth.login(userRequest,
-                        onFailure = { message ->
-                            registerView.onFailure(message)
-                        },
-                        onSuccess = { loginSuccess ->
-                            val loginBody = loginSuccess.body?.string().toString()
-                            val loginResponse =
-                                Gson().fromJson(loginBody, LoginResponse::class.java)
-                            preferences.token = loginResponse.value?.token
-                            registerView.onLoginSuccess(loginResponse)
-                        })
+                    loginUser(userRequest, auth)
                     registerView.onRegisterSuccess(registerResponse)
                 } else {
                     registerView.onRegisterFailure(registerResponse.message)
@@ -44,8 +34,18 @@ class RegistrationPresenter(private val registerView: RegisterView, private val 
             onFailure = { registerView.onFailure(it) })
     }
 
-    fun checkToken(): Boolean {
-        return preferences.token.isNullOrEmpty()
+    fun loginUser(userRequest: UserRequest, authService: AuthService) {
+        authService.login(userRequest,
+            onFailure = { message ->
+                registerView.onFailure(message)
+            },
+            onSuccess = { loginSuccess ->
+                val loginBody = loginSuccess.body?.string().toString()
+                val loginResponse =
+                    Gson().fromJson(loginBody, LoginResponse::class.java)
+                preferences.token = loginResponse.value?.token
+                registerView.onLoginSuccess(loginResponse)
+            })
     }
 
 }

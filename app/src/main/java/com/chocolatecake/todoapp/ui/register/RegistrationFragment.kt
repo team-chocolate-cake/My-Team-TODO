@@ -1,7 +1,6 @@
 package com.chocolatecake.todoapp.ui.register
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,16 +35,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
         addCallBacks()
     }
 
-    private fun checkToken() {
-        if (registrationPresenter.checkToken()) {
-            activity?.navigateExclusive((LoginFragment()))
-        } else {
-            activity?.navigateExclusive((HomeFragment()))
-        }
-    }
-
     private fun addCallBacks() {
-        checkToken()
         setupUsernameValidation()
         setPasswordValidation()
         validatePasswordMatch()
@@ -66,18 +56,11 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                     textInputEditTextLayoutUsername.text.toString(),
                     requireContext()
                 )) {
-                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_special)
-                    )
-                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_space)
-                    )
-                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_should_grater_the_limit)
-                    )
+                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(getString(R.string.error_validation_user_name_special))
+                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(getString(R.string.error_validation_user_name_space))
+                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(getString(R.string.error_validation_user_name_should_grater_the_limit))
                     getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_start_with_digit)
-                    )
+                        getString(R.string.error_validation_user_name_start_with_digit))
                     else -> {
                         textViewValidateUserName.hide()
                         validationUserName = true
@@ -93,8 +76,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                 val passwordLength = passwordText!!.length
                 when {
                     passwordLength < VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text =
-                            getText(R.string.error_validation_password_text_length)
+                        textViewValidatePassword.text = getText(R.string.error_validation_password_text_length)
                         textViewValidatePassword.show()
                         validationPassword = false
                     }
