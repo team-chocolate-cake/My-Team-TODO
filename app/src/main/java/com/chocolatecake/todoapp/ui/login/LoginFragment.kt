@@ -10,31 +10,32 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import com.chocolatecake.todoapp.data.model.request.UserRequest
 import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.home.HomeFragment
 import com.chocolatecake.todoapp.ui.login.presenter.LoginPresenter
+import com.chocolatecake.todoapp.ui.register.RegisterFragment
 import com.chocolatecake.todoapp.util.*
 import com.google.android.material.snackbar.Snackbar
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
-    private var username: String = ""
-    private var password: String = ""
     private val presenter by lazy { LoginPresenter(view = this, context = requireContext()) }
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
         get() = FragmentLoginBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callBacks()
+        callsBack()
     }
 
-    private fun callBacks() {
+    private fun callsBack() {
         onClickLoginButton()
         checkUsernameValidate()
         checkPasswordValidate()
+        onClickRegisterButton()
     }
 
     private fun onClickLoginButton() {
@@ -46,49 +47,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
             if (userRequest.username.isNotEmpty() && userRequest.password.isNotEmpty()) {
                 presenter.clickableLoginButton(userRequest)
             } else {
-                showSnackbar("fill fields please")
+                requireActivity().showSnackbar(message = "fill fields please" ,binding.root)
             }
         }
     }
 
     private fun checkUsernameValidate() {
-        if (username.usernameLength() == true) {
-            binding.editTextUsername.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {}
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    username = s.toString()
+        binding.editTextUsername.apply {
+            doOnTextChanged { text, start, before, count ->
+                if (text.toString().usernameLength() && text.toString().isNotEmpty()) {
                     binding.textViewUsernameValidate.show()
+                } else {
+                    binding.textViewUsernameValidate.hide()
                 }
-
-                override fun afterTextChanged(s: Editable?) {}
-            })
-
-        } else if (username.usernameLength() == false)  {
-            binding.textViewUsernameValidate.hide()
+            }
         }
     }
 
     private fun checkPasswordValidate() {
-        if (password.passwordLength())
-            binding.editTextInputPassword.setOnClickListener {
-                password = it.toString()
-                binding.textViewPasswordValidate.show()
-            } else {
-            binding.textViewPasswordValidate.hide()
+        binding.editTextInputPassword.apply {
+            doOnTextChanged { text, start, before, count ->
+                if (text.toString().trim().passwordLength() && text.toString().isNotEmpty()) {
+                    binding.textViewPasswordValidate.show()
+                } else {
+                    binding.textViewPasswordValidate.hide()
+                }
+            }
         }
     }
 
     override fun onFailure(message: String?) {
-        Log.i("login", "message onFailureLogin $message")
-
         requireActivity().runOnUiThread {
-            showSnackbar(message = message)
+            requireActivity().showSnackbar(message = message ,binding.root)
         }
     }
 
@@ -96,9 +86,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         requireActivity().navigateExclusive(HomeFragment())
     }
 
-    private fun showSnackbar(message: String?) {
-        Snackbar.make(binding.root, message.toString(), Snackbar.LENGTH_LONG)
-            .setAction("Ok") {}
-            .show()
+    private fun onClickRegisterButton() {
+        binding.textViewRegisterBody.setOnClickListener {
+            requireActivity().navigateTo(RegisterFragment())
+        }
     }
 }
