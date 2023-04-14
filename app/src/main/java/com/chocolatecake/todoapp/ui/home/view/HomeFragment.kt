@@ -45,8 +45,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                             presenter.getTeamTask(setOf(0))
                         }
                         PERSONAL_POSITION -> {
-
-//                            presenter.getPersonalTask()
+                            presenter.getPersonalTask(setOf(0))
+                            createToast(presenter.getPersonalTask(setOf(0)).toString())
                         }
                     }
                 }
@@ -78,7 +78,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
-
+        activity?.runOnUiThread {
+        setUpPersonalTasksRecyclerView(personalTasks)
+        }
     }
 
     override fun onUnauthorizedResponse() {
@@ -87,16 +89,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
 
     private fun setUpTeamTasksRecyclerView(teamTasks: List<TeamTask>) {
         Log.e("mine", teamTasks.toString())
-        val tasksCount = getTasksCount(teamTasks)
+        val tasksCount = getTeamTasksCount(teamTasks)
         val itemsList: MutableList<HomeItem> = mutableListOf()
         val filters = HomeItem.Filters(tasksCount)
         itemsList.add(filters)
         itemsList.addAll(teamTasks.map { it.toHomeItem() })
-        val homeAdapter = HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
+        val homeAdapter =
+            HomeAdapter(itemsList, ::onClickTask, ::onClickTask, ::onSelectedStatusChanged)
         binding.recyclerView.adapter = homeAdapter
+
     }
 
-    private fun getTasksCount(teamTasks: List<TeamTask>): List<Int> {
+    private fun setUpPersonalTasksRecyclerView(personalTasks: List<PersonalTask>) {
+        Log.e("mine", personalTasks.toString())
+        val tasksCount = getPersonalTasksCount(personalTasks)
+        val itemsList: MutableList<HomeItem> = mutableListOf()
+        val filters = HomeItem.Filters(tasksCount)
+        itemsList.add(filters)
+        itemsList.addAll(personalTasks.map { it.toHomeItem() })
+        val homeAdapter =
+            HomeAdapter(itemsList, ::onClickTask, ::onClickTask, ::onSelectedStatusChanged)
+        binding.recyclerView.adapter = homeAdapter
+
+    }
+
+    private fun getTeamTasksCount(teamTasks: List<TeamTask>): List<Int> {
         val toDoTasksCount = teamTasks.count { it.statusTeamTask == TO_DO_STATUS }
         val inProgressTasksCount =
             teamTasks.count { it.statusTeamTask == IN_PROGRESS_STATUS }
@@ -104,8 +121,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         return listOf(toDoTasksCount, inProgressTasksCount, doneTasksCount)
     }
 
+    private fun getPersonalTasksCount(teamTasks: List<PersonalTask>): List<Int> {
+        val toDoTasksCount = teamTasks.count { it.statusPersonalTask == TO_DO_STATUS }
+        val inProgressTasksCount =
+            teamTasks.count { it.statusPersonalTask == IN_PROGRESS_STATUS }
+        val doneTasksCount = teamTasks.count { it.statusPersonalTask == DONE_STATUS }
+        return listOf(toDoTasksCount, inProgressTasksCount, doneTasksCount)
+    }
+
     private fun onClickTask(id: String) {
         createToast(id)
+    }
+
+    private fun onSelectedStatusChanged(statusList: Set<Int>) {
+//        presenter.getTeamTask(statusList)
     }
 
     private fun createToast(message: String?) {
