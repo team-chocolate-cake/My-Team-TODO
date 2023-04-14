@@ -46,10 +46,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
             )
             if (userRequest.username.isNotEmpty() && userRequest.password.isNotEmpty()) {
                 presenter.clickableLoginButton(userRequest)
+                showProgressBar()
             } else {
                 requireActivity().showSnackbar(message = "fill fields please" ,binding.root)
             }
         }
+    }
+
+    fun showProgressBar(){
+        binding.buttonLogin.hide()
+        binding.progressBar.show()
+    }
+
+    fun hideProgressBar(){
+        binding.progressBar.hide()
+        binding.buttonLogin.show()
     }
 
     private fun checkUsernameValidate() {
@@ -79,6 +90,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     override fun onFailure(message: String?) {
         requireActivity().runOnUiThread {
             requireActivity().showSnackbar(message = message ,binding.root)
+            hideProgressBar()
         }
     }
 

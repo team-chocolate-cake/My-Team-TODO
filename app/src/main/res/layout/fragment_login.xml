@@ -135,10 +135,19 @@
         android:layout_marginTop="@dimen/spacing_giant"
         android:background="@drawable/shape_corner_radius"
         android:text="@string/login_text"
+        android:visibility="visible"
         android:textAllCaps="false"
         android:textColor="@color/on_primary"
         app:layout_constraintTop_toBottomOf="@+id/text_view_password_validate" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
 
     <TextView
         android:id="@+id/text_view_dont_have_an_account_login"
