@@ -31,11 +31,11 @@
         style="@style/TabLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         android:layout_marginHorizontal="@dimen/spacing_giant"
         android:layout_marginTop="@dimen/spacing_medium"
         android:background="@color/appbar_color"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_search">
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -53,11 +53,11 @@
         android:id="@+id/layout_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_medium"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/spacing_medium">
+        app:layout_constraintTop_toBottomOf="@id/view">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
@@ -72,10 +72,9 @@
                 style="@style/TextStyle.LabelMedium.ChipStyle.Todo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
+                android:checked="true"
                 android:text="@string/to_do_task"
-                tools:text= "5 Todo"
-                />
+                tools:text="5 Todo" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/InProgressChip"
@@ -84,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/in_progress_task"
-                tools:text= "5 Inprogress"/>
+                tools:text="5 Inprogress" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/DoneChip"
@@ -93,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="@string/done_task"
-                tools:text= "5 Done" />
+                tools:text="5 Done" />
 
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
@@ -102,13 +101,14 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingVertical="@dimen/spacing_medium"
         android:scrollbars="none"
-        android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_filters"
         app:spanCount="10"
-        tools:listitem="@layout/item_task_card"/>
+        tools:listitem="@layout/item_task_card" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -118,10 +118,10 @@
         android:layout_marginBottom="@dimen/spacing_extra_giant"
         android:backgroundTint="@color/primary"
         android:clickable="true"
+        android:contentDescription="@string/title_add_new_task"
         android:focusable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/on_primary"
-        android:contentDescription="@string/title_add_new_task" />
+        app:tint="@color/on_primary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

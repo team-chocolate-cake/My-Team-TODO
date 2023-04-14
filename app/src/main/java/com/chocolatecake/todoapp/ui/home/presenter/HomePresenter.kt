@@ -1,7 +1,6 @@
 package com.chocolatecake.todoapp.ui.home.presenter
 
 import android.content.Context
-import android.util.Log
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.data.model.response.PersonalTaskResponse
 import com.chocolatecake.todoapp.data.model.response.TeamTasksResponse
@@ -107,24 +106,13 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
                 }
                 val body = response.body?.string().toString()
                 val teamTasksResponse = Gson().fromJson(body, TeamTasksResponse::class.java)
-                val teamTasks = teamTasksResponse.value?.groupBy { it.statusTeamTask }
-                val statusListCount = mutableListOf<Int>()
-                if (teamTasks != null) {
-                    teamTasks[Status.TODO.status]?.count()
-                        ?.let { statusListCount.add(it) }
-                    teamTasks[Status.PROGRESS.status]?.count()
-                        ?.let { statusListCount.add(it) }
-                    teamTasks[Status.DONE.status]?.count()
-                        ?.let { statusListCount.add(it) }
-                }
-                Log.e("TAGTAG", "getTeamStatusListCount: $statusListCount")
-                homeView.onStatusCountsSuccess(
-                    Triple(
-                        statusListCount[0],
-                        statusListCount[1],
-                        statusListCount[2]
-                    )
-                )
+                val first =
+                    teamTasksResponse.value?.count { it.statusTeamTask == 0 }
+                val second =
+                    teamTasksResponse.value?.count { it.statusTeamTask == 1 }
+                val third =
+                    teamTasksResponse.value?.count { it.statusTeamTask == 2 }
+                homeView.onStatusCountsSuccess(Triple(first, second, third))
             }
         )
     }
@@ -145,14 +133,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
                     teamTasksResponse.tasksListPerson?.count { it.statusPersonalTask == 1 }
                 val third =
                     teamTasksResponse.tasksListPerson?.count { it.statusPersonalTask == 2 }
-
-                homeView.onStatusCountsSuccess(
-                    Triple(
-                        first,
-                        second,
-                        third
-                    )
-                )
+                homeView.onStatusCountsSuccess(Triple(first, second, third))
             }
         )
     }
