@@ -60,6 +60,7 @@
         android:layout_marginTop="@dimen/spacing_small"
         android:background="@drawable/selector_field"
         android:lines="1"
+        android:singleLine="true"
         android:paddingHorizontal="@dimen/spacing_medium"
         android:textColor="@color/on_background_60"
         style="@style/TextStyle.BodyMedium"
@@ -135,6 +136,7 @@
         android:layout_marginTop="@dimen/spacing_giant"
         android:layout_marginBottom="@dimen/spacing_giant"
         android:visibility="gone"
+        android:backgroundTint="@color/primary"
         app:layout_constraintTop_toBottomOf="@+id/text_view_password_validate"
         app:layout_constraintBottom_toTopOf="@+id/text_view_register_body"/>
 
