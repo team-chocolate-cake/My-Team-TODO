@@ -50,5 +50,6 @@
     <string name="error_validation_user_name_should_grater_the_limit" tools:ignore="MissingTranslation">Should length grater than 3</string>
     <string name="error_validation_confirm_password_mismatch" tools:ignore="MissingTranslation">The password mismatch</string>
     <string name="error_validation_user_name_already_exists" tools:ignore="MissingTranslation">Username, is already in use</string>
-    <string name="fields_vaildation" translatable="false">Fill all fields please</string>
+    <string name="fields_vaildation" tools:ignore="MissingTranslation">Fill all fields please</string>
+    <string name="add_new_task" tools:ignore="MissingTranslation">add new task</string>
 </resources>
