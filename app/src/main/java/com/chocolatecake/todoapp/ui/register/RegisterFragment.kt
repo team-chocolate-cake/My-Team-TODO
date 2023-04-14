@@ -16,7 +16,7 @@ import com.chocolatecake.todoapp.ui.home.view.HomeFragment
 import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.util.*
 
-class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
         FragmentRegisterBinding::inflate
     private var validationUserName: Boolean = false
@@ -33,20 +33,20 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
     }
 
     private fun addCallBacks() {
-        setupUsernameValidation()
-        setPasswordValidation()
-        validatePasswordMatch()
-        registerButtonClickHandler()
+        checkUsernameValidate()
+        checkPasswordValidate()
+        checkConfirmPasswordValidate()
+        onClickRegisterButton()
         navigationToLoginScreen()
     }
 
     private fun navigationToLoginScreen() {
         binding.textViewLogin.setOnClickListener {
-            activity?.navigateTo(LoginFragment())
+            activity?.navigateExclusive(LoginFragment())
         }
     }
 
-    private fun setupUsernameValidation() {
+    private fun checkUsernameValidate() {
         binding.apply {
             textInputEditTextLayoutUsername.addTextChangedListener {
                 when (getUsernameStatus(
@@ -67,7 +67,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
         }
     }
 
-    private fun setPasswordValidation() {
+    private fun checkPasswordValidate() {
         binding.apply {
             textInputEditTextPassword.addTextChangedListener { passwordText ->
                 val passwordLength = passwordText!!.length
@@ -86,7 +86,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
         }
     }
 
-    private fun validatePasswordMatch() {
+    private fun checkConfirmPasswordValidate() {
         binding.apply {
             textInputEditTextConfirmPassword.addTextChangedListener {
                 if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
@@ -110,7 +110,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
         }
     }
 
-    private fun registerButtonClickHandler() {
+    private fun onClickRegisterButton() {
         binding.buttonRegister.setOnClickListener { buttonRegister ->
             if (validationUserName && validationPassword && validationConfirmPassword) {
                 val newUser = UserRequest(

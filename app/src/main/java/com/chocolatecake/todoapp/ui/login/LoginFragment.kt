@@ -11,7 +11,7 @@ import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.home.view.HomeFragment
 import com.chocolatecake.todoapp.ui.login.presenter.LoginPresenter
-import com.chocolatecake.todoapp.ui.register.RegistrationFragment
+import com.chocolatecake.todoapp.ui.register.RegisterFragment
 import com.chocolatecake.todoapp.util.*
 
 
@@ -97,7 +97,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     private fun onClickRegisterButton() {
         binding.textViewRegisterBody.setOnClickListener {
-             requireActivity().navigateTo(RegistrationFragment())
+             requireActivity().navigateExclusive(RegisterFragment())
         }
     }
 
