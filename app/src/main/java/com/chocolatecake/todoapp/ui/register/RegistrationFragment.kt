@@ -14,10 +14,7 @@ import com.chocolatecake.todoapp.ui.register.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.home.HomeFragment
 import com.chocolatecake.todoapp.ui.login.LoginFragment
-import com.chocolatecake.todoapp.util.getUsernameStatus
-import com.chocolatecake.todoapp.util.hide
-import com.chocolatecake.todoapp.util.navigateExclusive
-import com.chocolatecake.todoapp.util.show
+import com.chocolatecake.todoapp.util.*
 
 class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
@@ -45,7 +42,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
 
     private fun navigationToLoginScreen() {
         binding.textViewLogin.setOnClickListener {
-            activity?.navigateExclusive(LoginFragment())
+            activity?.navigateTo(LoginFragment())
         }
     }
 

@@ -11,21 +11,17 @@ import com.google.gson.Gson
 
 class RegistrationPresenter(private val registerView: RegisterView, private val context: Context) {
     private val preferences: TaskSharedPreferences by lazy {
-        TaskSharedPreferences().also {
-            it.initPreferences(
-                context
-            )
-        }
+        TaskSharedPreferences().also { it.initPreferences(context) }
     }
+    private val authService: AuthService by lazy { AuthService() }
 
     fun makeRequest(userRequest: UserRequest) {
-        val auth = AuthService()
-        auth.register(userRequest,
-            onSuccess = { it ->
-                val body = it?.body?.string().toString()
+        authService.register(userRequest,
+            onSuccess = { response ->
+                val body = response?.body?.string().toString()
                 val registerResponse = Gson().fromJson(body, RegisterResponse::class.java)
                 if (registerResponse.isSuccess) {
-                    loginUser(userRequest, auth)
+                    loginUser(userRequest)
                     registerView.onRegisterSuccess(registerResponse)
                 } else {
                     registerView.onRegisterFailure(registerResponse.message)
@@ -34,7 +30,7 @@ class RegistrationPresenter(private val registerView: RegisterView, private val 
             onFailure = { registerView.onFailure(it) })
     }
 
-    fun loginUser(userRequest: UserRequest, authService: AuthService) {
+    private fun loginUser(userRequest: UserRequest) {
         authService.login(userRequest,
             onFailure = { message ->
                 registerView.onFailure(message)
