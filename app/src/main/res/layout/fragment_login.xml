@@ -163,6 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_tiny"
         android:text="@string/register"
+        android:clickable="true"
         android:textColor="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
