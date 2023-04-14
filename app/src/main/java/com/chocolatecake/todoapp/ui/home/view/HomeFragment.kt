@@ -14,7 +14,8 @@ import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
-import com.chocolatecake.todoapp.ui.home.model.HomeItemType
+import com.chocolatecake.todoapp.ui.home.adapter.HomeAdapter
+import com.chocolatecake.todoapp.ui.home.model.HomeItem
 import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
 import com.chocolatecake.todoapp.ui.login.LoginFragment
@@ -29,11 +30,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         super.onViewCreated(view, savedInstanceState)
         addCallBacks()
         presenter.getTeamTask(setOf(0))
-
     }
 
     private fun addCallBacks() {
-
         binding.floatingActionButton.setOnClickListener {
 //            val addNewTaskFragment = AddNewTaskFragment.newInstance(true)
 //            replaceFragment(addNewTaskFragment)
@@ -61,7 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         })
     }
 
-
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -69,19 +67,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         fragmentTransaction.commit()
     }
 
-
     override fun onAllTasksFailure(message: String?) {
-
         createToast(message)
     }
 
-    override fun onTeamTasksSuccess(teamTasks: List<TeamTask>?) {
+    override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
         activity?.runOnUiThread {
-            teamTasks?.let { setUpTeamTasksRecyclerView(it) }
+            setUpTeamTasksRecyclerView(teamTasks)
         }
     }
 
-    override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>?) {
+    override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
 
     }
 
@@ -92,35 +88,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     private fun setUpTeamTasksRecyclerView(teamTasks: List<TeamTask>) {
         Log.e("mine", teamTasks.toString())
         val tasksCount = getTasksCount(teamTasks)
-        val itemsList: MutableList<HomeItem<Any>> = mutableListOf()
-        itemsList.add(HomeItem(tasksCount, HomeItemType.TYPE_FILTERS))
-           itemsList.addAll(teamTasks.map { it.toHomeItem() })
-        // itemsList.add(HomeItem(teamTasks.first(), HomeItemType.TYPE_TASKS))
-//        val itemtask= TeamTask(
-//            idTeamTask = "e8f2cd95 - a3fb - 41f d -8686 - 031e3 c8af12c",
-//            titleTeamTask = "team",
-//            descriptionTeamTask = "team",
-//            assignee = "assignee",
-//            statusTeamTask = 0,
-//            creationTime = "2023 - 04 - 10 T15 :31:36.008152")
-//        itemsList.add(HomeItem(itemtask , HomeItemType.TYPE_TASKS))
-        val homeAdapter = HomeAdapter(itemsList, ::onClickTask)
+        val itemsList: MutableList<HomeItem> = mutableListOf()
+        val filters = HomeItem.Filters(tasksCount)
+        itemsList.add(filters)
+        itemsList.addAll(teamTasks.map { it.toHomeItem() })
+        val homeAdapter = HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
         binding.recyclerView.adapter = homeAdapter
-
-        homeAdapter.notifyDataSetChanged()
     }
 
     private fun getTasksCount(teamTasks: List<TeamTask>): List<Int> {
-        val toDoTasksCount = teamTasks.count { it.statusTeamTask == HomeAdapter.TO_DO_STATUS }
+        val toDoTasksCount = teamTasks.count { it.statusTeamTask == TO_DO_STATUS }
         val inProgressTasksCount =
-            teamTasks.count { it.statusTeamTask == HomeAdapter.IN_PROGRESS_STATUS }
-        val doneTasksCount = teamTasks.count { it.statusTeamTask == HomeAdapter.DONE_STATUS }
-
+            teamTasks.count { it.statusTeamTask == IN_PROGRESS_STATUS }
+        val doneTasksCount = teamTasks.count { it.statusTeamTask == DONE_STATUS }
         return listOf(toDoTasksCount, inProgressTasksCount, doneTasksCount)
     }
 
     private fun onClickTask(id: String) {
-
+        createToast(id)
     }
 
     private fun createToast(message: String?) {
@@ -129,11 +114,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         }
     }
 
-    companion object {
-        val TEAM_POSITION = 0
-        val PERSONAL_POSITION = 1
+    private companion object {
+        const val TEAM_POSITION = 0
+        const val PERSONAL_POSITION = 1
+        const val TO_DO_STATUS = 0
+        const val IN_PROGRESS_STATUS = 1
+        const val DONE_STATUS = 2
 
     }
-
-
 }

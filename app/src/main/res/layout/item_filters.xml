@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_height="match_parent">
+    android:scrollbars="none">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/spacing_medium"
+        app:selectionRequired="true"
+        app:singleLine="true">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroup"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:paddingHorizontal="@dimen/spacing_medium"
-                    app:selectionRequired="true"
-                    app:singleLine="true">
+        <com.google.android.material.chip.Chip
+            android:id="@+id/toDoChip"
+            style="@style/TextStyle.LabelMedium.ChipStyle.Todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/to_do_task"
+            android:textColor="@color/on_primary" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/toDoChip"
-                            style="@style/TextStyle.LabelMedium.ChipStyle.Todo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="@string/to_do_task"
-                            android:textColor="@color/on_primary" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/InProgressChip"
+            style="@style/TextStyle.LabelMedium.ChipStyle.InProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_progress_task" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/InProgressChip"
-                            style="@style/TextStyle.LabelMedium.ChipStyle.InProgress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/in_progress_task" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/DoneChip"
+            style="@style/TextStyle.LabelMedium.ChipStyle.Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done_task" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/DoneChip"
-                            style="@style/TextStyle.LabelMedium.ChipStyle.Done"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/done_task" />
-
-                </com.google.android.material.chip.ChipGroup>
-        </HorizontalScrollView>
-
-
-</LinearLayout>
+    </com.google.android.material.chip.ChipGroup>
+</HorizontalScrollView>
