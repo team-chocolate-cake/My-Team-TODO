@@ -61,13 +61,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                 binding.apply {
                     when (tab.position) {
                         TEAM_POSITION -> {
-                            presenter.getTeamTask(getSelectedChips())
                             presenter.getTeamStatusListCount()
+                            presenter.searchTeamTasks(searchQuery)
                             isPersonal = false
                         }
                         PERSONAL_POSITION -> {
-                            presenter.getPersonalTask(getSelectedChips())
                             presenter.getPersonalStatusListCount()
+                            presenter.searchPersonalTasks(searchQuery)
                             isPersonal = true
                         }
                     }
