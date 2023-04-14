@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:scrollbars="none">
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginBottom="16dp"
+    android:orientation="horizontal">
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        app:selectionRequired="true"
+
+        app:selectionRequired="false"
         app:singleLine="true">
 
         <com.google.android.material.chip.Chip
@@ -26,6 +28,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/InProgressChip"
+            android:layout_gravity="center"
             style="@style/TextStyle.LabelMedium.ChipStyle.InProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +39,8 @@
             style="@style/TextStyle.LabelMedium.ChipStyle.Done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/done_task" />
+            android:text="@string/done_task"
+            android:layout_gravity="end"/>
 
     </com.google.android.material.chip.ChipGroup>
-</HorizontalScrollView>
+</LinearLayout>
