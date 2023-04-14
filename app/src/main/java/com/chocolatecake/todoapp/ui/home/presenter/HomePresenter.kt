@@ -51,7 +51,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
     }
 
     fun searchPersonalTasks(searchQuery: SearchQuery) {
-        teamTaskService.getAllTasks(
+        personalTaskService.getAllTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
                 if (response.code == 401) {
