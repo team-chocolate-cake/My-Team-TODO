@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.ItemTaskCardBinding
@@ -14,16 +15,16 @@ class HomeAdapter(
     private var itemsList: MutableList<HomeItem>,
     private val onClickTeamTask: (String) -> Unit,
     private val onClickPersonalTask: (String) -> Unit,
-    private val onStatusChange: (Set<Int>) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 //    fun setData(newList: List<HomeItem.TeamTaskItem>){
 //        val diffResult = DiffUtil.calculateDiff(HomeDiffutils())
 //    }
 
-    fun setSelectedTabData(newItems: MutableList<HomeItem>) {
+    fun updateList(newItems: MutableList<HomeItem>) {
+        val diffResult = DiffUtil.calculateDiff(HomeDiffUtil(itemsList, newItems))
         itemsList = newItems
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -148,7 +149,6 @@ class HomeAdapter(
     }
 
     companion object {
-
         private fun getTime(creationTime: String): String {
             return creationTime.split("T")[1].take(5)
         }
@@ -157,4 +157,20 @@ class HomeAdapter(
             return creationTime.split("T").first()
         }
     }
+}
+
+class HomeDiffUtil(
+    val oldList: List<HomeItem>,
+    val newList: List<HomeItem>,
+) : DiffUtil.Callback() {
+    override fun getOldListSize() = oldList.size
+
+    override fun getNewListSize() = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        oldList[oldItemPosition].type == newList[newItemPosition].type
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        oldList[oldItemPosition] == newList[newItemPosition]
+
 }

@@ -8,4 +8,7 @@ interface HomeView {
     fun onTeamTasksSuccess(teamTasks: List<TeamTask>)
     fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>)
     fun onUnauthorizedResponse()
+
+    fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>)
+    fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>)
 }
