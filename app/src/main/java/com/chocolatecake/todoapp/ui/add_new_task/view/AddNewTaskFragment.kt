@@ -75,10 +75,8 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
         }
     }
 
-    private fun noStringIsEmpty(vararg s: String): Boolean {
-        return s.all {
-            it.isNotEmpty()
-        }
+    private fun noStringIsEmpty(vararg values: String): Boolean {
+        return values.all { it.isNotEmpty() }
     }
 
     private fun returnToHomeFragment() {
@@ -122,7 +120,6 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
         }
     }
 
-
     private fun retrieveTypeFromArguments(): Boolean {
         return arguments?.getBoolean(IS_PERSONAL, true)!!
     }
@@ -138,6 +135,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     companion object {
         private const val IS_PERSONAL = "IS_PERSONAL"
         private const val BOTTOM_SHEET_DIALOG = "newTaskTag"
+
         fun newInstance(isPersonal: Boolean) =
             AddNewTaskFragment().apply {
                 arguments = Bundle().apply {
