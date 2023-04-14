@@ -12,7 +12,7 @@ import com.chocolatecake.todoapp.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.ui.register.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
-import com.chocolatecake.todoapp.ui.home.HomeFragment
+import com.chocolatecake.todoapp.ui.home.view.HomeFragment
 import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.util.*
 
