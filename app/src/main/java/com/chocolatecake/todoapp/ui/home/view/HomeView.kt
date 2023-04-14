@@ -2,6 +2,7 @@ package com.chocolatecake.todoapp.ui.home.view
 
 import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
+import com.chocolatecake.todoapp.ui.home.model.Status
 
 interface HomeView {
     fun onAllTasksFailure(message: String?)
@@ -11,4 +12,5 @@ interface HomeView {
 
     fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>)
     fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>)
+    fun onStatusCountsSuccess(statusList: List<Int>)
 }

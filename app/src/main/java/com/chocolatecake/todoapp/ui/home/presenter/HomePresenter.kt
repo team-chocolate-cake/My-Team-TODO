@@ -24,7 +24,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
 
     fun getTeamTask(statusList: List<Status>) {
         teamTaskService.getAllTasks(
-            onFailure = { homeView.onAllTasksFailure(it) },
+            onFailure = ::onFailure,
             onSuccess = { response ->
                 if (response.code == 401) {
                     homeView.onUnauthorizedResponse()
@@ -33,7 +33,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
                 val body = response.body?.string().toString()
                 val teamTasksResponse = Gson().fromJson(body, TeamTasksResponse::class.java)
                 val teamTasks = teamTasksResponse.value
-                        ?.filter { it.statusTeamTask in statusList.map { status -> status.status } }
+                    ?.filter { it.statusTeamTask in statusList.map { status -> status.status } }
                 teamTasks?.let { homeView.onTeamTasksSuccess(it) }
             }
         )
@@ -41,7 +41,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
 
     fun getPersonalTask(statusList: List<Status>) {
         personalTaskService.getAllTasks(
-            onFailure = { homeView.onAllTasksFailure(it) },
+            onFailure = ::onFailure,
             onSuccess = { response ->
                 if (response.code == 401) {
                     homeView.onUnauthorizedResponse()
@@ -50,7 +50,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
                 val body = response.body?.string().toString()
                 val personalTasksResponse = Gson().fromJson(body, PersonalTaskResponse::class.java)
                 val personalTasks = personalTasksResponse.tasksListPerson
-                        ?.filter { it.statusPersonalTask in statusList.map { status -> status.status } }
+                    ?.filter { it.statusPersonalTask in statusList.map { status -> status.status } }
                 personalTasks?.let { homeView.onPersonalTasksSuccess(it) }
             }
         )
@@ -58,7 +58,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
 
     fun searchPersonalTasks(searchQuery: SearchQuery) {
         teamTaskService.getAllTasks(
-            onFailure = { homeView.onAllTasksFailure(it) },
+            onFailure = ::onFailure,
             onSuccess = { response ->
                 if (response.code == 401) {
                     homeView.onUnauthorizedResponse()
@@ -78,7 +78,7 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
 
     fun searchTeamTasks(searchQuery: SearchQuery) {
         teamTaskService.getAllTasks(
-            onFailure = { homeView.onAllTasksFailure(it) },
+            onFailure = ::onFailure,
             onSuccess = { response ->
                 if (response.code == 401) {
                     homeView.onUnauthorizedResponse()
@@ -94,5 +94,59 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
                 teamTasks?.let { homeView.onSearchTeamResultSuccess(it) }
             }
         )
+    }
+
+    fun getTeamStatusListCount() {
+        teamTaskService.getAllTasks(
+            onFailure = ::onFailure,
+            onSuccess = { response ->
+                if (response.code == 401) {
+                    homeView.onUnauthorizedResponse()
+                    return@getAllTasks
+                }
+                val body = response.body?.string().toString()
+                val teamTasksResponse = Gson().fromJson(body, TeamTasksResponse::class.java)
+                val teamTasks = teamTasksResponse.value?.groupBy { it.statusTeamTask }
+                val statusListCount = mutableListOf<Int>()
+                if (teamTasks != null) {
+                    teamTasks[Status.TODO.status]?.count()
+                        ?.let { statusListCount.add(it) }
+                    teamTasks[Status.PROGRESS.status]?.count()
+                        ?.let { statusListCount.add(it) }
+                    teamTasks[Status.DONE.status]?.count()
+                        ?.let { statusListCount.add(it) }
+                }
+                homeView.onStatusCountsSuccess(statusListCount)
+            }
+        )
+    }
+
+    fun getPersonalStatusListCount() {
+        personalTaskService.getAllTasks(
+            onFailure = ::onFailure,
+            onSuccess = { response ->
+                if (response.code == 401) {
+                    homeView.onUnauthorizedResponse()
+                    return@getAllTasks
+                }
+                val body = response.body?.string().toString()
+                val teamTasksResponse = Gson().fromJson(body, PersonalTaskResponse::class.java)
+                val personalTasks = teamTasksResponse.tasksListPerson?.groupBy { it.statusPersonalTask }
+                val statusListCount = mutableListOf<Int>()
+                if (personalTasks != null) {
+                    personalTasks[Status.TODO.status]?.count()
+                        ?.let { statusListCount.add(it) }
+                    personalTasks[Status.PROGRESS.status]?.count()
+                        ?.let { statusListCount.add(it) }
+                    personalTasks[Status.DONE.status]?.count()
+                        ?.let { statusListCount.add(it) }
+                }
+                homeView.onStatusCountsSuccess(statusListCount)
+            }
+        )
+    }
+
+    private fun onFailure(message: String?){
+        homeView.onAllTasksFailure(message)
     }
 }

@@ -3,7 +3,6 @@ package com.chocolatecake.todoapp.ui.home.view
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +36,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getTeamTask(getSelectedChips())
+        setup()
         addCallBacks()
+    }
+
+    private fun setup() {
+        presenter.getTeamTask(getSelectedChips())
+        presenter.getTeamStatusListCount()
     }
 
     private fun addCallBacks() {
@@ -52,10 +56,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                     when (tab.position) {
                         TEAM_POSITION -> {
                             presenter.getTeamTask(getSelectedChips())
+                            presenter.getTeamStatusListCount()
                             isPersonal = false
                         }
                         PERSONAL_POSITION -> {
                             presenter.getPersonalTask(getSelectedChips())
+                            presenter.getPersonalStatusListCount()
                             isPersonal = true
                         }
                     }
@@ -103,13 +109,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
-        activity?.runOnUiThread {
+        runOnUi {
             setUpTeamTasksRecyclerView(teamTasks)
         }
     }
 
     override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
-        activity?.runOnUiThread {
+        runOnUi {
             setUpPersonalTasksRecyclerView(personalTasks)
         }
     }
@@ -119,8 +125,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
-        activity?.runOnUiThread {
-//            setUpTeamTasksRecyclerView(teamTasks)
+        runOnUi {
             val itemsList: MutableList<HomeItem> = mutableListOf()
             itemsList.addAll(teamTasks.map { it.toHomeItem() })
             homeAdapter.updateList(itemsList)
@@ -128,24 +133,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>) {
-//        val itemsList: MutableList<HomeItem> = mutableListOf()
-//        itemsList.addAll(personalTasks.map { it.toHomeItem() })
-//        activity?.runOnUiThread {
-//            homeAdapter.setSelectedTabData(itemsList)
-//        }
+        val itemsList: MutableList<HomeItem> = mutableListOf()
+        itemsList.addAll(personalTasks.map { it.toHomeItem() })
+        runOnUi { homeAdapter.updateList(itemsList) }
     }
 
-    private fun setUpTeamTasksRecyclerView(teamTasks: List<TeamTask>) {
-        Log.e("mine", teamTasks.toString())
-        val tasksCount = getTeamTasksCount(teamTasks)
-        updateChipsStatus(tasksCount)
-        val itemsList: MutableList<HomeItem> = mutableListOf()
-        itemsList.addAll(teamTasks.map { it.toHomeItem() })
-        homeAdapter =
-            HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
-        binding.recyclerView.adapter = homeAdapter
-        homeAdapter.updateList(itemsList)
-
+    override fun onStatusCountsSuccess(statusList: List<Int>) {
+        runOnUi { updateChipsStatus(statusList) }
     }
 
     private fun updateChipsStatus(tasksCount: List<Int>) {
@@ -154,32 +148,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         }
     }
 
+    private fun setUpTeamTasksRecyclerView(teamTasks: List<TeamTask>) {
+        val itemsList: MutableList<HomeItem> = mutableListOf()
+        itemsList.addAll(teamTasks.map { it.toHomeItem() })
+        homeAdapter =
+            HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
+        binding.recyclerView.adapter = homeAdapter
+        homeAdapter.updateList(itemsList)
+    }
+
+
     private fun setUpPersonalTasksRecyclerView(personalTasks: List<PersonalTask>) {
-        Log.e("mine", personalTasks.toString())
-        val tasksCount = getPersonalTasksCount(personalTasks)
-        updateChipsStatus(tasksCount)
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
         val homeAdapter =
             HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
         binding.recyclerView.adapter = homeAdapter
-
-    }
-
-    private fun getTeamTasksCount(teamTasks: List<TeamTask>): List<Int> {
-        val toDoTasksCount = teamTasks.count { it.statusTeamTask == TO_DO_STATUS }
-        val inProgressTasksCount =
-            teamTasks.count { it.statusTeamTask == IN_PROGRESS_STATUS }
-        val doneTasksCount = teamTasks.count { it.statusTeamTask == DONE_STATUS }
-        return listOf(toDoTasksCount, inProgressTasksCount, doneTasksCount)
-    }
-
-    private fun getPersonalTasksCount(teamTasks: List<PersonalTask>): List<Int> {
-        val toDoTasksCount = teamTasks.count { it.statusPersonalTask == TO_DO_STATUS }
-        val inProgressTasksCount =
-            teamTasks.count { it.statusPersonalTask == IN_PROGRESS_STATUS }
-        val doneTasksCount = teamTasks.count { it.statusPersonalTask == DONE_STATUS }
-        return listOf(toDoTasksCount, inProgressTasksCount, doneTasksCount)
+        homeAdapter.updateList(itemsList)
     }
 
     private fun onClickTask(id: String) {
@@ -192,12 +177,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         }
     }
 
+    private fun runOnUi(runner: () -> Unit) = activity?.runOnUiThread { runner() }
+
     private companion object {
         const val TEAM_POSITION = 0
         const val PERSONAL_POSITION = 1
-        const val TO_DO_STATUS = 0
-        const val IN_PROGRESS_STATUS = 1
-        const val DONE_STATUS = 2
-
     }
 }
