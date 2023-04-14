@@ -47,7 +47,7 @@
     <string name="error_validation_user_name_special" tools:ignore="MissingTranslation">Should don\'t have special %$@..</string>
     <string name="error_validation_user_name_space" tools:ignore="MissingTranslation">Should don\'t have space</string>
     <string name="error_validation_user_name_start_with_digit" tools:ignore="MissingTranslation">Should not start with number</string>
-    <string name="error_validation_user_name_should_grater_the_limit" tools:ignore="MissingTranslation">Should length grater than 3</string>
+    <string name="error_validation_user_name_should_grater_the_limit" tools:ignore="MissingTranslation">Should length greater than 3</string>
     <string name="error_validation_confirm_password_mismatch" tools:ignore="MissingTranslation">The password mismatch</string>
     <string name="error_validation_user_name_already_exists" tools:ignore="MissingTranslation">Username, is already in use</string>
     <string name="fields_vaildation" translatable="false">Fill all fields please</string>
