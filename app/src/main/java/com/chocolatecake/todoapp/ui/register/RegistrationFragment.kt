@@ -172,7 +172,10 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
 
     override fun onFailure(message: String?) {
         activity?.runOnUiThread {
-            setErrorUsername(getString(R.string.no_internet_connection))
+            activity?.showSnackbar(
+                message = getString(R.string.no_internet_connection),
+                binding.root
+            )
             binding.progressBarReload.hide()
             binding.buttonRegister.show()
         }
