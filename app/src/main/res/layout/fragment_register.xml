@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -56,23 +58,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_organize" />
 
-    <EditText
-        android:id="@+id/edit_text_username"
-        style="@style/TextStyle.BodySmall"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_username"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/text_view_username"
+        app:layout_constraintTop_toBottomOf="@id/text_view_username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_edit_text_layout_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/text_view_validate_user_name"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:background="@drawable/selector_field"
-        android:fontFamily="@font/lato"
-        android:maxLines="1"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:paddingVertical="@dimen/spacing_semi_medium"
-        android:textColor="@color/on_background_60"
-        android:textColorHint="@color/on_background_60"
-        app:layout_constraintStart_toStartOf="@+id/text_view_username"
-        app:layout_constraintTop_toBottomOf="@id/text_view_username" />
+        android:textColor="@color/error_color"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_username" />
 
     <TextView
         android:id="@+id/text_view_password"
@@ -84,40 +99,38 @@
         android:text="@string/password"
         android:textColor="@color/on_background_87"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_username" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_validate_user_name" />
 
-    <EditText
-        android:id="@+id/edit_text_password"
-        style="@style/TextStyle.BodySmall"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_password"
+        style="@style/TextInputLayoutStyle"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:background="@drawable/selector_field"
-        android:drawableEnd="@drawable/ic_eye"
-        android:drawablePadding="@dimen/spacing_medium"
-        android:drawableTint="@color/on_background_60"
-        android:maxLines="1"
-        android:inputType="textPassword"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:paddingVertical="@dimen/spacing_semi_medium"
-        android:textColor="@color/on_background_60"
-        android:textColorHint="@color/on_background_60"
         app:layout_constraintStart_toStartOf="@+id/text_view_password"
-        app:layout_constraintTop_toBottomOf="@id/text_view_password" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_password"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/text_view_validate"
+        android:id="@+id/text_view_validate_password"
         style="@style/TextStyle.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
-        android:visibility="gone"
         android:textColor="@color/error_color"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_password"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
         tools:text="@string/validate" />
 
     <TextView
@@ -130,27 +143,39 @@
         android:text="@string/confirm_password"
         android:textColor="@color/on_background_87"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_validate" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_validate_password" />
 
-    <EditText
-        android:id="@+id/edit_text_confirm_password"
-        style="@style/TextStyle.BodySmall"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_confirm_password"
+        style="@style/TextInputLayoutStyle"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
+        app:layout_constraintTop_toBottomOf="@id/text_view_confirm_password"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_edit_text_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_view_validate_confirm"
+        style="@style/TextStyle.BodySmall"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginEnd="@dimen/spacing_large"
-        android:background="@drawable/selector_field"
-        android:drawableEnd="@drawable/ic_eye"
-        android:drawablePadding="@dimen/spacing_medium"
-        android:drawableTint="@color/on_background_60"
-        android:maxLines="1"
-        android:paddingHorizontal="@dimen/spacing_medium"
-        android:paddingVertical="@dimen/spacing_semi_medium"
-        android:textColor="@color/on_background_60"
-        android:textColorHint="@color/on_background_60"
-        app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
-        app:layout_constraintTop_toBottomOf="@id/text_view_confirm_password" />
+        android:textColor="@color/error_color"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_confirm_password"
+        tools:text="@string/validate" />
 
     <Button
         android:id="@+id/button_register"
@@ -167,7 +192,7 @@
         android:textColor="@color/on_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_confirm_password" />
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_confirm_password" />
 
     <TextView
         android:id="@+id/text_view_do_you_have_an_account"
@@ -197,6 +222,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_view_do_you_have_an_account" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_reload"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_giant"
+        android:visibility="visible"
+        android:indeterminateTint="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_confirm_password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
