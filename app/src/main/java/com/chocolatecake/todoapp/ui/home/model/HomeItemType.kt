@@ -4,7 +4,6 @@ import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 
 sealed class HomeItem(val type: HomeItemType) {
-    data class Filters(val counts: List<Int>) : HomeItem(HomeItemType.TYPE_FILTERS)
 
     data class TeamTaskItem(val teamTask: TeamTask) : HomeItem(HomeItemType.TYPE_TEAM_TASK)
 
@@ -13,5 +12,5 @@ sealed class HomeItem(val type: HomeItemType) {
 }
 
 enum class HomeItemType {
-    TYPE_FILTERS, TYPE_TEAM_TASK, TYPE_PERSONAL_TASK
+  TYPE_TEAM_TASK, TYPE_PERSONAL_TASK
 }

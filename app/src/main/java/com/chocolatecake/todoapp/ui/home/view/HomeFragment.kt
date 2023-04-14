@@ -29,9 +29,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addCallBacks()
-        presenter.getTeamTask(setOf(0,1,2))
+        presenter.getTeamTask(setOf(0))
     }
-
     private fun addCallBacks() {
         binding.floatingActionButton.setOnClickListener {
 //            val addNewTaskFragment = AddNewTaskFragment.newInstance(true)
@@ -42,11 +41,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                 binding.apply {
                     when (tab.position) {
                         TEAM_POSITION -> {
-                            presenter.getPersonalTask(setOf(0,1,2))
+                            presenter.getTeamTask(setOf(0))
                         }
                         PERSONAL_POSITION -> {
-                            presenter.getPersonalTask(setOf(0,1,2))
-                            createToast(presenter.getPersonalTask(setOf(0)).toString())
+                            presenter.getPersonalTask(setOf(0))
                         }
                     }
                 }
@@ -91,12 +89,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         Log.e("mine", teamTasks.toString())
         val tasksCount = getTeamTasksCount(teamTasks)
         val itemsList: MutableList<HomeItem> = mutableListOf()
-        val filters = HomeItem.Filters(tasksCount)
-        itemsList.add(filters)
         itemsList.addAll(teamTasks.map { it.toHomeItem() })
         val homeAdapter =
             HomeAdapter(itemsList, ::onClickTask, ::onClickTask, ::onSelectedStatusChanged)
         binding.recyclerView.adapter = homeAdapter
+        homeAdapter.setSelectedTabData(itemsList)
 
     }
 
@@ -104,8 +101,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         Log.e("mine", personalTasks.toString())
         val tasksCount = getPersonalTasksCount(personalTasks)
         val itemsList: MutableList<HomeItem> = mutableListOf()
-        val filters = HomeItem.Filters(tasksCount)
-        itemsList.add(filters)
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
         val homeAdapter =
             HomeAdapter(itemsList, ::onClickTask, ::onClickTask, ::onSelectedStatusChanged)
