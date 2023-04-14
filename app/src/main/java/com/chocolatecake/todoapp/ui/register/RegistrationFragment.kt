@@ -45,7 +45,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
     }
 
     private fun addCallBacks() {
-//        checkToken()
+        checkToken()
         setupUsernameValidation()
         setPasswordValidation()
         validatePasswordMatch()
