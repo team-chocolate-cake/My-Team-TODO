@@ -133,6 +133,7 @@
         android:indeterminate="true"
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_giant"
+        android:layout_marginBottom="@dimen/spacing_giant"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/text_view_password_validate"
         app:layout_constraintBottom_toTopOf="@+id/text_view_register_body"/>
