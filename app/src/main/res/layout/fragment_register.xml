@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -63,16 +62,18 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/text_view_username"
         app:layout_constraintTop_toBottomOf="@id/text_view_username">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input_edit_text_layout_username"
+            style="@style/TextStyle.BodyMedium.TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,19 +105,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password"
         style="@style/TextInputLayoutStyle"
-        app:passwordToggleDrawable="@drawable/selector_password_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintStart_toStartOf="@+id/text_view_password"
         app:layout_constraintTop_toBottomOf="@id/text_view_password"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input_edit_text_password"
+            style="@style/TextStyle.BodyMedium.TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,8 +133,7 @@
         android:textColor="@color/error_color"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
-        tools:text="@string/validate" />
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_password" />
 
     <TextView
         android:id="@+id/text_view_confirm_password"
@@ -148,19 +150,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_confirm_password"
         style="@style/TextInputLayoutStyle"
-        app:passwordToggleDrawable="@drawable/selector_password_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
         app:layout_constraintTop_toBottomOf="@id/text_view_confirm_password"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input_edit_text_confirm_password"
+            style="@style/TextStyle.BodyMedium.TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            style="@style/TextStyle.BodySmall.TextInputEditTextStyle" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,8 +178,7 @@
         android:textColor="@color/error_color"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_layout_confirm_password"
-        tools:text="@string/validate" />
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_confirm_password" />
 
     <Button
         android:id="@+id/button_register"
@@ -229,8 +232,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_giant"
-        android:visibility="gone"
         android:indeterminateTint="@color/primary"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_confirm_password" />

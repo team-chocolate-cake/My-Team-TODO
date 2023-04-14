@@ -93,9 +93,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_password"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        style="@style/TextInputLayoutStyle"
         android:layout_marginHorizontal="@dimen/spacing_medium"
-        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintTop_toBottomOf="@+id/text_view_password"
         app:passwordToggleEnabled="true"
         app:passwordToggleDrawable="@drawable/selector_password_icon"
