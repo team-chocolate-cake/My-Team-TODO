@@ -33,20 +33,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     }
 
     private fun addCallBacks() {
-        setupUsernameValidation()
-        setPasswordValidation()
-        validatePasswordMatch()
-        registerButtonClickHandler()
+        checkUsernameValidate()
+        checkPasswordValidate()
+        checkConfirmPasswordValidate()
+        onClickRegisterButton()
         navigationToLoginScreen()
     }
 
     private fun navigationToLoginScreen() {
         binding.textViewLogin.setOnClickListener {
-            activity?.navigateTo(LoginFragment())
+            activity?.navigateExclusive(LoginFragment())
         }
     }
 
-    private fun setupUsernameValidation() {
+    private fun checkUsernameValidate() {
         binding.apply {
             textInputEditTextLayoutUsername.addTextChangedListener {
                 when (getUsernameStatus(
@@ -67,7 +67,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    private fun setPasswordValidation() {
+    private fun checkPasswordValidate() {
         binding.apply {
             textInputEditTextPassword.addTextChangedListener { passwordText ->
                 val passwordLength = passwordText!!.length
@@ -86,7 +86,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    private fun validatePasswordMatch() {
+    private fun checkConfirmPasswordValidate() {
         binding.apply {
             textInputEditTextConfirmPassword.addTextChangedListener {
                 if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
@@ -110,7 +110,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    private fun registerButtonClickHandler() {
+    private fun onClickRegisterButton() {
         binding.buttonRegister.setOnClickListener { buttonRegister ->
             if (validationUserName && validationPassword && validationConfirmPassword) {
                 val newUser = UserRequest(
