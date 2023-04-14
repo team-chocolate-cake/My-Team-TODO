@@ -22,10 +22,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callsBack()
+        onCallBacks()
     }
 
-    private fun callsBack() {
+    private fun onCallBacks() {
         onClickLoginButton()
         checkUsernameValidate()
         checkPasswordValidate()
