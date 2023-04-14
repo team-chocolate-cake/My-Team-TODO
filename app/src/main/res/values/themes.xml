@@ -73,7 +73,7 @@
         <item name="checkedIconVisible">false</item>
         <item name="chipStartPadding">@dimen/spacing_medium</item>
         <item name="chipEndPadding">@dimen/spacing_medium</item>
-        <item name="chipMinHeight">48dp</item>
+        <item name="chipMinHeight">44dp</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="chipStrokeColor">@color/chip_stroke_color</item>
     </style>
