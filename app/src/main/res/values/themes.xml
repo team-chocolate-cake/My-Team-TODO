@@ -150,4 +150,9 @@
         <item name="android:layout_marginTop">@dimen/spacing_small</item>
         <item name="android:layout_marginEnd">@dimen/spacing_large</item>
     </style>
+
+    <style name="CircularShapeAppearanceOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

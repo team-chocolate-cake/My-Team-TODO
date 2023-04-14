@@ -117,6 +117,7 @@
         android:layout_marginEnd="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_extra_giant"
         android:backgroundTint="@color/primary"
+        app:shapeAppearanceOverlay="@style/CircularShapeAppearanceOverlay"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
