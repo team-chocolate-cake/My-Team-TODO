@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.data.model.request.UserRequest
 import com.chocolatecake.todoapp.data.model.response.LoginResponse
 import com.chocolatecake.todoapp.data.model.response.RegisterResponse
@@ -17,6 +15,9 @@ import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.home.HomeFragment
 import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.util.getUsernameStatus
+import com.chocolatecake.todoapp.util.hide
+import com.chocolatecake.todoapp.util.navigateExclusive
+import com.chocolatecake.todoapp.util.show
 
 class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
@@ -26,14 +27,12 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
     private var validationConfirmPassword: Boolean = false
 
     private val registrationPresenter: RegistrationPresenter by lazy {
-        RegistrationPresenter(
-            this,
-            requireContext()
-        )
+        RegistrationPresenter(this, requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkToken()
         addCallBacks()
         setupUsernameValidation()
         setPasswordValidation()
@@ -41,11 +40,17 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
         registerButtonClickHandler()
     }
 
+    private fun checkToken() {
+        if (registrationPresenter.checkToken()) {
+            activity?.navigateExclusive((LoginFragment()))
+        } else {
+            activity?.navigateExclusive((HomeFragment()))
+        }
+    }
+
     private fun addCallBacks() {
-        binding.apply {
-            textViewLogin.setOnClickListener {
-                changeFragment(LoginFragment())
-            }
+        binding.textViewLogin.setOnClickListener {
+            activity?.navigateExclusive(LoginFragment())
         }
     }
 
@@ -66,7 +71,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                         setErrorUsername(getString(R.string.error_validation_user_name_start_with_digit))
                     }
                     else -> {
-                        textViewValidateUserName.visibility = View.GONE
+                        textViewValidateUserName.hide()
                         validationUserName = true
                     }
                 }
@@ -82,11 +87,11 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
                     passwordLength < VALIDATION_PASSWORD_LENGTH -> {
                         textViewValidatePassword.text =
                             getText(R.string.error_validation_password_text_length)
-                        textViewValidatePassword.visibility = View.VISIBLE
+                        textViewValidatePassword.show()
                         validationPassword = false
                     }
                     else -> {
-                        textViewValidatePassword.visibility = View.GONE
+                        textViewValidatePassword.hide()
                         validationPassword = true
                     }
                 }
@@ -98,12 +103,12 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
         binding.apply {
             textInputEditTextConfirmPassword.addTextChangedListener {
                 if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
-                    textViewValidateConfirm.visibility = View.GONE
+                    textViewValidateConfirm.hide()
                     validationConfirmPassword = true
                 } else {
                     textViewValidateConfirm.text =
                         getText(R.string.error_validation_confirm_password_mismatch)
-                    textViewValidateConfirm.visibility = View.VISIBLE
+                    textViewValidateConfirm.show()
                     validationConfirmPassword = false
                 }
             }
@@ -113,7 +118,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
     private fun setErrorUsername(error: String) {
         activity?.runOnUiThread {
             binding.textViewValidateUserName.text = error
-            binding.textViewValidateUserName.visibility = View.VISIBLE
+            binding.textViewValidateUserName.show()
             validationUserName = false
         }
     }
@@ -121,66 +126,61 @@ class RegistrationFragment : BaseFragment<FragmentRegisterBinding>(), RegisterVi
     private fun registerButtonClickHandler() {
         binding.buttonRegister.setOnClickListener { buttonRegister ->
             if (validationUserName && validationPassword && validationConfirmPassword) {
-                val newUser = UserRequest(binding.textInputEditTextLayoutUsername.text.toString(), binding.textInputEditTextPassword.text.toString())
+                val newUser = UserRequest(
+                    binding.textInputEditTextLayoutUsername.text.toString(),
+                    binding.textInputEditTextPassword.text.toString()
+                )
                 registrationPresenter.makeRequest(newUser)
-                buttonRegister.visibility = View.GONE
-                binding.progressBarReload.visibility = View.VISIBLE
+                buttonRegister.hide()
+                binding.progressBarReload.show()
             }
-            checkFields()
-        }
-    }
-
-    private fun checkFields() {
-        if (binding.textInputEditTextLayoutUsername.text.isNullOrEmpty()) {
-            binding.apply {
-                textViewValidateUserName.visibility = View.VISIBLE
-                textViewValidateUserName.text = getString(R.string.username_cannot_be_empty)
+            if (binding.textInputEditTextLayoutUsername.text.isNullOrEmpty()) {
+                binding.apply {
+                    textViewValidateUserName.show()
+                    textViewValidateUserName.text = getString(R.string.username_cannot_be_empty)
+                }
             }
-        }
-        if (binding.textInputEditTextPassword.text.isNullOrEmpty()) {
-            binding.apply {
-                textViewValidatePassword.visibility = View.VISIBLE
-                textViewValidatePassword.text = getText(R.string.password_cannot_be_empty)
+            if (binding.textInputEditTextPassword.text.isNullOrEmpty()) {
+                binding.apply {
+                    textViewValidatePassword.show()
+                    textViewValidatePassword.text = getText(R.string.password_cannot_be_empty)
+                }
             }
-        }
-    }
-
-    private fun changeFragment(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_container_view, fragment)
-            addToBackStack(null)
-            commit()
         }
     }
 
     override fun onRegisterSuccess(response: RegisterResponse) {
-        requireActivity().runOnUiThread {
-            binding.progressBarReload.visibility = View.GONE
-            binding.buttonRegister.visibility = View.VISIBLE
-            changeFragment(HomeFragment())
+        activity?.apply {
+            runOnUiThread {
+                binding.progressBarReload.hide()
+                binding.buttonRegister.show()
+                navigateExclusive((HomeFragment()))
+            }
         }
     }
 
     override fun onRegisterFailure(message: String?) {
-        message?.let { setErrorUsername(it) }
+        activity?.runOnUiThread {
+            binding.progressBarReload.hide()
+            binding.buttonRegister.show()
+            message?.let { setErrorUsername(it) }
+        }
     }
 
     override fun onLoginSuccess(response: LoginResponse) {
-        requireActivity().runOnUiThread {
-            binding.progressBarReload.visibility = View.GONE
-            binding.buttonRegister.visibility = View.VISIBLE
-            if(response.value?.token!!.isNotEmpty()){
-                changeFragment(HomeFragment())
-            }else{
-                changeFragment(LoginFragment())
+        activity?.apply {
+            runOnUiThread {
+                binding.progressBarReload.hide()
+                binding.buttonRegister.show()
             }
         }
     }
 
     override fun onFailure(message: String?) {
-        requireActivity().runOnUiThread {
-            binding.progressBarReload.visibility = View.GONE
+        activity?.runOnUiThread {
             setErrorUsername(getString(R.string.no_internet_connection))
+            binding.progressBarReload.hide()
+            binding.buttonRegister.show()
         }
     }
 

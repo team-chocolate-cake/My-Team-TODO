@@ -42,4 +42,8 @@ class RegistrationPresenter(private val registerView: RegisterView, private val 
             },
             onFailure = { registerView.onFailure(it) })
     }
+    fun checkToken(): Boolean{
+        return preferences.token.isNullOrEmpty()
+    }
+
 }
