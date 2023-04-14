@@ -104,6 +104,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_password"
         style="@style/TextInputLayoutStyle"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/text_view_password"
@@ -147,6 +148,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_confirm_password"
         style="@style/TextInputLayoutStyle"
+        app:passwordToggleDrawable="@drawable/selector_password_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/text_view_confirm_password"
