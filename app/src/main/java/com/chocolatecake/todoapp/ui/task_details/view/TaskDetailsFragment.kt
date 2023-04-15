@@ -13,6 +13,7 @@ import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
 import com.chocolatecake.todoapp.ui.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.task_details.presenter.TaskDetailsPresenter
+import com.chocolatecake.todoapp.util.navigateBack
 import com.chocolatecake.todoapp.util.showSnackbar
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -56,7 +57,10 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
         }
     }
 
-    fun addCallBack() {
+    private fun addCallBack() {
+        binding.appbar.setNavigationOnClickListener {
+            activity?.navigateBack()
+        }
         binding.textViewStatus.setOnClickListener {
             showBottomSheetDialog()
         }
