@@ -11,7 +11,6 @@ import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
-import com.chocolatecake.todoapp.ui.home.view.TaskDetailsView
 import com.chocolatecake.todoapp.ui.task_details.presenter.TaskDetailsPresenter
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
