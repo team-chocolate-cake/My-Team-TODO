@@ -45,6 +45,7 @@ class ChangeStatusBottomSheet(
                     else -> 2
                 }
                 updateStatus(selectedStatus)
+                dismiss()
             }
         }
 

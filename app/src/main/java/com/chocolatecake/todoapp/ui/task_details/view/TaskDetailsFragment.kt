@@ -116,8 +116,13 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
     }
 
     override fun onUpdateSuccess(status: Int) {
-        activity?.showSnackbar(getString(R.string.success_update), binding.root)
-        binding.textViewStatus.text = getStatusByNum(status)
+        activity?.run {
+            showSnackbar(getString(R.string.success_update), binding.root)
+            runOnUiThread{
+                binding.textViewStatus.text = getStatusByNum(status)
+            }
+        }
+
     }
 
     companion object {
@@ -125,22 +130,22 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
         private const val PERSONAL_TASK_OBJECT = "Personal_Task"
         private const val IS_PERSONAL = "Is_Personal"
         private const val BOTTOM_SHEET_DIALOG = "bottom sheet status"
-        fun newTeamInstance(teamTask: TeamTask) {
+        fun newTeamInstance(teamTask: TeamTask) =
             TaskDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(IS_PERSONAL, false)
                     putParcelable(TEAM_TASK_OBJECT, teamTask)
                 }
             }
-        }
 
-        fun newPersonalInstance(personalTask: PersonalTask) {
+
+        fun newPersonalInstance(personalTask: PersonalTask) =
             TaskDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(IS_PERSONAL, true)
                     putParcelable(PERSONAL_TASK_OBJECT, personalTask)
                 }
             }
-        }
+
     }
 }

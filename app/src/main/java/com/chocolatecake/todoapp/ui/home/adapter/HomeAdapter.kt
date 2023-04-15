@@ -7,14 +7,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chocolatecake.todoapp.R
+import com.chocolatecake.todoapp.data.model.response.PersonalTask
+import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.ItemTaskCardBinding
 import com.chocolatecake.todoapp.ui.home.model.HomeItem
 import com.chocolatecake.todoapp.ui.home.model.HomeItemType
 
 class HomeAdapter(
     private var itemsList: MutableList<HomeItem>,
-    private val onClickTeamTask: (String) -> Unit,
-    private val onClickPersonalTask: (String) -> Unit,
+    private val onClickTeamTask: (TeamTask) -> Unit,
+    private val onClickPersonalTask: (PersonalTask) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 //    fun setData(newList: List<HomeItem.TeamTaskItem>){
@@ -66,7 +68,7 @@ class HomeAdapter(
 
     class TeamTaskViewHolder(
         private val binding: ItemTaskCardBinding,
-        private val onClickTask: (String) -> Unit
+        private val onClickTask: (TeamTask) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HomeItem.TeamTaskItem) {
             with(item.teamTask) {
@@ -100,7 +102,7 @@ class HomeAdapter(
                             )
                     }
                     textViewAssignee.visibility = View.VISIBLE
-                    root.setOnClickListener { onClickTask(idTeamTask) }
+                    root.setOnClickListener { onClickTask(item.teamTask) }
                 }
             }
         }
@@ -108,7 +110,7 @@ class HomeAdapter(
 
     class PersonalTaskViewHolder(
         private val binding: ItemTaskCardBinding,
-        private val onClickTask: (String) -> Unit
+        private val onClickTask: (PersonalTask) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HomeItem.PersonalTaskItem) {
             with(item.personalTask) {
@@ -142,7 +144,7 @@ class HomeAdapter(
                             )
                     }
                     textViewAssignee.visibility = View.GONE
-                    root.setOnClickListener { onClickTask(idPersonalTask) }
+                    root.setOnClickListener { onClickTask(item.personalTask) }
                 }
             }
         }

@@ -1,9 +1,11 @@
 package com.chocolatecake.todoapp.ui.home.view
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
@@ -20,12 +22,14 @@ import com.chocolatecake.todoapp.ui.home.model.Status
 import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
 import com.chocolatecake.todoapp.ui.login.LoginFragment
+import com.chocolatecake.todoapp.ui.task_details.view.TaskDetailsFragment
 import com.chocolatecake.todoapp.util.navigateExclusive
 import com.chocolatecake.todoapp.util.navigateTo
 import com.chocolatecake.todoapp.util.showSnackbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -33,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     private val presenter by lazy { HomePresenter(this, requireContext()) }
     private val homeAdapter: HomeAdapter by lazy {
         val itemsList: MutableList<HomeItem> = mutableListOf()
-        HomeAdapter(itemsList, ::onClickTask, ::onClickTask).also {
+        HomeAdapter(itemsList, ::onClickTeamTask, ::onClickPersonalTask).also {
             binding.recyclerView.adapter = it
         }
     }
@@ -181,9 +185,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         homeAdapter.updateList(itemsList)
     }
 
-    private fun onClickTask(id: String) {
-        requireActivity().showSnackbar(message = id, binding.root)
-        // todo: navigate to details
+
+    private fun onClickTeamTask(teamTask: TeamTask) {
+        val taskDetailsFragment = TaskDetailsFragment.newTeamInstance(teamTask)
+        activity?.navigateTo(taskDetailsFragment)
+    }
+
+    private fun onClickPersonalTask(personalTask: PersonalTask) {
+        val taskDetailsFragment = TaskDetailsFragment.newPersonalInstance(personalTask)
+        activity?.navigateTo(taskDetailsFragment)
     }
 
     private fun runOnUi(runner: () -> Unit) = activity?.runOnUiThread { runner() }
