@@ -118,10 +118,12 @@
         android:layout_marginEnd="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_extra_giant"
         android:backgroundTint="@color/primary"
+        app:shapeAppearanceOverlay="@style/CircularShapeAppearanceOverlay"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/on_primary" />
+        app:tint="@color/on_primary"
+        android:contentDescription="@string/add_new_task" />
 </androidx.constraintlayout.widget.ConstraintLayout>

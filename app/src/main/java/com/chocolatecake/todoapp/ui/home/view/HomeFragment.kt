@@ -32,7 +32,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         get() = FragmentHomeBinding::inflate
 
     private val presenter by lazy { HomePresenter(this, requireContext()) }
-    private lateinit var homeAdapter: HomeAdapter
+    private val homeAdapter: HomeAdapter by lazy {
+        val itemsList: MutableList<HomeItem> = mutableListOf()
+        HomeAdapter(itemsList, ::onClickTask, ::onClickTask).also {
+            binding.recyclerView.adapter = it
+        }
+    }
     private var searchQuery: SearchQuery = SearchQuery()
     private var isPersonal = false
 
@@ -57,13 +62,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
                 binding.apply {
                     when (tab.position) {
                         TEAM_POSITION -> {
-                            presenter.getTeamTask(getSelectedChips())
                             presenter.getTeamStatusListCount()
+                            presenter.searchTeamTasks(searchQuery)
                             isPersonal = false
                         }
                         PERSONAL_POSITION -> {
-                            presenter.getPersonalTask(getSelectedChips())
                             presenter.getPersonalStatusListCount()
+                            presenter.searchPersonalTasks(searchQuery)
                             isPersonal = true
                         }
                     }
@@ -171,9 +176,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     private fun setUpTeamTasksRecyclerView(teamTasks: List<TeamTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(teamTasks.map { it.toHomeItem() })
-        homeAdapter =
-            HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
-        binding.recyclerView.adapter = homeAdapter
         homeAdapter.updateList(itemsList)
     }
 
@@ -181,9 +183,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     private fun setUpPersonalTasksRecyclerView(personalTasks: List<PersonalTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
-        val homeAdapter =
-            HomeAdapter(itemsList, ::onClickTask, ::onClickTask)
-        binding.recyclerView.adapter = homeAdapter
         homeAdapter.updateList(itemsList)
     }
 
