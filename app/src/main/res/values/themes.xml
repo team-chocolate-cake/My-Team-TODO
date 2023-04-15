@@ -152,4 +152,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="Widget.Material3.Button.TextButton.ToggleButtonStyle">
+        <item name="android:textColor">@color/checked_color</item>
+        <item name="rippleColor">@color/background</item>
+        <item name="backgroundTint">@color/background</item>
+    </style>
 </resources>
