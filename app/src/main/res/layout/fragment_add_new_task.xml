@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_add"
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -91,4 +92,5 @@
         android:layout_marginBottom="@dimen/spacing_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/button_selector"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

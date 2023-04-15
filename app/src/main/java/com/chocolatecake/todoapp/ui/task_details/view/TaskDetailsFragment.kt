@@ -16,7 +16,6 @@ import com.chocolatecake.todoapp.ui.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.util.navigateBack
 import com.chocolatecake.todoapp.util.showSnackbar
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDetailsView {
     private val isPersonal by lazy {
         arguments?.getBoolean(IS_PERSONAL, true)!!
@@ -31,11 +30,10 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         taskDetailsPresenter.taskDetailsView = this
+        binding.fragmentDetails.setOnClickListener { }
         getTask()
         addCallBack()
     }
-
-
     private fun getTask() {
         if (isPersonal) {
             val personalResult =
@@ -122,7 +120,7 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
     override fun onUpdateSuccess(status: Int) {
         activity?.run {
             showSnackbar(getString(R.string.success_update), binding.root)
-            runOnUiThread{
+            runOnUiThread {
                 binding.textViewStatus.text = getStatusByNum(status)
             }
         }

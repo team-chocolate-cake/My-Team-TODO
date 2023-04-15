@@ -20,6 +20,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.fragmentAdd.setOnClickListener {  }
         setPersonalOrTeamLayout(isPersonal)
         addCallBacks()
     }
