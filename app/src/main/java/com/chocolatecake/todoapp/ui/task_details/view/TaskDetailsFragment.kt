@@ -34,17 +34,47 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
         getTask()
         addCallBack()
     }
+    /* private fun getTask() {
+         if (isPersonal) {
+             val personalResult =
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                     arguments?.getParcelable(PERSONAL_TASK_OBJECT, PersonalTask::class.java)
+                 } else {
+                     TODO("VERSION.SDK_INT < TIRAMISU")
+                 }
+             setDataPersonal(personalResult)
+         } else {
+             val teamResult =
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                     arguments?.getParcelable(TEAM_TASK_OBJECT, TeamTask::class.java)
+                 } else {
+                     TODO("VERSION.SDK_INT < TIRAMISU")
+                 }
+             setDataTeam(teamResult)
+         }
+     }*/
+
     private fun getTask() {
+        val args = arguments
         if (isPersonal) {
             val personalResult =
-                arguments?.getParcelable(PERSONAL_TASK_OBJECT, PersonalTask::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    args?.getParcelable(PERSONAL_TASK_OBJECT)
+                } else {
+                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
+                }
             setDataPersonal(personalResult)
         } else {
             val teamResult =
-                arguments?.getParcelable(TEAM_TASK_OBJECT, TeamTask::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    args?.getParcelable(TEAM_TASK_OBJECT)
+                } else {
+                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
+                }
             setDataTeam(teamResult)
         }
     }
+
 
     private fun getStatusByNum(num: Int): String {
         return when (num) {
@@ -65,28 +95,45 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
     }
 
     private fun showBottomSheetDialog() {
+        val args = arguments
         if (isPersonal) {
             val personalResult =
-                arguments?.getParcelable(PERSONAL_TASK_OBJECT, PersonalTask::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    args?.getParcelable(PERSONAL_TASK_OBJECT)
+                } else {
+                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
+                }
             ChangeStatusBottomSheet(::updateStatus, personalResult!!.statusPersonalTask)
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
         } else {
             val teamResult =
-                arguments?.getParcelable(TEAM_TASK_OBJECT, TeamTask::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    args?.getParcelable(TEAM_TASK_OBJECT)
+                } else {
+                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
+                }
             ChangeStatusBottomSheet(::updateStatus, teamResult!!.statusTeamTask)
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
         }
-
     }
 
     private fun updateStatus(status: Int) {
+        val args = arguments
         if (isPersonal) {
             val personalResult =
-                arguments?.getParcelable(PERSONAL_TASK_OBJECT, PersonalTask::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    args?.getParcelable(PERSONAL_TASK_OBJECT)
+                } else {
+                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
+                }
             taskDetailsPresenter.updatePersonalStatus(personalResult!!.idPersonalTask, status)
         } else {
             val teamResult =
-                arguments?.getParcelable(TEAM_TASK_OBJECT, TeamTask::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    args?.getParcelable(TEAM_TASK_OBJECT)
+                } else {
+                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
+                }
             taskDetailsPresenter.updateTeamStatus(teamResult!!.idTeamTask, status)
         }
 
