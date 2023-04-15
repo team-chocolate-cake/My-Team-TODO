@@ -52,4 +52,8 @@
     <string name="error_validation_user_name_already_exists" >اسم المستخدم مستخدم بالفعل</string>
     <string name="fields_vaildation" >يرجى ملء جميع الحقول</string>
     <string name="add_new_task" >إضافة مهمة جديدة</string>
+    <string name="change_status_description">في أي مرحلة مهمتك حاليا؟</string>
+    <string name="failed_update">فشل تحديث الحالة!</string>
+    <string name="success_update">تم تحديث الحالة بنجاح!</string>
+    <string name="ok">حسنا</string>
 </resources>

@@ -51,4 +51,8 @@
     <string name="error_validation_user_name_already_exists" >Username, is already in use</string>
     <string name="fields_vaildation" >Fill all fields please</string>
     <string name="add_new_task" >add new task</string>
+    <string name="change_status_description">Which stage is this task currently in?</string>
+    <string name="failed_update">Failed to Update Status</string>
+    <string name="success_update">Status Updated Successfully</string>
+    <string name="ok">Ok</string>
 </resources>
