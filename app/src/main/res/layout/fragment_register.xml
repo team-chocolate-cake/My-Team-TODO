@@ -210,7 +210,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/text_view_login"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_register" />
 
     <TextView
         android:id="@+id/text_view_login"
@@ -218,13 +219,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_tiny"
-        android:layout_marginBottom="@dimen/spacing_giant"
         android:fontFamily="@font/lato"
         android:text="@string/login"
         android:textColor="@color/primary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/text_view_do_you_have_an_account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_view_do_you_have_an_account" />
+        app:layout_constraintStart_toEndOf="@+id/text_view_do_you_have_an_account"
+        app:layout_constraintTop_toTopOf="@+id/text_view_do_you_have_an_account" />
 
     <ProgressBar
         android:id="@+id/progress_bar_reload"
