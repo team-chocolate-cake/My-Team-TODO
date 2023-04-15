@@ -9,10 +9,8 @@
         android:id="@+id/fragment_container_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.chocolatecake.todoapp.ui.home.view.TaskDetailsFragment"
-        tools:layout="@layout/fragment_task_details"
-
-        />
+        android:name="com.chocolatecake.todoapp.ui.home.view.HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 
 
 

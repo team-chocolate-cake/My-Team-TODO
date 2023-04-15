@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TODOApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.TODOApp" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
@@ -99,7 +99,7 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
-    <style  name="TextStyle.BodySmall.TextStyleStatus" >
+    <style name="TextStyle.BodySmall.TextStyleStatus">
         <item name="android:background">@drawable/round_corner</item>
         <item name="android:textColor">@color/primary_container</item>
         <item name="android:paddingVertical" tools:targetApi="o">@dimen/spacing_small</item>
@@ -132,5 +132,24 @@
         <item name="tabIndicatorFullWidth">true</item>
         <item name="tabMode">fixed</item>
         <item name="tabTextColor">@color/on_background_87</item>
+    </style>
+
+    <style name="TextStyle.BodyMedium.TextInputEditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/on_background_60</item>
+        <item name="android:textColorHint">@color/on_background_60</item>
+        <item name="android:background">@drawable/selector_field</item>
+        <item name="android:drawableTint">@color/on_background_60</item>
+        <item name="boxBackgroundColor">@drawable/selector_field</item>
+    </style>
+
+    <style name="TextInputLayoutStyle">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="CircularShapeAppearanceOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>
