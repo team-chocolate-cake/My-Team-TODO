@@ -102,13 +102,14 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:src="@drawable/image_no_tasks"
         android:id="@+id/image_view_no_tasks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:scaleType="centerCrop"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
 
 
