@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
-import com.chocolatecake.todoapp.ui.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.util.navigateBack
@@ -34,25 +32,6 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
         getTask()
         addCallBack()
     }
-    /* private fun getTask() {
-         if (isPersonal) {
-             val personalResult =
-                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                     arguments?.getParcelable(PERSONAL_TASK_OBJECT, PersonalTask::class.java)
-                 } else {
-                     TODO("VERSION.SDK_INT < TIRAMISU")
-                 }
-             setDataPersonal(personalResult)
-         } else {
-             val teamResult =
-                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                     arguments?.getParcelable(TEAM_TASK_OBJECT, TeamTask::class.java)
-                 } else {
-                     TODO("VERSION.SDK_INT < TIRAMISU")
-                 }
-             setDataTeam(teamResult)
-         }
-     }*/
 
     private fun getTask() {
         val args = arguments
@@ -74,7 +53,6 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
             setDataTeam(teamResult)
         }
     }
-
 
     private fun getStatusByNum(num: Int): String {
         return when (num) {
@@ -171,7 +149,6 @@ class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDe
                 binding.textViewStatus.text = getStatusByNum(status)
             }
         }
-
     }
 
     companion object {

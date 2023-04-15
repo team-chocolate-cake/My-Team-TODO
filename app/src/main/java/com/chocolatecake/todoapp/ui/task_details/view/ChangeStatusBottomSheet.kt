@@ -13,7 +13,6 @@ class ChangeStatusBottomSheet(
     private val updateStatus: (status: Int) -> Unit,
     private val oldStatus: Int
 ) : BottomSheetDialogFragment() {
-
     private lateinit var binding: BottomSheetStatusChangeBinding
 
     override fun onCreateView(
@@ -50,6 +49,4 @@ class ChangeStatusBottomSheet(
         }
 
     }
-
-
 }
