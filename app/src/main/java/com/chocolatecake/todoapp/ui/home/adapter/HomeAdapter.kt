@@ -132,7 +132,8 @@ class HomeAdapter(
         private fun getColorStatus(status: Int, context: Context) = when (status) {
             0 -> ContextCompat.getColor(context, R.color.todo)
             1 -> ContextCompat.getColor(context, R.color.in_progress)
-            else -> ContextCompat.getColor(context, R.color.done_color)
+            2 -> ContextCompat.getColor(context, R.color.done_color)
+            else -> ContextCompat.getColor(context, R.color.error_color)
         }
 
     }

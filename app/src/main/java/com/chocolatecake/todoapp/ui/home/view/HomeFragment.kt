@@ -94,8 +94,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
             searchQuery = searchQuery.copy(status = getSelectedChips())
             if (isPersonal) {
                 presenter.searchPersonalTasks(searchQuery)
+                presenter.getPersonalStatusListCount()
             } else {
                 presenter.searchTeamTasks(searchQuery)
+                presenter.getTeamStatusListCount()
             }
         }
     }
