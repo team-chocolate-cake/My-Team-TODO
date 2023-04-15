@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+import com.chocolatecake.todoapp.core.data.model.response.TeamTask
 import com.chocolatecake.todoapp.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.core.util.navigateBack
 import com.chocolatecake.todoapp.core.util.showSnackbar
@@ -38,7 +40,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     args?.getParcelable(PERSONAL_TASK_OBJECT)
                 } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
                 }
             setDataPersonal(personalResult)
         } else {
@@ -46,7 +48,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     args?.getParcelable(TEAM_TASK_OBJECT)
                 } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? com.chocolatecake.todoapp.core.data.model.response.TeamTask
+                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
             setDataTeam(teamResult)
         }
@@ -77,7 +79,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     args?.getParcelable(PERSONAL_TASK_OBJECT)
                 } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
                 }
             ChangeStatusBottomSheet(::updateStatus, personalResult!!.statusPersonalTask)
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
@@ -86,7 +88,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     args?.getParcelable(TEAM_TASK_OBJECT)
                 } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? com.chocolatecake.todoapp.core.data.model.response.TeamTask
+                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
             ChangeStatusBottomSheet(::updateStatus, teamResult!!.statusTeamTask)
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
@@ -100,7 +102,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     args?.getParcelable(PERSONAL_TASK_OBJECT)
                 } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
                 }
             taskDetailsPresenter.updatePersonalStatus(personalResult!!.idPersonalTask, status)
         } else {
@@ -108,14 +110,14 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     args?.getParcelable(TEAM_TASK_OBJECT)
                 } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? com.chocolatecake.todoapp.core.data.model.response.TeamTask
+                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
             taskDetailsPresenter.updateTeamStatus(teamResult!!.idTeamTask, status)
         }
 
     }
 
-    override fun setDataTeam(result: com.chocolatecake.todoapp.core.data.model.response.TeamTask?) {
+    override fun setDataTeam(result: TeamTask?) {
         requireActivity().runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.titleTeamTask
@@ -127,7 +129,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         }
     }
 
-    override fun setDataPersonal(result: com.chocolatecake.todoapp.core.data.model.response.PersonalTask?) {
+    override fun setDataPersonal(result: PersonalTask?) {
         requireActivity().runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.titlePersonalTask
@@ -160,7 +162,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         private const val PERSONAL_TASK_OBJECT = "Personal_Task"
         private const val IS_PERSONAL = "Is_Personal"
         private const val BOTTOM_SHEET_DIALOG = "bottom sheet status"
-        fun newTeamInstance(teamTask: com.chocolatecake.todoapp.core.data.model.response.TeamTask) =
+        fun newTeamInstance(teamTask: TeamTask) =
             TaskDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(IS_PERSONAL, false)
@@ -169,7 +171,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
             }
 
 
-        fun newPersonalInstance(personalTask: com.chocolatecake.todoapp.core.data.model.response.PersonalTask) =
+        fun newPersonalInstance(personalTask: PersonalTask) =
             TaskDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(IS_PERSONAL, true)

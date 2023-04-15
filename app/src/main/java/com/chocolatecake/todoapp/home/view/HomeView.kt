@@ -1,12 +1,15 @@
 package com.chocolatecake.todoapp.home.view
 
+import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+import com.chocolatecake.todoapp.core.data.model.response.TeamTask
+
 interface HomeView {
     fun onAllTasksFailure(message: String?)
-    fun onTeamTasksSuccess(teamTasks: List<com.chocolatecake.todoapp.core.data.model.response.TeamTask>)
-    fun onPersonalTasksSuccess(personalTasks: List<com.chocolatecake.todoapp.core.data.model.response.PersonalTask>)
+    fun onTeamTasksSuccess(teamTasks: List<TeamTask>)
+    fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>)
     fun onUnauthorizedResponse()
 
-    fun onSearchTeamResultSuccess(teamTasks: List<com.chocolatecake.todoapp.core.data.model.response.TeamTask>)
-    fun onSearchPersonalResultSuccess(personalTasks: List<com.chocolatecake.todoapp.core.data.model.response.PersonalTask>)
+    fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>)
+    fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>)
     fun onStatusCountsSuccess(statusList: Triple<Int?, Int?, Int?>)
 }

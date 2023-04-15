@@ -11,6 +11,8 @@ import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
 import com.chocolatecake.todoapp.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+import com.chocolatecake.todoapp.core.data.model.response.TeamTask
 import com.chocolatecake.todoapp.home.adapter.HomeAdapter
 import com.chocolatecake.todoapp.home.model.HomeItem
 import com.chocolatecake.todoapp.home.model.SearchQuery
@@ -137,7 +139,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
 
-    override fun onTeamTasksSuccess(teamTasks: List<com.chocolatecake.todoapp.core.data.model.response.TeamTask>) {
+    override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
             showRecyclerView()
             if (teamTasks.isEmpty()){
@@ -147,7 +149,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         }
     }
 
-    override fun onPersonalTasksSuccess(personalTasks: List<com.chocolatecake.todoapp.core.data.model.response.PersonalTask>) {
+    override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
         runOnUi {
             showRecyclerView()
             if (personalTasks.isEmpty()){
@@ -161,7 +163,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         requireActivity().navigateExclusive(LoginFragment())
     }
 
-    override fun onSearchTeamResultSuccess(teamTasks: List<com.chocolatecake.todoapp.core.data.model.response.TeamTask>) {
+    override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
             showRecyclerView()
             if (teamTasks.isEmpty()){
@@ -173,7 +175,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         }
     }
 
-    override fun onSearchPersonalResultSuccess(personalTasks: List<com.chocolatecake.todoapp.core.data.model.response.PersonalTask>) {
+    override fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
         runOnUi {
@@ -211,26 +213,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         }
     }
 
-    private fun setUpTeamTasksRecyclerView(teamTasks: List<com.chocolatecake.todoapp.core.data.model.response.TeamTask>) {
+    private fun setUpTeamTasksRecyclerView(teamTasks: List<TeamTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(teamTasks.map { it.toHomeItem() })
         homeAdapter.updateList(itemsList)
     }
 
 
-    private fun setUpPersonalTasksRecyclerView(personalTasks: List<com.chocolatecake.todoapp.core.data.model.response.PersonalTask>) {
+    private fun setUpPersonalTasksRecyclerView(personalTasks: List<PersonalTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
         homeAdapter.updateList(itemsList)
     }
 
 
-    private fun onClickTeamTask(teamTask: com.chocolatecake.todoapp.core.data.model.response.TeamTask) {
+    private fun onClickTeamTask(teamTask: TeamTask) {
         val taskDetailsFragment = TaskDetailsFragment.newTeamInstance(teamTask)
         activity?.navigateTo(taskDetailsFragment)
     }
 
-    private fun onClickPersonalTask(personalTask: com.chocolatecake.todoapp.core.data.model.response.PersonalTask) {
+    private fun onClickPersonalTask(personalTask: PersonalTask) {
         val taskDetailsFragment = TaskDetailsFragment.newPersonalInstance(personalTask)
         activity?.navigateTo(taskDetailsFragment)
     }

@@ -10,14 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chocolatecake.todoapp.R
+import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
+import com.chocolatecake.todoapp.core.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.ItemTaskCardBinding
 import com.chocolatecake.todoapp.home.model.HomeItem
 import com.chocolatecake.todoapp.home.model.HomeItemType
 
 class HomeAdapter(
     private var itemsList: MutableList<HomeItem>,
-    private val onClickTeamTask: (com.chocolatecake.todoapp.core.data.model.response.TeamTask) -> Unit,
-    private val onClickPersonalTask: (com.chocolatecake.todoapp.core.data.model.response.PersonalTask) -> Unit,
+    private val onClickTeamTask: (TeamTask) -> Unit,
+    private val onClickPersonalTask: (PersonalTask) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun updateList(newItems: MutableList<HomeItem>) {
@@ -65,7 +67,7 @@ class HomeAdapter(
 
     class TeamTaskViewHolder(
         private val binding: ItemTaskCardBinding,
-        private val onClickTask: (com.chocolatecake.todoapp.core.data.model.response.TeamTask) -> Unit
+        private val onClickTask: (TeamTask) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HomeItem.TeamTaskItem) {
             with(item.teamTask) {
@@ -100,7 +102,7 @@ class HomeAdapter(
 
     class PersonalTaskViewHolder(
         private val binding: ItemTaskCardBinding,
-        private val onClickTask: (com.chocolatecake.todoapp.core.data.model.response.PersonalTask) -> Unit
+        private val onClickTask: (PersonalTask) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HomeItem.PersonalTaskItem) {
             with(item.personalTask) {

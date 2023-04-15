@@ -10,6 +10,9 @@ import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.register.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.model.request.UserRequest
+import com.chocolatecake.todoapp.core.data.model.response.LoginResponse
+import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.core.util.getUsernameStatus
 import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.show
@@ -114,7 +117,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     private fun onClickRegisterButton() {
         binding.buttonRegister.setOnClickListener { buttonRegister ->
             if (validationUserName && validationPassword && validationConfirmPassword) {
-                val newUser = com.chocolatecake.todoapp.core.data.model.request.UserRequest(
+                val newUser = UserRequest(
                     binding.textInputEditTextLayoutUsername.text.toString(),
                     binding.textInputEditTextPassword.text.toString()
                 )
@@ -141,7 +144,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    override fun onRegisterSuccess(response: com.chocolatecake.todoapp.core.data.model.response.RegisterResponse) {
+    override fun onRegisterSuccess(response: RegisterResponse) {
         activity?.apply {
             runOnUiThread {
                 binding.progressBarReload.hide()
@@ -159,7 +162,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    override fun onLoginSuccess(response: com.chocolatecake.todoapp.core.data.model.response.LoginResponse) {
+    override fun onLoginSuccess(response: LoginResponse) {
         activity?.apply {
             runOnUiThread {
                 binding.progressBarReload.hide()

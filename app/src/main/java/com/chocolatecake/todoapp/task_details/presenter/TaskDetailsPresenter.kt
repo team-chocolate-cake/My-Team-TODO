@@ -1,6 +1,8 @@
 package com.chocolatecake.todoapp.task_details.presenter
 
 import android.content.Context
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
+import com.chocolatecake.todoapp.core.data.model.response.UpdateResponse
 import com.chocolatecake.todoapp.core.data.network.services.personal.PersonalTaskService
 import com.chocolatecake.todoapp.core.data.network.services.team.TeamTaskService
 import com.chocolatecake.todoapp.task_details.view.TaskDetailsView
@@ -10,8 +12,8 @@ import okhttp3.Response
 
 class TaskDetailsPresenter(private val context: Context) {
     lateinit var taskDetailsView: TaskDetailsView
-    private val sharedPreferences: com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences by lazy {
-        com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences().also { it.initPreferences(context) }
+    private val sharedPreferences: TaskSharedPreferences by lazy {
+        TaskSharedPreferences().also { it.initPreferences(context) }
     }
     private val personalTaskService: PersonalTaskService by lazy {
         PersonalTaskService(sharedPreferences)
@@ -39,7 +41,7 @@ class TaskDetailsPresenter(private val context: Context) {
     }
     private fun updateStatus(response:Response,status: Int){
         val body = response.body?.string().toString()
-        val updatedResponse = Gson().fromJson(body, com.chocolatecake.todoapp.core.data.model.response.UpdateResponse::class.java)
+        val updatedResponse = Gson().fromJson(body, UpdateResponse::class.java)
         if (updatedResponse.isSuccess) {
             taskDetailsView.onUpdateSuccess(status)
         } else {

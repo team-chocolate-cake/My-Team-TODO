@@ -1,11 +1,13 @@
 package com.chocolatecake.todoapp.core.data.network.services.personal
 
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
+import com.chocolatecake.todoapp.core.data.model.request.PersonalTaskRequest
 import com.chocolatecake.todoapp.core.data.network.services.HttpClient
 import com.chocolatecake.todoapp.core.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.core.data.network.services.utils.Utils
 import okhttp3.*
 
-class PersonalTaskService(private val preferences: com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences): BaseService() {
+class PersonalTaskService(private val preferences: TaskSharedPreferences): BaseService() {
     override val client: OkHttpClient by lazy {
         HttpClient(preferences).getClient()
     }
@@ -22,7 +24,7 @@ class PersonalTaskService(private val preferences: com.chocolatecake.todoapp.cor
     }
 
     fun createTask(
-        personTaskRequest: com.chocolatecake.todoapp.core.data.model.request.PersonalTaskRequest,
+        personTaskRequest: PersonalTaskRequest,
         onFailure: (message: String?) -> Unit,
         onSuccess: (response: Response) -> Unit
     ) {

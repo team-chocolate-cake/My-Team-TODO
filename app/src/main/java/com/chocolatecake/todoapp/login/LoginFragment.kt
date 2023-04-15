@@ -8,6 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.home.view.HomeFragment
 import com.chocolatecake.todoapp.login.presenter.LoginPresenter
@@ -35,7 +36,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     private fun onClickLoginButton() {
         binding.buttonLogin.setOnClickListener {
-            val userRequest = com.chocolatecake.todoapp.core.data.model.request.UserRequest(
+            val userRequest = UserRequest(
                 username = binding.editTextUsername.text.toString().trim(),
                 password = binding.editTextInputPassword.text.toString().trim(),
             )

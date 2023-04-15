@@ -9,18 +9,18 @@ class TaskSharedPreferences {
 
     var token: String?
         set(value) {
-            preferences.edit().putString(com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences.Companion.TOKEN, value).apply()
+            preferences.edit().putString(TOKEN, value).apply()
         }
-        get() = preferences.getString(com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences.Companion.TOKEN, null)
+        get() = preferences.getString(TOKEN, null)
 
     var expireDate: String?
         set(value) {
-            preferences.edit().putString(com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences.Companion.EXPIRE_DATE, value).apply()
+            preferences.edit().putString(EXPIRE_DATE, value).apply()
         }
-        get() = preferences.getString(com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences.Companion.EXPIRE_DATE, null)
+        get() = preferences.getString(EXPIRE_DATE, null)
 
     fun initPreferences(context: Context) {
-        preferences = context.getSharedPreferences(com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences.Companion.TOKEN, MODE_PRIVATE)
+        preferences = context.getSharedPreferences(TOKEN, MODE_PRIVATE)
     }
 
     companion object{

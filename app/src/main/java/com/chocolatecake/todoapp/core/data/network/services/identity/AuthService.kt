@@ -1,6 +1,7 @@
 package com.chocolatecake.todoapp.core.data.network.services.identity
 
 import com.chocolatecake.todoapp.BuildConfig
+import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.core.data.network.services.utils.Utils.getUrl
 import okhttp3.*
@@ -16,7 +17,7 @@ class AuthService: BaseService() {
     }
 
     fun login(
-        userRequest: com.chocolatecake.todoapp.core.data.model.request.UserRequest, onFailure: (message: String?) -> Unit,
+        userRequest: UserRequest, onFailure: (message: String?) -> Unit,
         onSuccess: (response: Response) -> Unit,
     ) {
         val request = Request.Builder()
@@ -30,7 +31,7 @@ class AuthService: BaseService() {
     }
 
     fun register(
-        userRequest: com.chocolatecake.todoapp.core.data.model.request.UserRequest, onFailure: (message: String?) -> Unit,
+        userRequest: UserRequest, onFailure: (message: String?) -> Unit,
         onSuccess: (response: Response?) -> Unit,
     ) {
         val teamId = BuildConfig.API_KEY
