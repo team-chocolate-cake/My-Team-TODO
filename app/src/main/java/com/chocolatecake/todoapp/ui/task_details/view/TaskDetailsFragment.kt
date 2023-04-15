@@ -10,6 +10,7 @@ import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.model.response.TeamTask
 import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.ui.home.adapter.HomeAdapter
 import com.chocolatecake.todoapp.ui.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.util.navigateBack
 import com.chocolatecake.todoapp.util.showSnackbar
@@ -123,6 +124,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 textViewTitle.text = result?.titleTeamTask
                 textViewAssignee.text = result?.assignee
                 textViewDescription.text = result?.descriptionTeamTask
+                textViewDate.text = result?.creationTime?.let { getDate(it) }
                 textViewStatus.text = result?.statusTeamTask?.let { getStatusByNum(it) }
             }
         }
@@ -133,9 +135,14 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
             with(binding) {
                 textViewTitle.text = result?.titlePersonalTask
                 textViewDescription.text = result?.descriptionPersonalTask
+                textViewDate.text = result?.creationTime?.let { getDate(it) }
                 textViewStatus.text = result?.statusPersonalTask?.let { getStatusByNum(it) }
             }
         }
+    }
+
+    private fun getDate(creationTime: String): String {
+        return creationTime.split("T").first()
     }
 
     override fun onUpdateFailure() {

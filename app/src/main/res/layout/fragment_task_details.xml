@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:id="@+id/fragment_details"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
-    >
+    android:id="@+id/fragment_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appbar"
@@ -39,11 +38,11 @@
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_small"
         android:fontFamily="@font/lato"
-        tools:text="@tools:sample/lorem"
         android:textColor="@color/on_background_87"
         android:textSize="@dimen/text_medium"
         android:textStyle="normal"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_date" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_date"
+        tools:text="@tools:sample/lorem" />
 
     <TextView
         android:id="@+id/text_view_assignee"
@@ -61,16 +60,17 @@
         tools:text="@tools:sample/lorem" />
 
     <TextView
-        android:clickable="true"
         android:id="@+id/text_view_status"
+        style="@style/TextStyle.BodySmall.TextStyleStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/text_large"
-        style="@style/TextStyle.BodySmall.TextStyleStatus"
-        tools:text="@string/status_todo"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_assignee" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_assignee"
+        tools:text="@string/status_todo" />
 
     <TextView
         android:id="@+id/text_view_description"

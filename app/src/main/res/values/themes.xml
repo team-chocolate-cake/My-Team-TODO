@@ -11,7 +11,8 @@
         <item name="android:statusBarColor">@color/appbar_color</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Splash Screen-->
-        <item name="android:windowSplashscreenContent" tools:targetApi="s">@drawable/splash_logo</item>
+        <item name="android:windowSplashscreenContent" tools:targetApi="s">@drawable/splash_logo
+        </item>
     </style>
 
     <style name="TextStyle">
@@ -101,11 +102,12 @@
 
     <style name="TextStyle.BodySmall.TextStyleStatus">
         <item name="android:background">@drawable/round_corner</item>
-        <item name="android:textColor">@color/primary_container</item>
+        <item name="android:textColor">@color/on_primary</item>
         <item name="android:paddingVertical" tools:targetApi="o">@dimen/spacing_small</item>
         <item name="android:drawablePadding">@dimen/spacing_small</item>
         <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/spacing_medium</item>
         <item name="drawableLeftCompat">@drawable/ic_pen</item>
+        <item name="drawableTint">@color/on_primary</item>
     </style>
 
     <style name="TextStyle.BodyMedium.SearchBoxStyle">
