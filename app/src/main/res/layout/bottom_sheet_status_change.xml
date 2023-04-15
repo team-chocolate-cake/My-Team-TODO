@@ -37,6 +37,7 @@
                 android:textColor="@color/on_background_38" />
 
             <ImageButton
+                android:id="@+id/button_confirm_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -51,9 +52,12 @@
             android:background="@color/background"
             android:orientation="vertical"
             app:selectionRequired="true"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            android:id="@+id/toggle_group_statuses"
+            >
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_todo"
                 style="@style/Widget.Material3.Button.TextButton.ToggleButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,6 +75,7 @@
                 android:background="@color/on_background_38" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_in_progress"
                 style="@style/Widget.Material3.Button.TextButton.ToggleButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,6 +92,7 @@
                 android:background="@color/on_background_38" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_done"
                 style="@style/Widget.Material3.Button.TextButton.ToggleButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

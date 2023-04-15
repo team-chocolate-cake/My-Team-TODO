@@ -58,6 +58,7 @@
         tools:text="@tools:sample/lorem" />
 
     <TextView
+        android:clickable="true"
         android:id="@+id/text_view_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
