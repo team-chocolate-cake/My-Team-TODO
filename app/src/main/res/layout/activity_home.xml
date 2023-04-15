@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.HomeActivity">
+    tools:context=".HomeActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.chocolatecake.todoapp.ui.home.view.HomeFragment"
+        android:name="com.chocolatecake.todoapp.home.view.HomeFragment"
         tools:layout="@layout/fragment_home"/>
 
 
