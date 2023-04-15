@@ -33,7 +33,7 @@
     <string name="username" tools:ignore="MissingTranslation">Username</string>
     <string name="confirm_password" tools:ignore="MissingTranslation">Confirm Password</string>
     <string name="welcome" tools:ignore="MissingTranslation">Welcome to TickTask</string>
-    <string name="status_todo" tools:ignore="MissingTranslation">TO DO</string>
+    <string name="status_todo" tools:ignore="MissingTranslation">To Do</string>
     <string name="status_inprogress" tools:ignore="MissingTranslation">In Progress</string>
     <string name="status_done" tools:ignore="MissingTranslation">Done</string>
     <string name="tiltle_task" tools:ignore="MissingTranslation">Task Details</string>
@@ -52,4 +52,5 @@
     <string name="error_validation_user_name_already_exists" tools:ignore="MissingTranslation">Username, is already in use</string>
     <string name="fields_vaildation" tools:ignore="MissingTranslation">Fill all fields please</string>
     <string name="add_new_task" tools:ignore="MissingTranslation">add new task</string>
+    <string name="change_status_description">Which stage is this task currently in?</string>
 </resources>
