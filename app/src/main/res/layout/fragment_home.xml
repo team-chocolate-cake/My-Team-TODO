@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_giant"
         android:layout_marginTop="@dimen/spacing_medium"
+        android:clipToPadding="false"
         android:background="@color/appbar_color"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
@@ -49,11 +50,13 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <LinearLayout
+    <HorizontalScrollView
         android:id="@+id/layout_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_medium"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:padding="@dimen/spacing_medium"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +66,6 @@
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
             app:selectionRequired="true"
             app:singleLine="true">
 
@@ -95,7 +97,60 @@
                 tools:text="5 Done" />
 
         </com.google.android.material.chip.ChipGroup>
-    </LinearLayout>
+    </HorizontalScrollView>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/image_no_tasks"
+        android:id="@+id/image_view_no_tasks_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_no_tasks_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view_no_tasks_result"
+        android:text="No Tasks Results"
+        style="@style/TextStyle.BodyMedium"
+        android:textColor="@color/on_background_38"
+        android:visibility="gone"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:id="@+id/lottie_no_network"
+        app:lottie_rawRes="@raw/nonetwork"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="96dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="invisible"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_no_network"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lottie_no_network"
+        android:text="No Network Connection"
+        style="@style/TextStyle.BodyMedium"
+        android:textColor="@color/on_background_38"
+        android:visibility="gone"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -107,7 +162,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_filters"
-        app:spanCount="10"
         tools:listitem="@layout/item_task_card" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -117,12 +171,18 @@
         android:layout_marginEnd="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_extra_giant"
         android:backgroundTint="@color/primary"
-        app:shapeAppearanceOverlay="@style/CircularShapeAppearanceOverlay"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/on_primary"
-        android:contentDescription="@string/add_new_task" />
+        app:tint="@color/on_primary" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/group_no_network"
+        android:visibility="gone"
+        app:constraint_referenced_ids="text_view_no_network,lottie_no_network,image_view_no_tasks_result,text_view_no_tasks_result"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

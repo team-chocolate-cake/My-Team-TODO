@@ -1,11 +1,9 @@
 package com.chocolatecake.todoapp.ui.home.view
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
@@ -25,11 +23,10 @@ import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.ui.task_details.view.TaskDetailsFragment
 import com.chocolatecake.todoapp.util.navigateExclusive
 import com.chocolatecake.todoapp.util.navigateTo
-import com.chocolatecake.todoapp.util.showSnackbar
+import com.chocolatecake.todoapp.util.show
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -99,8 +96,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
             searchQuery = searchQuery.copy(status = getSelectedChips())
             if (isPersonal) {
                 presenter.searchPersonalTasks(searchQuery)
+                presenter.getPersonalStatusListCount()
             } else {
                 presenter.searchTeamTasks(searchQuery)
+                presenter.getTeamStatusListCount()
             }
         }
     }
@@ -116,17 +115,45 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onAllTasksFailure(message: String?) {
-        requireActivity().showSnackbar(message = message, binding.root)
+        runOnUi { showNoNetworkError() }
     }
+
+    private fun showNoTasksError() {
+        binding.recyclerView.hide()
+        binding.imageViewNoTasksResult.show()
+        binding.textViewNoTasksResult.show()
+    }
+
+    private fun showNoNetworkError() {
+        binding.recyclerView.hide()
+        binding.imageViewNoTasksResult.hide()
+        binding.lottieNoNetwork.show()
+        binding.textViewNoNetwork.show()
+
+    }
+
+    private fun showRecyclerView() {
+        binding.groupNoNetwork.hide()
+        binding.recyclerView.show()
+    }
+
 
     override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
+            showRecyclerView()
+            if (teamTasks.isEmpty()){
+                showNoTasksError()
+            }
             setUpTeamTasksRecyclerView(teamTasks)
         }
     }
 
     override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
         runOnUi {
+            showRecyclerView()
+            if (personalTasks.isEmpty()){
+                showNoTasksError()
+            }
             setUpPersonalTasksRecyclerView(personalTasks)
         }
     }
@@ -137,6 +164,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
 
     override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
+            showRecyclerView()
+            if (teamTasks.isEmpty()){
+                showNoTasksError()
+            }
             val itemsList: MutableList<HomeItem> = mutableListOf()
             itemsList.addAll(teamTasks.map { it.toHomeItem() })
             homeAdapter.updateList(itemsList)
@@ -146,11 +177,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
-        runOnUi { homeAdapter.updateList(itemsList) }
+        runOnUi {
+            showRecyclerView()
+            if (personalTasks.isEmpty()){
+                showNoTasksError()
+            }
+            homeAdapter.updateList(itemsList)
+        }
     }
 
     override fun onStatusCountsSuccess(statusList: Triple<Int?, Int?, Int?>) {
-        runOnUi { updateChipsStatus(statusList) }
+        runOnUi {
+            showRecyclerView()
+            updateChipsStatus(statusList)
+        }
     }
 
     private fun updateChipsStatus(tasksCount: Triple<Int?, Int?, Int?>) {
