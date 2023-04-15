@@ -21,6 +21,7 @@ import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
 import com.chocolatecake.todoapp.ui.login.LoginFragment
 import com.chocolatecake.todoapp.ui.task_details.view.TaskDetailsFragment
+import com.chocolatecake.todoapp.util.hide
 import com.chocolatecake.todoapp.util.navigateExclusive
 import com.chocolatecake.todoapp.util.navigateTo
 import com.chocolatecake.todoapp.util.show
