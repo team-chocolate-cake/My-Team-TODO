@@ -14,21 +14,33 @@
         app:navigationIconTint="@color/on_primary_container_87"
         app:title="@string/tiltle_task"
         app:titleTextAppearance="@style/TextStyle.TitleMedium"
-        app:titleTextColor="@color/on_primary_container_87"
-         />
+        app:titleTextColor="@color/on_primary_container_87" />
+
+    <TextView
+        android:id="@+id/text_view_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:textColor="@color/on_background_38"
+        android:textSize="@dimen/text_semi_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        tools:text="@tools:sample/date/ddmmyy" />
 
     <TextView
         android:id="@+id/text_view_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_medium"
-        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_small"
         android:fontFamily="@font/lato"
         tools:text="@tools:sample/lorem"
         android:textColor="@color/on_background_87"
         android:textSize="@dimen/text_medium"
         android:textStyle="normal"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_date" />
 
     <TextView
         android:id="@+id/text_view_assignee"
@@ -54,8 +66,7 @@
         style="@style/TextStyle.BodySmall.TextStyleStatus"
         tools:text="@string/status_todo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_assignee"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_assignee" />
 
     <TextView
         android:id="@+id/text_view_description"
