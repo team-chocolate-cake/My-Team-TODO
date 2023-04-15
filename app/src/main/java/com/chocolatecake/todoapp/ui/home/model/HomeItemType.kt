@@ -1,7 +1,7 @@
 package com.chocolatecake.todoapp.ui.home.model
 
-import com.chocolatecake.todoapp.data.model.response.PersonalTask
-import com.chocolatecake.todoapp.data.model.response.TeamTask
+import com.chocolatecake.todoapp.data.model.response.personal.PersonalTask
+import com.chocolatecake.todoapp.data.model.response.team.TeamTask
 
 sealed class HomeItem(val type: HomeItemType) {
 

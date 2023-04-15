@@ -8,8 +8,8 @@ import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.data.model.response.PersonalTask
-import com.chocolatecake.todoapp.data.model.response.TeamTask
+import com.chocolatecake.todoapp.data.model.response.personal.PersonalTask
+import com.chocolatecake.todoapp.data.model.response.team.TeamTask
 import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
 import com.chocolatecake.todoapp.ui.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
@@ -19,7 +19,7 @@ import com.chocolatecake.todoapp.ui.home.model.SearchQuery
 import com.chocolatecake.todoapp.ui.home.model.Status
 import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
-import com.chocolatecake.todoapp.ui.login.LoginFragment
+import com.chocolatecake.todoapp.ui.login.view.LoginFragment
 import com.chocolatecake.todoapp.util.navigateExclusive
 import com.chocolatecake.todoapp.util.navigateTo
 import com.chocolatecake.todoapp.util.showSnackbar

@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.data.model.request.UserRequest
-import com.chocolatecake.todoapp.data.model.response.LoginResponse
 import com.chocolatecake.todoapp.data.model.response.RegisterResponse
+import com.chocolatecake.todoapp.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.data.model.response.identity.LoginResponse
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.ui.register.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.ui.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.ui.home.view.HomeFragment
-import com.chocolatecake.todoapp.ui.login.LoginFragment
+import com.chocolatecake.todoapp.ui.login.view.LoginFragment
 import com.chocolatecake.todoapp.util.*
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
@@ -158,7 +159,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    override fun onLoginSuccess(response: LoginResponse) {
+    override fun onLoginSuccess(response: BaseResponse<LoginResponse>) {
         activity?.apply {
             runOnUiThread {
                 binding.progressBarReload.hide()

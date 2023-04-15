@@ -3,10 +3,13 @@ package com.chocolatecake.todoapp.ui.login.presenter
 import android.content.Context
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.data.model.request.UserRequest
-import com.chocolatecake.todoapp.data.model.response.LoginResponse
+import com.chocolatecake.todoapp.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.data.model.response.identity.LoginResponse
 import com.chocolatecake.todoapp.data.network.services.identity.AuthService
-import com.chocolatecake.todoapp.ui.login.LoginView
+import com.chocolatecake.todoapp.ui.login.view.LoginView
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 class LoginPresenter(
     private val view: LoginView,
@@ -26,20 +29,18 @@ class LoginPresenter(
                 view.onFailure("Pleas check connection with internet")
             },
             onSuccess = {
-                val loginResponse = Gson().fromJson(it.body?.string().toString(), LoginResponse::class.java)
+                val type: Type = object : TypeToken<BaseResponse<LoginResponse>>() {}.type
+                val loginResponse = Gson().fromJson<BaseResponse<LoginResponse>>(it.body?.string().toString(), type)
                 checkSuccessResponse(loginResponse)
             },
         )
     }
 
-    private fun checkSuccessResponse(loginResponse: LoginResponse) {
+    private fun checkSuccessResponse(loginResponse: BaseResponse<LoginResponse>) {
         if (loginResponse.isSuccess) {
             view.onSuccessLogin()
 
-            preferences.apply {
-                initPreferences(context = context)
-                token = loginResponse.value?.token
-            }
+            preferences.token = loginResponse.value?.token
         } else {
             view.onFailure(loginResponse.message)
         }

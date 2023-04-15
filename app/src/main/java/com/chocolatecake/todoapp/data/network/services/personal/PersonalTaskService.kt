@@ -2,7 +2,6 @@ package com.chocolatecake.todoapp.data.network.services.personal
 
 import com.chocolatecake.todoapp.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.data.model.request.PersonalTaskRequest
-import com.chocolatecake.todoapp.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.data.network.services.HttpClient
 import com.chocolatecake.todoapp.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.data.network.services.utils.Utils
