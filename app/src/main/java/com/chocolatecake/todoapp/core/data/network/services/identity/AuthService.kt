@@ -1,8 +1,8 @@
 package com.chocolatecake.todoapp.core.data.network.services.identity
 
 import com.chocolatecake.todoapp.BuildConfig
-import com.chocolatecake.todoapp.data.network.services.base.BaseService
-import com.chocolatecake.todoapp.data.network.services.utils.Utils.getUrl
+import com.chocolatecake.todoapp.core.data.network.services.base.BaseService
+import com.chocolatecake.todoapp.core.data.network.services.utils.Utils.getUrl
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 

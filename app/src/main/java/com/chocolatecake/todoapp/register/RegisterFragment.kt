@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.core.core.util.*
+import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.register.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.base.fragment.BaseFragment

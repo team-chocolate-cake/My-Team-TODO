@@ -1,8 +1,8 @@
 package com.chocolatecake.todoapp.core.data.network.services.personal
 
-import com.chocolatecake.todoapp.data.network.services.HttpClient
-import com.chocolatecake.todoapp.data.network.services.base.BaseService
-import com.chocolatecake.todoapp.data.network.services.utils.Utils
+import com.chocolatecake.todoapp.core.data.network.services.HttpClient
+import com.chocolatecake.todoapp.core.data.network.services.base.BaseService
+import com.chocolatecake.todoapp.core.data.network.services.utils.Utils
 import okhttp3.*
 
 class PersonalTaskService(private val preferences: com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences): BaseService() {

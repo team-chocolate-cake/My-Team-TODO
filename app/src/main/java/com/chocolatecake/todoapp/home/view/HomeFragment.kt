@@ -20,8 +20,8 @@ import com.chocolatecake.todoapp.home.utils.toHomeItem
 import com.chocolatecake.todoapp.login.LoginFragment
 import com.chocolatecake.todoapp.task_details.view.TaskDetailsFragment
 import com.chocolatecake.todoapp.core.util.hide
-import com.chocolatecake.todoapp.core.core.util.navigateExclusive
-import com.chocolatecake.todoapp.core.core.util.navigateTo
+import com.chocolatecake.todoapp.core.util.navigateExclusive
+import com.chocolatecake.todoapp.core.util.navigateTo
 import com.chocolatecake.todoapp.core.util.show
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
