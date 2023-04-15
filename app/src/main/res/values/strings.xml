@@ -1,55 +1,54 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">TickTask</string>
-    <string name="title_text" tools:ignore="MissingTranslation">Title</string>
-    <string name="assignee_text" tools:ignore="MissingTranslation">Assignee</string>
-    <string name="description_text" tools:ignore="MissingTranslation">Description</string>
-    <string name="done" tools:ignore="MissingTranslation">Done</string>
-    <string name="title_add_new_personal_task" tools:ignore="MissingTranslation">Add New Personal Task</string>
-    <string name="title_add_new_team_task" tools:ignore="MissingTranslation">Add New Team Task</string>
-    <string name="welcome_back_to_ticktask" tools:ignore="MissingTranslation">Welcome back to TickTask</string>
-    <string name="login_description" tools:ignore="MissingTranslation">organize your brain and your team</string>
-    <string name="username_label_login" tools:ignore="MissingTranslation">Username</string>
-    <string name="password_label_field" tools:ignore="MissingTranslation">Password</string>
-    <string name="login_text" tools:ignore="MissingTranslation">Login</string>
-    <string name="you_don_t_have_an_account" tools:ignore="MissingTranslation">you don\'t have an account ?</string>
-    <string name="register" tools:ignore="MissingTranslation">Register</string>
-    <string name="are_you_sure" tools:ignore="MissingTranslation">Are You Sure ?</string>
-    <string name="question_description_personal" tools:ignore="MissingTranslation">this will be added to your personal tasks.</string>
-    <string name="confirm" tools:ignore="MissingTranslation">Confirm</string>
-    <string name="cancel" tools:ignore="MissingTranslation">Cancel</string>
-    <string name="login" tools:ignore="MissingTranslation">Login</string>
-    <string name="do_you_have_an_account" tools:ignore="MissingTranslation">Do you have an account ?</string>
-    <string name="password_validate" tools:ignore="MissingTranslation">Password must be at least 8 characters long</string>
-    <string name="username_validate" tools:ignore="MissingTranslation">Username must be at least 3 characters long</string>
-    <string name="password" tools:ignore="MissingTranslation">Password</string>
-    <string name="orginize_your_brain_and_your_team" tools:ignore="MissingTranslation">Organize your brain and your team</string>
-    <string name="hello_blank_fragment" tools:ignore="MissingTranslation">Hello blank fragment</string>
-    <string name="search" tools:ignore="MissingTranslation">search</string>
-    <string name="team" tools:ignore="MissingTranslation">Team</string>
-    <string name="personal" tools:ignore="MissingTranslation">Personal</string>
-    <string name="to_do_task" tools:ignore="MissingTranslation">%1$d To Do</string>
-    <string name="in_progress_task" tools:ignore="MissingTranslation">%1$d In Progress</string>
-    <string name="done_task" tools:ignore="MissingTranslation">%1$d Done</string>
-    <string name="username" tools:ignore="MissingTranslation">Username</string>
-    <string name="confirm_password" tools:ignore="MissingTranslation">Confirm Password</string>
-    <string name="welcome" tools:ignore="MissingTranslation">Welcome to TickTask</string>
-    <string name="status_todo" tools:ignore="MissingTranslation">TO DO</string>
-    <string name="status_inprogress" tools:ignore="MissingTranslation">In Progress</string>
-    <string name="status_done" tools:ignore="MissingTranslation">Done</string>
-    <string name="tiltle_task" tools:ignore="MissingTranslation">Task Details</string>
-    <string name="please_fill_fields"  tools:ignore="MissingTranslation">please fill all fields</string>
-    <string name="question_description_team" translatable="false">this will be added to your team tasks</string>
-    <string name="username_cannot_be_empty" tools:ignore="MissingTranslation">Username cannot be empty</string>
-    <string name="password_cannot_be_empty" tools:ignore="MissingTranslation">Password cannot be empty</string>
-    <string name="confirm_password_cannot_be_empty" tools:ignore="MissingTranslation">Confirm password cannot be empty</string>
-    <string name="no_internet_connection" tools:ignore="MissingTranslation">no internet connection</string>
-    <string name="error_validation_password_text_length" tools:ignore="MissingTranslation">Please should be greater than 8 character</string>
-    <string name="error_validation_user_name_special" tools:ignore="MissingTranslation">Should don\'t have special %$@..</string>
-    <string name="error_validation_user_name_space" tools:ignore="MissingTranslation">Should don\'t have space</string>
-    <string name="error_validation_user_name_start_with_digit" tools:ignore="MissingTranslation">Should not start with number</string>
-    <string name="error_validation_user_name_should_grater_the_limit" tools:ignore="MissingTranslation">Should length greater than 3</string>
-    <string name="error_validation_confirm_password_mismatch" tools:ignore="MissingTranslation">The password mismatch</string>
-    <string name="error_validation_user_name_already_exists" tools:ignore="MissingTranslation">Username, is already in use</string>
-    <string name="fields_vaildation" tools:ignore="MissingTranslation">Fill all fields please</string>
-    <string name="add_new_task" tools:ignore="MissingTranslation">add new task</string>
+    <string name="title_text" >Title</string>
+    <string name="assignee_text" >Assignee</string>
+    <string name="description_text" >Description</string>
+    <string name="done" >Done</string>
+    <string name="title_add_new_personal_task" >Add New Personal Task</string>
+    <string name="title_add_new_team_task" >Add New Team Task</string>
+    <string name="welcome_back_to_ticktask" >Welcome back to TickTask</string>
+    <string name="login_description" >organize your brain and your team</string>
+    <string name="username_label_login" >Username</string>
+    <string name="password_label_field" >Password</string>
+    <string name="login_text" >Login</string>
+    <string name="you_don_t_have_an_account" >you don\'t have an account ?</string>
+    <string name="register" >Register</string>
+    <string name="are_you_sure" >Are You Sure ?</string>
+    <string name="question_description_personal" >this will be added to your personal tasks.</string>
+    <string name="confirm" >Confirm</string>
+    <string name="cancel" >Cancel</string>
+    <string name="login" >Login</string>
+    <string name="do_you_have_an_account" >Do you have an account ?</string>
+    <string name="password_validate" >Password must be at least 8 characters long</string>
+    <string name="username_validate" >Username must be at least 4 characters long</string>
+    <string name="password" >Password</string>
+    <string name="orginize_your_brain_and_your_team" >Organize your brain and your team</string>
+    <string name="search" >search</string>
+    <string name="team" >Team</string>
+    <string name="personal" >Personal</string>
+    <string name="to_do_task" >%1$d To Do</string>
+    <string name="in_progress_task" >%1$d In Progress</string>
+    <string name="done_task" >%1$d Done</string>
+    <string name="username" >Username</string>
+    <string name="confirm_password" >Confirm Password</string>
+    <string name="welcome" >Welcome to TickTask</string>
+    <string name="status_todo" >TO DO</string>
+    <string name="status_inprogress" >In Progress</string>
+    <string name="status_done" >Done</string>
+    <string name="title_task" >Task Details</string>
+    <string name="please_fill_fields"  >please fill all fields</string>
+    <string name="question_description_team" >this will be added to your team tasks</string>
+    <string name="username_cannot_be_empty" >Username cannot be empty</string>
+    <string name="password_cannot_be_empty" >Password cannot be empty</string>
+    <string name="confirm_password_cannot_be_empty" >Confirm password cannot be empty</string>
+    <string name="no_internet_connection" >no internet connection</string>
+    <string name="error_validation_password_text_length" >Please should be greater than 8 character</string>
+    <string name="error_validation_user_name_special" >Should don\'t have special %$@..</string>
+    <string name="error_validation_user_name_space" >Should don\'t have space</string>
+    <string name="error_validation_user_name_start_with_digit" >Should not start with number</string>
+    <string name="error_validation_user_name_should_grater_the_limit" >Should length greater than 3</string>
+    <string name="error_validation_confirm_password_mismatch" >The password mismatch</string>
+    <string name="error_validation_user_name_already_exists" >Username, is already in use</string>
+    <string name="fields_vaildation" >Fill all fields please</string>
+    <string name="add_new_task" >add new task</string>
 </resources>
