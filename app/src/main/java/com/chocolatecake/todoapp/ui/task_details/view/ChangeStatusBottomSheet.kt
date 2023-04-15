@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.databinding.BottomSheetConfirmationBinding
 import com.chocolatecake.todoapp.databinding.BottomSheetStatusChangeBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

@@ -14,7 +14,7 @@ import com.chocolatecake.todoapp.ui.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.util.navigateBack
 import com.chocolatecake.todoapp.util.showSnackbar
 
-class TaskDetailsFragment() : BaseFragment<FragmentTaskDetailsBinding>(), TaskDetailsView {
+class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDetailsView {
     private val isPersonal by lazy {
         arguments?.getBoolean(IS_PERSONAL, true)!!
     }
