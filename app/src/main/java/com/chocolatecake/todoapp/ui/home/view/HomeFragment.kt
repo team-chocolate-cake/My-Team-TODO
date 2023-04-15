@@ -1,6 +1,7 @@
 package com.chocolatecake.todoapp.ui.home.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +21,7 @@ import com.chocolatecake.todoapp.ui.home.model.Status
 import com.chocolatecake.todoapp.ui.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.ui.home.utils.toHomeItem
 import com.chocolatecake.todoapp.ui.login.LoginFragment
-import com.chocolatecake.todoapp.util.hide
-import com.chocolatecake.todoapp.util.navigateExclusive
-import com.chocolatecake.todoapp.util.navigateTo
-import com.chocolatecake.todoapp.util.showSnackbar
+import com.chocolatecake.todoapp.util.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 
@@ -113,21 +111,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onAllTasksFailure(message: String?) {
-        showNoNetworkError()
+        runOnUi { showNoNetworkError() }
     }
-     private fun showNoNetworkError(){
-         binding.recyclerView.hide()
-     }
+
+    private fun showNoTasksError() {
+        binding.recyclerView.hide()
+        binding.imageViewNoTasks.show()
+    }
+
+    private fun showNoNetworkError() {
+        binding.recyclerView.hide()
+        binding.groupNoNetwork.show()
+
+    }
+
+    private fun showRecyclerView() {
+        binding.groupNoNetwork.hide()
+        binding.recyclerView.show()
+    }
 
 
     override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
+            showRecyclerView()
+            if (teamTasks.isEmpty()){
+                showNoTasksError()
+            }
             setUpTeamTasksRecyclerView(teamTasks)
         }
     }
 
     override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
         runOnUi {
+            showRecyclerView()
+            if (personalTasks.isEmpty()){
+                Log.e("TAG", "onPersonalTasksSuccess: ", )
+                showNoTasksError()
+            }
             setUpPersonalTasksRecyclerView(personalTasks)
         }
     }
@@ -138,6 +158,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
 
     override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
+            showRecyclerView()
+            if (teamTasks.isEmpty()){
+                showNoTasksError()
+            }
             val itemsList: MutableList<HomeItem> = mutableListOf()
             itemsList.addAll(teamTasks.map { it.toHomeItem() })
             homeAdapter.updateList(itemsList)
@@ -147,11 +171,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
-        runOnUi { homeAdapter.updateList(itemsList) }
+        runOnUi {
+            showRecyclerView()
+            if (personalTasks.isEmpty()){
+                showNoTasksError()
+            }
+            homeAdapter.updateList(itemsList)
+        }
     }
 
     override fun onStatusCountsSuccess(statusList: Triple<Int?, Int?, Int?>) {
-        runOnUi { updateChipsStatus(statusList) }
+        runOnUi {
+            showRecyclerView()
+            updateChipsStatus(statusList)
+        }
     }
 
     private fun updateChipsStatus(tasksCount: Triple<Int?, Int?, Int?>) {
