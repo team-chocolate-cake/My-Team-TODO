@@ -122,6 +122,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
 
     private fun showNoNetworkError() {
         binding.recyclerView.hide()
+        binding.imageViewNoTasksResult.hide()
         binding.lottieNoNetwork.show()
         binding.textViewNoNetwork.show()
 
