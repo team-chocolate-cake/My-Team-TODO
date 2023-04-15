@@ -56,4 +56,5 @@
     <string name="failed_update">فشل تحديث الحالة!</string>
     <string name="success_update">تم تحديث الحالة بنجاح!</string>
     <string name="ok">حسنا</string>
+    <string name="tiltle_task">تفاصيل المهمة</string>
 </resources>
