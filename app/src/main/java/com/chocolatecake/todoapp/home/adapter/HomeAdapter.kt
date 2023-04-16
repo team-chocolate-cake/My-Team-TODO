@@ -1,8 +1,6 @@
 package com.chocolatecake.todoapp.home.adapter
 
-import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +41,7 @@ class HomeAdapter(
                 )
                 TeamTaskViewHolder(binding, onClickTeamTask)
             }
+
             HomeItemType.TYPE_PERSONAL_TASK -> {
                 val binding = ItemTaskCardBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -69,6 +68,7 @@ class HomeAdapter(
         private val binding: ItemTaskCardBinding,
         private val onClickTask: (TeamTask) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("UseCompatTextViewDrawableApis")
         fun bind(item: HomeItem.TeamTaskItem) {
             with(item.teamTask) {
                 with(binding) {
@@ -77,24 +77,15 @@ class HomeAdapter(
                     textViewAssignee.text = assignee
                     textViewDate.text = getDate(creationTime)
                     textViewTime.text = getTime(creationTime)
-                    val color = getColorStatus(statusTeamTask, itemView.context)
-                    val drawable: Drawable? =
-                        textViewAssignee.compoundDrawables[0]
-                    if (drawable != null) {
-                        val wrappedDrawable =
-                            drawable.mutate().constantState?.newDrawable()?.mutate()
-                        wrappedDrawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-                        textViewAssignee.setCompoundDrawablesWithIntrinsicBounds(
-                            wrappedDrawable,
-                            null,
-                            null,
-                            null
-                        )
-                        cardDivider.setBackgroundColor(color)
-                        textViewAssignee.setTextColor(color)
-                        textViewAssignee.visibility = View.VISIBLE
-                        root.setOnClickListener { onClickTask(item.teamTask) }
-                    }
+
+                    val color = getColorStatus(statusTeamTask)
+                    textViewAssignee.compoundDrawableTintList = ContextCompat.getColorStateList(itemView.context, color)
+
+                    cardDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, color))
+                    textViewAssignee.setTextColor(ContextCompat.getColor(itemView.context, color))
+                    textViewAssignee.visibility = View.VISIBLE
+                    root.setOnClickListener { onClickTask(item.teamTask) }
+
                 }
             }
         }
@@ -111,7 +102,8 @@ class HomeAdapter(
                     textViewTaskDescription.text = descriptionPersonalTask
                     textViewDate.text = getDate(creationTime)
                     textViewTime.text = getTime(creationTime)
-                    val color = getColorStatus(statusPersonalTask, itemView.context)
+
+                    val color = getColorStatus(statusPersonalTask)
                     cardDivider.setBackgroundColor(color)
                     textViewAssignee.setTextColor(color)
                     textViewAssignee.visibility = View.GONE
@@ -130,11 +122,10 @@ class HomeAdapter(
             return creationTime.split("T").first()
         }
 
-        private fun getColorStatus(status: Int, context: Context) = when (status) {
-            0 -> ContextCompat.getColor(context, R.color.todo)
-            1 -> ContextCompat.getColor(context, R.color.in_progress)
-            2 -> ContextCompat.getColor(context, R.color.done_color)
-            else -> ContextCompat.getColor(context, R.color.error_color)
+        private fun getColorStatus(status: Int) = when (status) {
+            0 -> R.color.todo
+            1 -> R.color.in_progress
+            else -> R.color.done_color
         }
 
     }
