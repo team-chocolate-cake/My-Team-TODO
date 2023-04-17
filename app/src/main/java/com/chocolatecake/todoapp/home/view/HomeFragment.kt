@@ -1,6 +1,8 @@
 package com.chocolatecake.todoapp.home.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +10,15 @@ import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
 import com.chocolatecake.todoapp.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
+import com.chocolatecake.todoapp.core.util.hide
+import com.chocolatecake.todoapp.core.util.navigateExclusive
+import com.chocolatecake.todoapp.core.util.navigateTo
+import com.chocolatecake.todoapp.core.util.show
+import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
 import com.chocolatecake.todoapp.home.adapter.HomeAdapter
 import com.chocolatecake.todoapp.home.model.HomeItem
 import com.chocolatecake.todoapp.home.model.SearchQuery
@@ -21,12 +27,9 @@ import com.chocolatecake.todoapp.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.home.utils.toHomeItem
 import com.chocolatecake.todoapp.login.LoginFragment
 import com.chocolatecake.todoapp.task_details.view.TaskDetailsFragment
-import com.chocolatecake.todoapp.core.util.hide
-import com.chocolatecake.todoapp.core.util.navigateExclusive
-import com.chocolatecake.todoapp.core.util.navigateTo
-import com.chocolatecake.todoapp.core.util.show
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
+
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
@@ -41,6 +44,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
     private var searchQuery: SearchQuery = SearchQuery()
     private var isPersonal = false
+    private val handler = Handler(Looper.getMainLooper())
+    private var runnable: Runnable? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,15 +88,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
             }
         })
         binding.editTextSearch.addTextChangedListener {
-            searchQuery = searchQuery.copy(
-                title = it.toString(),
-                status = getSelectedChips()
-            )
-            if (isPersonal) {
-                presenter.searchPersonalTasks(searchQuery)
-            } else {
-                presenter.searchTeamTasks(searchQuery)
+            runnable?.let { it1 -> handler.removeCallbacks(it1) }
+            runnable = Runnable {
+                searchQuery = searchQuery.copy(
+                    title = it.toString(),
+                    status = getSelectedChips()
+                )
+                if (isPersonal) {
+                    presenter.searchPersonalTasks(searchQuery)
+                } else {
+                    presenter.searchTeamTasks(searchQuery)
+                }
             }
+            handler.postDelayed(runnable!!, 500)
         }
         binding.chipGroup.setOnCheckedStateChangeListener { _, _ ->
             searchQuery = searchQuery.copy(status = getSelectedChips())

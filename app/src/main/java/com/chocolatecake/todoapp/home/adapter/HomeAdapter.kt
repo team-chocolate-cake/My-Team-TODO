@@ -104,8 +104,8 @@ class HomeAdapter(
                     textViewTime.text = getTime(creationTime)
 
                     val color = getColorStatus(statusPersonalTask)
-                    cardDivider.setBackgroundColor(color)
-                    textViewAssignee.setTextColor(color)
+                    cardDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, color))
+                    textViewAssignee.setTextColor(ContextCompat.getColor(itemView.context, color))
                     textViewAssignee.visibility = View.GONE
                     root.setOnClickListener { onClickTask(item.personalTask) }
                 }

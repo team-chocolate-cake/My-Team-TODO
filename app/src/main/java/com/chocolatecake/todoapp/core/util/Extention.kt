@@ -12,7 +12,6 @@ fun View.hide() {
 
 fun String.passwordLength(): Boolean {
     return this.trim().length < 8
-
 }
 
 fun String.usernameLength(): Boolean {

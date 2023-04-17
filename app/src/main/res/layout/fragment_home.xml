@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/to_do_task"
+                android:text="@string/status_todo"
                 tools:text="5 Todo" />
 
             <com.google.android.material.chip.Chip
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/in_progress_task"
+                android:text="@string/status_inprogress"
                 tools:text="5 Inprogress" />
 
             <com.google.android.material.chip.Chip
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@string/done_task"
+                android:text="@string/status_done"
                 tools:text="5 Done" />
 
         </com.google.android.material.chip.ChipGroup>
