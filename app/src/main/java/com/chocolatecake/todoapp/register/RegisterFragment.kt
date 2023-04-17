@@ -10,9 +10,10 @@ import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
 import com.chocolatecake.todoapp.register.presenter.RegistrationPresenter
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
-import com.chocolatecake.todoapp.core.data.model.response.LoginResponse
 import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
+import com.chocolatecake.todoapp.core.data.model.response.TokenResponse
 import com.chocolatecake.todoapp.core.util.getUsernameStatus
 import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.show
@@ -28,7 +29,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     private var validationConfirmPassword: Boolean = false
 
     private val registrationPresenter: RegistrationPresenter by lazy {
-        RegistrationPresenter(this, requireContext())
+        RegistrationPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,11 +58,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
                     textInputEditTextLayoutUsername.text.toString(),
                     requireContext()
                 )) {
-                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(getString(R.string.error_validation_user_name_special))
-                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(getString(R.string.error_validation_user_name_space))
-                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(getString(R.string.error_validation_user_name_should_grater_the_limit))
+                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_special)
+                    )
+                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_space)
+                    )
+                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(
+                        getString(R.string.error_validation_user_name_should_grater_the_limit)
+                    )
                     getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_start_with_digit))
+                        getString(R.string.error_validation_user_name_start_with_digit)
+                    )
                     else -> {
                         textViewValidateUserName.hide()
                         validationUserName = true
@@ -77,7 +85,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
                 val passwordLength = passwordText!!.length
                 when {
                     passwordLength < VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text = getText(R.string.error_validation_password_text_length)
+                        textViewValidatePassword.text =
+                            getText(R.string.error_validation_password_text_length)
                         textViewValidatePassword.show()
                         validationPassword = false
                     }
@@ -139,7 +148,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
             }
             if (binding.textInputEditTextConfirmPassword.text.toString() != binding.textInputEditTextPassword.text.toString()) {
                 binding.textViewValidateConfirm.show()
-                binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
+                binding.textViewValidateConfirm.text =
+                    getText(R.string.error_validation_confirm_password_mismatch)
             }
         }
     }
@@ -162,7 +172,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    override fun onLoginSuccess(response: LoginResponse) {
+    override fun onLoginSuccess() {
         activity?.apply {
             runOnUiThread {
                 binding.progressBarReload.hide()

@@ -1,51 +1,45 @@
 package com.chocolatecake.todoapp.task_details.presenter
 
-import android.content.Context
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
-import com.chocolatecake.todoapp.core.data.model.response.UpdateResponse
-import com.chocolatecake.todoapp.core.data.network.services.personal.PersonalTaskService
-import com.chocolatecake.todoapp.core.data.network.services.team.TeamTaskService
+import com.chocolatecake.todoapp.core.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.core.data.network.services.task.TaskService
 import com.chocolatecake.todoapp.task_details.view.TaskDetailsView
-import com.google.gson.Gson
-import okhttp3.Response
 
+class TaskDetailsPresenter(private val preferences: TaskSharedPreferences) {
 
-class TaskDetailsPresenter(private val context: Context) {
     lateinit var taskDetailsView: TaskDetailsView
-    private val sharedPreferences: TaskSharedPreferences by lazy {
-        TaskSharedPreferences().also { it.initPreferences(context) }
-    }
-    private val personalTaskService: PersonalTaskService by lazy {
-        PersonalTaskService(sharedPreferences)
-    }
-    private val teamTaskService: TeamTaskService by lazy {
-        TeamTaskService(sharedPreferences)
+
+    private val taskService: TaskService by lazy {
+        TaskService(preferences)
     }
 
     fun updatePersonalStatus(id: String, status: Int) {
-        personalTaskService.updateStatus(
+        taskService.updatePersonalStatus(
             id,
             status,
-            onSuccess = { response -> updateStatus(response,status) },
-            onFailure = { taskDetailsView.onUpdateFailure() },
+            onSuccess = { response -> updateStatus(response, status) },
+            onFailure = ::onFailure
         )
     }
 
     fun updateTeamStatus(id: String, status: Int) {
-        teamTaskService.updateStatus(
+        taskService.updateTeamStatus(
             id,
             status,
-            onSuccess = { response -> updateStatus(response,status) },
-            onFailure = { taskDetailsView.onUpdateFailure() },
+            onSuccess = { response -> updateStatus(response, status) },
+            onFailure = ::onFailure,
         )
     }
-    private fun updateStatus(response:Response,status: Int){
-        val body = response.body?.string().toString()
-        val updatedResponse = Gson().fromJson(body, UpdateResponse::class.java)
-        if (updatedResponse.isSuccess) {
+
+    private fun updateStatus(response: BaseResponse<String>, status: Int) {
+        if (response.isSuccess) {
             taskDetailsView.onUpdateSuccess(status)
         } else {
             taskDetailsView.onUpdateFailure()
         }
+    }
+
+    private fun onFailure(message: String?, statusCode: Int) {
+        taskDetailsView.onUpdateFailure()
     }
 }

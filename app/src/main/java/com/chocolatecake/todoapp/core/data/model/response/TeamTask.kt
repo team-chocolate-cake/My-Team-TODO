@@ -6,10 +6,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TeamTask(
-    @SerializedName ("id") val idTeamTask: String,
+    @SerializedName("id") val idTeamTask: String,
     @SerializedName("title") val titleTeamTask: String,
-    @SerializedName ("description") val descriptionTeamTask: String,
-    val assignee: String,
-    @SerializedName ("status") val statusTeamTask: Int,
-    val creationTime: String
-):Parcelable
+    @SerializedName("description") val descriptionTeamTask: String,
+    @SerializedName("assignee") val assignee: String,
+    @SerializedName("status") val statusTeamTask: Int,
+    @SerializedName("creationTime") val creationTime: String,
+) : Parcelable

@@ -1,47 +1,37 @@
 package com.chocolatecake.todoapp.register.presenter
 
-import android.content.Context
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
-import com.chocolatecake.todoapp.core.data.model.response.LoginResponse
-import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.core.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.register.RegisterView
-import com.google.gson.Gson
 
-class RegistrationPresenter(private val registerView: RegisterView, private val context: Context) {
-    private val preferences: TaskSharedPreferences by lazy {
-        TaskSharedPreferences().also { it.initPreferences(context) }
-    }
+class RegistrationPresenter(
+    private val registerView: RegisterView,
+    private val preferences: TaskSharedPreferences
+) {
+
     private val authService: AuthService by lazy { AuthService() }
 
     fun makeRequest(userRequest: UserRequest) {
         authService.register(userRequest,
             onSuccess = { response ->
-                val body = response?.body?.string().toString()
-                val registerResponse = Gson().fromJson(body, RegisterResponse::class.java)
-                if (registerResponse.isSuccess) {
+                if (response.isSuccess) {
                     loginUser(userRequest)
-                    registerView.onRegisterSuccess(registerResponse)
+                    response.value?.let { registerView.onRegisterSuccess(it) }
                 } else {
-                    registerView.onRegisterFailure(registerResponse.message)
+                    registerView.onRegisterFailure(response.message)
                 }
             },
-            onFailure = { registerView.onFailure(it) })
+            onFailure = { message: String?, statusCode: Int -> registerView.onFailure(message) }
+        )
     }
 
     private fun loginUser(userRequest: UserRequest) {
         authService.login(userRequest,
-            onFailure = { message ->
-                registerView.onFailure(message)
-            },
-            onSuccess = { loginSuccess ->
-                val loginBody = loginSuccess.body?.string().toString()
-                val loginResponse =
-                    Gson().fromJson(loginBody, LoginResponse::class.java)
-                preferences.token = loginResponse.value?.token
-                registerView.onLoginSuccess(loginResponse)
-            })
+            onFailure = { message: String?, statusCode: Int -> registerView.onFailure(message) }
+        ) { response ->
+            preferences.token = response.value?.token
+            registerView.onLoginSuccess()
+        }
     }
-
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
 import com.chocolatecake.todoapp.task_details.presenter.TaskDetailsPresenter
@@ -19,7 +20,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         arguments?.getBoolean(IS_PERSONAL, true)!!
     }
     private val taskDetailsPresenter: TaskDetailsPresenter by lazy {
-        TaskDetailsPresenter(requireContext())
+        TaskDetailsPresenter(TaskSharedPreferences(requireActivity().applicationContext))
     }
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTaskDetailsBinding =

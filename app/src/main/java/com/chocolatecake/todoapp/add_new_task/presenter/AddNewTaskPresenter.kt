@@ -1,18 +1,15 @@
 package com.chocolatecake.todoapp.add_new_task.presenter
 
 import android.content.Context
-import com.chocolatecake.todoapp.core.data.network.services.personal.PersonalTaskService
-import com.chocolatecake.todoapp.core.data.network.services.team.TeamTaskService
 import com.chocolatecake.todoapp.add_new_task.view.AddNewTaskView
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.PersonalTaskRequest
 import com.chocolatecake.todoapp.core.data.model.request.TeamTaskRequest
+import com.chocolatecake.todoapp.core.data.network.services.task.TaskService
 
-class AddNewTaskPresenter(private val context: Context,private val addNewTaskView: AddNewTaskView) {
-    private var sharedPreferences = TaskSharedPreferences()
-        .also { it.initPreferences(context) }
-    private val personalTaskService = PersonalTaskService(sharedPreferences)
-    private val teamTaskService = TeamTaskService(sharedPreferences)
+class AddNewTaskPresenter(private val preferences: TaskSharedPreferences, private val addNewTaskView: AddNewTaskView) {
+
+    private val taskService = TaskService(preferences)
 
     fun createPersonalTask(title: String, description: String){
         val personalTaskRequest =
@@ -20,9 +17,9 @@ class AddNewTaskPresenter(private val context: Context,private val addNewTaskVie
                 title,
                 description
             )
-        personalTaskService.createTask(
+        taskService.createPersonalTask(
             personalTaskRequest,
-            onFailure = { addNewTaskView.onCreateTaskFailure() },
+            onFailure = ::onFailure,
             onSuccess = { addNewTaskView.onCreateTaskSuccess() }
         )
     }
@@ -33,10 +30,14 @@ class AddNewTaskPresenter(private val context: Context,private val addNewTaskVie
             description,
             assignee
         )
-        teamTaskService.createTask(
+        taskService.createTeamTask(
             teamTaskRequest,
-            onFailure = { addNewTaskView.onCreateTaskFailure() },
+            onFailure = ::onFailure,
             onSuccess = { addNewTaskView.onCreateTaskSuccess() }
         )
+    }
+
+    private fun onFailure(message: String?, statusCode: Int,){
+        addNewTaskView.onCreateTaskFailure()
     }
 }

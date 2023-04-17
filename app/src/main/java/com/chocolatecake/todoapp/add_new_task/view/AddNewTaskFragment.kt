@@ -8,6 +8,7 @@ import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
 import com.chocolatecake.todoapp.add_new_task.presenter.AddNewTaskPresenter
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.util.navigateBack
 import com.chocolatecake.todoapp.core.util.showSnackbar
 
@@ -15,12 +16,18 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddNewTaskBinding
         get() = FragmentAddNewTaskBinding::inflate
 
-    private val presenter: AddNewTaskPresenter by lazy { AddNewTaskPresenter(requireContext(), this) }
+    private val presenter: AddNewTaskPresenter by lazy {
+        AddNewTaskPresenter(
+            TaskSharedPreferences(
+                requireActivity().applicationContext
+            ), this
+        )
+    }
     private val isPersonal: Boolean by lazy { retrieveTypeFromArguments() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fragmentAdd.setOnClickListener {  }
+        binding.fragmentAdd.setOnClickListener { }
         setPersonalOrTeamLayout(isPersonal)
         addCallBacks()
     }

@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
 import com.chocolatecake.todoapp.core.util.hide
@@ -35,7 +36,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
-    private val presenter by lazy { HomePresenter(this, requireContext()) }
+    private val presenter by lazy {
+        HomePresenter(
+            this,
+            TaskSharedPreferences(requireActivity().applicationContext)
+        )
+    }
     private val homeAdapter: HomeAdapter by lazy {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         HomeAdapter(itemsList, ::onClickTeamTask, ::onClickPersonalTask).also {
@@ -151,7 +157,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
             showRecyclerView()
-            if (teamTasks.isEmpty()){
+            if (teamTasks.isEmpty()) {
                 showNoTasksError()
             }
             setUpTeamTasksRecyclerView(teamTasks)
@@ -161,7 +167,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
         runOnUi {
             showRecyclerView()
-            if (personalTasks.isEmpty()){
+            if (personalTasks.isEmpty()) {
                 showNoTasksError()
             }
             setUpPersonalTasksRecyclerView(personalTasks)
@@ -169,13 +175,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
     }
 
     override fun onUnauthorizedResponse() {
-        requireActivity().navigateExclusive(LoginFragment())
+        activity?.navigateExclusive(LoginFragment())
     }
 
     override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
         runOnUi {
             showRecyclerView()
-            if (teamTasks.isEmpty()){
+            if (teamTasks.isEmpty()) {
                 showNoTasksError()
             }
             val itemsList: MutableList<HomeItem> = mutableListOf()
@@ -189,7 +195,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
         runOnUi {
             showRecyclerView()
-            if (personalTasks.isEmpty()){
+            if (personalTasks.isEmpty()) {
                 showNoTasksError()
             }
             homeAdapter.updateList(itemsList)

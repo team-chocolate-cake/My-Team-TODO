@@ -1,6 +1,8 @@
 package com.chocolatecake.todoapp.core.data.model.response
 
+import com.google.gson.annotations.SerializedName
+
 data class TokenResponse(
-    val token: String,
-    val expireAt: String
+    @SerializedName("token") val token: String,
+    @SerializedName("expireAt") val expireAt: String,
 )

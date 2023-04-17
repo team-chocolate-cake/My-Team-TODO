@@ -1,33 +1,21 @@
 package com.chocolatecake.todoapp.home.presenter
 
-import android.content.Context
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
-import com.chocolatecake.todoapp.core.data.model.response.PersonalTaskResponse
-import com.chocolatecake.todoapp.core.data.model.response.TeamTasksResponse
-import com.chocolatecake.todoapp.core.data.network.services.personal.PersonalTaskService
-import com.chocolatecake.todoapp.core.data.network.services.team.TeamTaskService
+import com.chocolatecake.todoapp.core.data.network.services.base.BaseService.Companion.NO_NETWORK_CODE
+import com.chocolatecake.todoapp.core.data.network.services.task.TaskService
 import com.chocolatecake.todoapp.home.model.SearchQuery
 import com.chocolatecake.todoapp.home.model.Status
 import com.chocolatecake.todoapp.home.view.HomeView
-import com.google.gson.Gson
 
-class HomePresenter(private val homeView: HomeView, private val context: Context) {
-    private val preferences by lazy { TaskSharedPreferences()
-        .also { it.initPreferences(context) } }
-    private val personalTaskService by lazy { PersonalTaskService(preferences) }
-    private val teamTaskService by lazy { TeamTaskService(preferences) }
+class HomePresenter(private val homeView: HomeView, private val preferences: TaskSharedPreferences) {
+
+    private val taskService by lazy { TaskService(preferences) }
 
     fun getTeamTask(statusList: List<Status>) {
-        teamTaskService.getAllTasks(
+        taskService.getAllTeamTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
-                if (response.code == 401) {
-                    homeView.onUnauthorizedResponse()
-                    return@getAllTasks
-                }
-                val body = response.body?.string().toString()
-                val teamTasksResponse = Gson().fromJson(body, TeamTasksResponse::class.java)
-                val teamTasks = teamTasksResponse.value
+                val teamTasks = response.value
                     ?.filter { it.statusTeamTask in statusList.map { status -> status.status } }
                 teamTasks?.let { homeView.onTeamTasksSuccess(it) }
             }
@@ -35,16 +23,10 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
     }
 
     fun getPersonalTask(statusList: List<Status>) {
-        personalTaskService.getAllTasks(
+        taskService.getAllPersonalTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
-                if (response.code == 401) {
-                    homeView.onUnauthorizedResponse()
-                    return@getAllTasks
-                }
-                val body = response.body?.string().toString()
-                val personalTasksResponse = Gson().fromJson(body, PersonalTaskResponse::class.java)
-                val personalTasks = personalTasksResponse.tasksListPerson
+                val personalTasks = response.value
                     ?.filter { it.statusPersonalTask in statusList.map { status -> status.status } }
                 personalTasks?.let { homeView.onPersonalTasksSuccess(it) }
             }
@@ -52,16 +34,10 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
     }
 
     fun searchPersonalTasks(searchQuery: SearchQuery) {
-        personalTaskService.getAllTasks(
+        taskService.getAllPersonalTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
-                if (response.code == 401) {
-                    homeView.onUnauthorizedResponse()
-                    return@getAllTasks
-                }
-                val body = response.body?.string().toString()
-                val teamTasksResponse = Gson().fromJson(body, PersonalTaskResponse::class.java)
-                val teamTasks = teamTasksResponse.tasksListPerson
+                val teamTasks = response.value
                     ?.filter {
                         it.statusPersonalTask in searchQuery.status.map { status -> status.status } &&
                                 it.titlePersonalTask.contains(searchQuery.title, ignoreCase = true)
@@ -72,16 +48,10 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
     }
 
     fun searchTeamTasks(searchQuery: SearchQuery) {
-        teamTaskService.getAllTasks(
+        taskService.getAllTeamTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
-                if (response.code == 401) {
-                    homeView.onUnauthorizedResponse()
-                    return@getAllTasks
-                }
-                val body = response.body?.string().toString()
-                val teamTasksResponse = Gson().fromJson(body, TeamTasksResponse::class.java)
-                val teamTasks = teamTasksResponse.value
+                val teamTasks = response.value
                     ?.filter {
                         it.statusTeamTask in searchQuery.status.map { status -> status.status } &&
                                 it.titleTeamTask.contains(searchQuery.title, ignoreCase = true)
@@ -92,48 +62,46 @@ class HomePresenter(private val homeView: HomeView, private val context: Context
     }
 
     fun getTeamStatusListCount() {
-        teamTaskService.getAllTasks(
+        taskService.getAllTeamTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
-                if (response.code == 401) {
-                    homeView.onUnauthorizedResponse()
-                    return@getAllTasks
-                }
-                val body = response.body?.string().toString()
-                val teamTasksResponse = Gson().fromJson(body, TeamTasksResponse::class.java)
                 val first =
-                    teamTasksResponse.value?.count { it.statusTeamTask == 0 }
+                    response.value?.count { it.statusTeamTask == 0 }
                 val second =
-                    teamTasksResponse.value?.count { it.statusTeamTask == 1 }
+                    response.value?.count { it.statusTeamTask == 1 }
                 val third =
-                    teamTasksResponse.value?.count { it.statusTeamTask == 2 }
+                    response.value?.count { it.statusTeamTask == 2 }
                 homeView.onStatusCountsSuccess(Triple(first, second, third))
             }
         )
     }
 
     fun getPersonalStatusListCount() {
-        personalTaskService.getAllTasks(
+        taskService.getAllPersonalTasks(
             onFailure = ::onFailure,
             onSuccess = { response ->
-                if (response.code == 401) {
-                    homeView.onUnauthorizedResponse()
-                    return@getAllTasks
-                }
-                val body = response.body?.string().toString()
-                val teamTasksResponse = Gson().fromJson(body, PersonalTaskResponse::class.java)
                 val first =
-                    teamTasksResponse.tasksListPerson?.count { it.statusPersonalTask == 0 }
+                    response.value?.count { it.statusPersonalTask == 0 }
                 val second =
-                    teamTasksResponse.tasksListPerson?.count { it.statusPersonalTask == 1 }
+                    response.value?.count { it.statusPersonalTask == 1 }
                 val third =
-                    teamTasksResponse.tasksListPerson?.count { it.statusPersonalTask == 2 }
+                    response.value?.count { it.statusPersonalTask == 2 }
                 homeView.onStatusCountsSuccess(Triple(first, second, third))
             }
         )
     }
 
-    private fun onFailure(message: String?) {
-        homeView.onAllTasksFailure(message)
+    private fun onFailure(message: String?, statusCode: Int,) {
+        when(statusCode){
+            NO_NETWORK_CODE -> {
+                homeView.onAllTasksFailure(message)
+            }
+            401 -> {
+                homeView.onUnauthorizedResponse()
+            }
+            else -> {
+                homeView.onAllTasksFailure(message)
+            }
+        }
     }
 }

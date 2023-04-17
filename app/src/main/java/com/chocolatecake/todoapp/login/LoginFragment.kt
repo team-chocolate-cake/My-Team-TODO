@@ -8,6 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
 import com.chocolatecake.todoapp.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.home.view.HomeFragment
@@ -20,7 +21,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
         get() = FragmentLoginBinding::inflate
 
-    private val presenter by lazy { LoginPresenter(view = this, context = requireContext()) }
+    private val presenter by lazy {
+        LoginPresenter(
+            view = this,
+            TaskSharedPreferences(requireActivity().applicationContext)
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +50,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
             userRequest.apply {
                 if (username.isNotEmpty() && password.isNotEmpty()) {
                     if (!username.usernameLength() && !password.passwordLength()) {
-                        presenter.clickableLoginButton(this)
+                        presenter.login(this)
                         showProgressBar()
                     }
                 } else {
@@ -97,7 +103,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     private fun onClickRegisterButton() {
         binding.textViewRegisterBody.setOnClickListener {
-             requireActivity().navigateExclusive(RegisterFragment())
+            requireActivity().navigateExclusive(RegisterFragment())
         }
     }
 
