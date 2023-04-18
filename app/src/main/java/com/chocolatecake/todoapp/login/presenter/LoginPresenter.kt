@@ -32,6 +32,6 @@ class LoginPresenter(
     }
 
     private fun onFailure(message: String?, statusCode: Int,){
-        view.onFailure("Pleas check connection with internet")
+        view.onFailure(message)
     }
 }

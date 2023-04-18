@@ -22,18 +22,31 @@ abstract class BaseService {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    if (response.isSuccessful) {
+                    val responseBody = response.body
+                    if (responseBody == null) {
+                        onFailure("Response body is null", response.code)
+                        return
+                    }
+
+                    val responseBodyString = responseBody.string()
+                    if (response.code == 401) {
                         val type: Type = object : TypeToken<BaseResponse<T>>() {}.type
-                        val result = Gson().fromJson<BaseResponse<T>>(response.body?.string().toString(), type)
-                        onSuccess(result)
+                        val result =
+                            Gson().fromJson<BaseResponse<T>>(responseBodyString, type)
+
+                        val message: String = result?.message ?: response.message
+                        onFailure(message, response.code)
                     } else {
-                        onFailure(response.message, response.code)
+                        val type: Type = object : TypeToken<BaseResponse<T>>() {}.type
+                        val result =
+                            Gson().fromJson<BaseResponse<T>>(responseBodyString, type)
+                        onSuccess(result)
                     }
                 }
             })
     }
 
-    companion object{
+    companion object {
         const val NO_NETWORK_CODE = -1
     }
 }

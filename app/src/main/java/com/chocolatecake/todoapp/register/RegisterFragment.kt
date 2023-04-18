@@ -159,7 +159,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
             runOnUiThread {
                 binding.progressBarReload.hide()
                 binding.buttonRegister.show()
-                navigateExclusive((HomeFragment()))
             }
         }
     }
@@ -177,6 +176,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
             runOnUiThread {
                 binding.progressBarReload.hide()
                 binding.buttonRegister.show()
+                navigateExclusive((HomeFragment()))
             }
         }
     }

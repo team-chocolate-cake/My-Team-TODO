@@ -100,6 +100,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         requireActivity().navigateExclusive(HomeFragment())
     }
 
+    override fun showLoginError() {
+
+    }
+
 
     private fun onClickRegisterButton() {
         binding.textViewRegisterBody.setOnClickListener {
@@ -108,12 +112,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     }
 
 
-    fun showProgressBar() {
+    private fun showProgressBar() {
         binding.buttonLogin.hide()
         binding.progressBar.show()
     }
 
-    fun hideProgressBar() {
+    private fun hideProgressBar() {
         binding.progressBar.hide()
         binding.buttonLogin.show()
     }
