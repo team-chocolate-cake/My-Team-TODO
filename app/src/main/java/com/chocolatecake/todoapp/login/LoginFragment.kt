@@ -17,7 +17,6 @@ import com.chocolatecake.todoapp.register.RegisterFragment
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
-
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
         get() = FragmentLoginBinding::inflate
 
@@ -88,7 +87,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         }
     }
 
-
     override fun onFailure(message: String?) {
         requireActivity().runOnUiThread {
             requireActivity().showSnackbar(message = message, binding.root)
@@ -104,13 +102,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     }
 
-
     private fun onClickRegisterButton() {
         binding.textViewRegisterBody.setOnClickListener {
             requireActivity().navigateExclusive(RegisterFragment())
         }
     }
-
 
     private fun showProgressBar() {
         binding.buttonLogin.hide()
