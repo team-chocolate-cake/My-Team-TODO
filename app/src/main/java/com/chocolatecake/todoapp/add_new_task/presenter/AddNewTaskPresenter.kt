@@ -7,7 +7,7 @@ import com.chocolatecake.todoapp.core.data.model.request.PersonalTaskRequest
 import com.chocolatecake.todoapp.core.data.model.request.TeamTaskRequest
 import com.chocolatecake.todoapp.core.data.network.services.task.TaskService
 
-class AddNewTaskPresenter(private val preferences: TaskSharedPreferences, private val addNewTaskView: AddNewTaskView) {
+class AddNewTaskPresenter(preferences: TaskSharedPreferences, private val addNewTaskView: AddNewTaskView) {
 
     private val taskService = TaskService(preferences)
 

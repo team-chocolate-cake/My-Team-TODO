@@ -55,7 +55,6 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
 
     private fun createTask() {
         createAndPushTaskToApi()
-        returnToHomeFragment()
     }
 
     private fun isInputValid(): Boolean {
@@ -133,11 +132,12 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     }
 
     override fun onCreateTaskFailure() {
-        activity?.showSnackbar(message = "Failure", binding.root)
+        activity?.showSnackbar(message = getString(R.string.no_internet_connection), binding.root)
     }
 
     override fun onCreateTaskSuccess() {
-        activity?.showSnackbar(message = "Success", binding.root)
+        activity?.showSnackbar(message = getString(R.string.add_task_success), binding.root)
+        returnToHomeFragment()
     }
 
     companion object {
