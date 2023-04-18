@@ -82,7 +82,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 } else {
                     args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
                 }
-            ChangeStatusBottomSheet(::updateStatus, personalResult!!.statusPersonalTask)
+            ChangeStatusBottomSheet(::updateStatus, personalResult!!.status)
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
         } else {
             val teamResult =
@@ -91,7 +91,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 } else {
                     args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
-            ChangeStatusBottomSheet(::updateStatus, teamResult!!.statusTeamTask)
+            ChangeStatusBottomSheet(::updateStatus, teamResult!!.status)
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
         }
     }
@@ -105,7 +105,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 } else {
                     args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
                 }
-            taskDetailsPresenter.updatePersonalStatus(personalResult!!.idPersonalTask, status)
+            taskDetailsPresenter.updatePersonalStatus(personalResult!!.id, status)
         } else {
             val teamResult =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -113,7 +113,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 } else {
                     args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
-            taskDetailsPresenter.updateTeamStatus(teamResult!!.idTeamTask, status)
+            taskDetailsPresenter.updateTeamStatus(teamResult!!.id, status)
         }
 
     }
@@ -121,11 +121,11 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
     override fun setDataTeam(result: TeamTask?) {
         requireActivity().runOnUiThread {
             with(binding) {
-                textViewTitle.text = result?.titleTeamTask
+                textViewTitle.text = result?.title
                 textViewAssignee.text = result?.assignee
-                textViewDescription.text = result?.descriptionTeamTask
+                textViewDescription.text = result?.description
                 textViewDate.text = result?.creationTime?.let { getDate(it) }
-                textViewStatus.text = result?.statusTeamTask?.let { getStatusByNum(it) }
+                textViewStatus.text = result?.status?.let { getStatusByNum(it) }
             }
         }
     }
@@ -133,10 +133,10 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
     override fun setDataPersonal(result: PersonalTask?) {
         requireActivity().runOnUiThread {
             with(binding) {
-                textViewTitle.text = result?.titlePersonalTask
-                textViewDescription.text = result?.descriptionPersonalTask
+                textViewTitle.text = result?.title
+                textViewDescription.text = result?.description
                 textViewDate.text = result?.creationTime?.let { getDate(it) }
-                textViewStatus.text = result?.statusPersonalTask?.let { getStatusByNum(it) }
+                textViewStatus.text = result?.status?.let { getStatusByNum(it) }
             }
         }
     }

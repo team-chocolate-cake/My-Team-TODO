@@ -6,9 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PersonalTask(
-    @SerializedName("id") val idPersonalTask: String,
-    @SerializedName("title") val titlePersonalTask: String,
-    @SerializedName("description") val descriptionPersonalTask: String,
-    @SerializedName("status") val statusPersonalTask: Int,
+    @SerializedName("id") val id: String,
+    @SerializedName("title") val title: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("status") val status: Int,
     @SerializedName("creationTime") val creationTime: String,
 ) : Parcelable

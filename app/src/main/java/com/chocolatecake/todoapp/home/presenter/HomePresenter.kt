@@ -8,7 +8,6 @@ import com.chocolatecake.todoapp.home.model.Status
 import com.chocolatecake.todoapp.home.view.HomeView
 
 class HomePresenter(private val homeView: HomeView, private val preferences: TaskSharedPreferences) {
-
     private val taskService by lazy { TaskService(preferences) }
 
     fun getTeamTask(statusList: List<Status>) {
@@ -16,19 +15,8 @@ class HomePresenter(private val homeView: HomeView, private val preferences: Tas
             onFailure = ::onFailure,
             onSuccess = { response ->
                 val teamTasks = response.value
-                    ?.filter { it.statusTeamTask in statusList.map { status -> status.status } }
+                    ?.filter { it.status in statusList.map { status -> status.status } }
                 teamTasks?.let { homeView.onTeamTasksSuccess(it) }
-            }
-        )
-    }
-
-    fun getPersonalTask(statusList: List<Status>) {
-        taskService.getAllPersonalTasks(
-            onFailure = ::onFailure,
-            onSuccess = { response ->
-                val personalTasks = response.value
-                    ?.filter { it.statusPersonalTask in statusList.map { status -> status.status } }
-                personalTasks?.let { homeView.onPersonalTasksSuccess(it) }
             }
         )
     }
@@ -39,8 +27,8 @@ class HomePresenter(private val homeView: HomeView, private val preferences: Tas
             onSuccess = { response ->
                 val teamTasks = response.value
                     ?.filter {
-                        it.statusPersonalTask in searchQuery.status.map { status -> status.status } &&
-                                it.titlePersonalTask.contains(searchQuery.title, ignoreCase = true)
+                        it.status in searchQuery.status.map { status -> status.status } &&
+                                it.title.contains(searchQuery.title, ignoreCase = true)
                     }
                 teamTasks?.let { homeView.onSearchPersonalResultSuccess(it) }
             }
@@ -53,8 +41,8 @@ class HomePresenter(private val homeView: HomeView, private val preferences: Tas
             onSuccess = { response ->
                 val teamTasks = response.value
                     ?.filter {
-                        it.statusTeamTask in searchQuery.status.map { status -> status.status } &&
-                                it.titleTeamTask.contains(searchQuery.title, ignoreCase = true)
+                        it.status in searchQuery.status.map { status -> status.status } &&
+                                it.title.contains(searchQuery.title, ignoreCase = true)
                     }
                 teamTasks?.let { homeView.onSearchTeamResultSuccess(it) }
             }
@@ -66,11 +54,11 @@ class HomePresenter(private val homeView: HomeView, private val preferences: Tas
             onFailure = ::onFailure,
             onSuccess = { response ->
                 val first =
-                    response.value?.count { it.statusTeamTask == 0 }
+                    response.value?.count { it.status == 0 }
                 val second =
-                    response.value?.count { it.statusTeamTask == 1 }
+                    response.value?.count { it.status == 1 }
                 val third =
-                    response.value?.count { it.statusTeamTask == 2 }
+                    response.value?.count { it.status == 2 }
                 homeView.onStatusCountsSuccess(Triple(first, second, third))
             }
         )
@@ -81,11 +69,11 @@ class HomePresenter(private val homeView: HomeView, private val preferences: Tas
             onFailure = ::onFailure,
             onSuccess = { response ->
                 val first =
-                    response.value?.count { it.statusPersonalTask == 0 }
+                    response.value?.count { it.status == 0 }
                 val second =
-                    response.value?.count { it.statusPersonalTask == 1 }
+                    response.value?.count { it.status == 1 }
                 val third =
-                    response.value?.count { it.statusPersonalTask == 2 }
+                    response.value?.count { it.status == 2 }
                 homeView.onStatusCountsSuccess(Triple(first, second, third))
             }
         )

@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.core.data.model.response.base
+package com.chocolatecake.todoapp.core.data.model.response
 
 import com.google.gson.annotations.SerializedName
 

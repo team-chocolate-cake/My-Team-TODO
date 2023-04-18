@@ -72,13 +72,13 @@ class HomeAdapter(
         fun bind(item: HomeItem.TeamTaskItem) {
             with(item.teamTask) {
                 with(binding) {
-                    textViewTaskTitle.text = titleTeamTask
-                    textViewTaskDescription.text = descriptionTeamTask
+                    textViewTaskTitle.text = title
+                    textViewTaskDescription.text = description
                     textViewAssignee.text = assignee
                     textViewDate.text = getDate(creationTime)
                     textViewTime.text = getTime(creationTime)
 
-                    val color = getColorStatus(statusTeamTask)
+                    val color = getColorStatus(status)
                     textViewAssignee.compoundDrawableTintList = ContextCompat.getColorStateList(itemView.context, color)
 
                     cardDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, color))
@@ -98,12 +98,12 @@ class HomeAdapter(
         fun bind(item: HomeItem.PersonalTaskItem) {
             with(item.personalTask) {
                 with(binding) {
-                    textViewTaskTitle.text = titlePersonalTask
-                    textViewTaskDescription.text = descriptionPersonalTask
+                    textViewTaskTitle.text = title
+                    textViewTaskDescription.text = description
                     textViewDate.text = getDate(creationTime)
                     textViewTime.text = getTime(creationTime)
 
-                    val color = getColorStatus(statusPersonalTask)
+                    val color = getColorStatus(status)
                     cardDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, color))
                     textViewAssignee.setTextColor(ContextCompat.getColor(itemView.context, color))
                     textViewAssignee.visibility = View.GONE

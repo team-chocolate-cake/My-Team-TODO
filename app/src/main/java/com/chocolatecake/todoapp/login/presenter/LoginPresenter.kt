@@ -3,7 +3,7 @@ package com.chocolatecake.todoapp.login.presenter
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.data.model.response.TokenResponse
-import com.chocolatecake.todoapp.core.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.core.data.model.response.BaseResponse
 import com.chocolatecake.todoapp.core.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.login.LoginView
 

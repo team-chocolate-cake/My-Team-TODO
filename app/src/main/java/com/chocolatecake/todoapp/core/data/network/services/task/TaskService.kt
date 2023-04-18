@@ -5,7 +5,7 @@ import com.chocolatecake.todoapp.core.data.model.request.PersonalTaskRequest
 import com.chocolatecake.todoapp.core.data.model.request.TeamTaskRequest
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
-import com.chocolatecake.todoapp.core.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.core.data.model.response.BaseResponse
 import com.chocolatecake.todoapp.core.data.network.services.TaskClient
 import com.chocolatecake.todoapp.core.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.core.data.network.services.utils.Constants.PERSONAL_ENDPOINT

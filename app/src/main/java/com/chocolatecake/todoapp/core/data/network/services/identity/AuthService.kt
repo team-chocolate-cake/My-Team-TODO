@@ -4,7 +4,7 @@ import com.chocolatecake.todoapp.BuildConfig
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.core.data.model.response.TokenResponse
-import com.chocolatecake.todoapp.core.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.core.data.model.response.BaseResponse
 import com.chocolatecake.todoapp.core.data.network.services.base.BaseService
 import com.chocolatecake.todoapp.core.data.network.services.utils.Constants.LOGIN_ENDPOINT
 import com.chocolatecake.todoapp.core.data.network.services.utils.Constants.SIGNUP_ENDPOINT

@@ -32,7 +32,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
+    TabLayout.OnTabSelectedListener {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -69,30 +70,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
             val addNewTaskFragment = AddNewTaskFragment.newInstance(isPersonal)
             requireActivity().navigateTo(addNewTaskFragment)
         }
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.apply {
-                    when (tab.position) {
-                        TEAM_POSITION -> {
-                            presenter.getTeamStatusListCount()
-                            presenter.searchTeamTasks(searchQuery)
-                            isPersonal = false
-                        }
-                        PERSONAL_POSITION -> {
-                            presenter.getPersonalStatusListCount()
-                            presenter.searchPersonalTasks(searchQuery)
-                            isPersonal = true
-                        }
-                    }
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
+        binding.tabLayout.addOnTabSelectedListener(this)
         binding.editTextSearch.addTextChangedListener {
             runnable?.let { it1 -> handler.removeCallbacks(it1) }
             runnable = Runnable {
@@ -234,13 +212,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         homeAdapter.updateList(itemsList)
     }
 
-
     private fun setUpPersonalTasksRecyclerView(personalTasks: List<PersonalTask>) {
         val itemsList: MutableList<HomeItem> = mutableListOf()
         itemsList.addAll(personalTasks.map { it.toHomeItem() })
         homeAdapter.updateList(itemsList)
     }
-
 
     private fun onClickTeamTask(teamTask: TeamTask) {
         val taskDetailsFragment = TaskDetailsFragment.newTeamInstance(teamTask)
@@ -258,4 +234,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView {
         const val TEAM_POSITION = 0
         const val PERSONAL_POSITION = 1
     }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        binding.apply {
+            when (tab?.position) {
+                TEAM_POSITION -> {
+                    presenter.getTeamStatusListCount()
+                    presenter.searchTeamTasks(searchQuery)
+                    isPersonal = false
+                }
+                PERSONAL_POSITION -> {
+                    presenter.getPersonalStatusListCount()
+                    presenter.searchPersonalTasks(searchQuery)
+                    isPersonal = true
+                }
+            }
+        }
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
 }

@@ -1,7 +1,7 @@
 package com.chocolatecake.todoapp.task_details.presenter
 
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
-import com.chocolatecake.todoapp.core.data.model.response.base.BaseResponse
+import com.chocolatecake.todoapp.core.data.model.response.BaseResponse
 import com.chocolatecake.todoapp.core.data.network.services.task.TaskService
 import com.chocolatecake.todoapp.task_details.view.TaskDetailsView
 
