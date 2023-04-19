@@ -67,36 +67,38 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
 
     // this function shows the bottom sheet and makes the user choose the new status and then updates the status
     private fun updateTaskStatus() {
-        val args = arguments
-        if (isPersonal) {
-            val personalTask: PersonalTask? = args?.getParcelable(
-                PERSONAL_TASK_OBJECT
-            )
-            ChangeStatusBottomSheet(
-                { newStatus ->
-                    taskDetailsPresenter.updatePersonalStatus(
-                        personalTask!!.id,
-                        newStatus
-                    )
-                },
-                personalTask!!.status
-            )
-                .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
-        } else {
-            val teamTask: TeamTask? = args?.getParcelable(
-                TEAM_TASK_OBJECT
-            )
-            ChangeStatusBottomSheet(
-                { newStatus ->
-                    taskDetailsPresenter.updateTeamStatus(
-                        teamTask!!.id,
-                        newStatus
-                    )
-                },
-                teamTask!!.status
-            )
-                .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+        arguments?.run {
+            if (isPersonal) {
+                val personalTask: PersonalTask? = getParcelable(
+                    PERSONAL_TASK_OBJECT
+                )
+                ChangeStatusBottomSheet(
+                    { newStatus ->
+                        taskDetailsPresenter.updatePersonalStatus(
+                            personalTask!!.id,
+                            newStatus
+                        )
+                    },
+                    personalTask!!.status
+                )
+                    .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+            } else {
+                val teamTask: TeamTask? = getParcelable(
+                    TEAM_TASK_OBJECT
+                )
+                ChangeStatusBottomSheet(
+                    { newStatus ->
+                        taskDetailsPresenter.updateTeamStatus(
+                            teamTask!!.id,
+                            newStatus
+                        )
+                    },
+                    teamTask!!.status
+                )
+                    .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+            }
         }
+
     }
 
     override fun showTeamTaskData(result: TeamTask?) {
