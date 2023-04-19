@@ -35,24 +35,26 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         addCallBack()
     }
 
+    /**
+     * This function retrieves the task data from the Parcelable object passed as an argument,
+     * and displays the data on the screen. If the task is a personal task, it calls the
+     * showPersonalTaskData() function with the retrieved task object as a parameter. If the
+     * task is a team task, it calls the showTeamTaskData() function with the retrieved task
+     * object as a parameter.
+     */
     private fun getTask() {
-        val args = arguments
-        if (isPersonal) {
-            val personalResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
-                }
-            showPersonalTaskData(personalResult)
-        } else {
-            val teamResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(TEAM_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
-                }
-            showTeamTaskData(teamResult)
+        arguments?.run {
+            if (isPersonal) {
+                val personalTask: PersonalTask? = getParcelable(
+                    PERSONAL_TASK_OBJECT
+                )
+                showPersonalTaskData(personalTask)
+            } else {
+                val teamTask: TeamTask? = getParcelable(
+                    TEAM_TASK_OBJECT
+                )
+                showTeamTaskData(teamTask)
+            }
         }
     }
 
@@ -65,7 +67,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         }
     }
 
-    // this function shows the bottom sheet and makes the user choose the new status and then updates the status
+
     private fun updateTaskStatus() {
         arguments?.run {
             if (isPersonal) {
