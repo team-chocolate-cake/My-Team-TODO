@@ -10,13 +10,12 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         val preferences  = TaskSharedPreferences(applicationContext)
-
         if(preferences.token.isNullOrBlank()){
             navigateToRegisterFragment()
         }
     }
+
     private fun navigateToRegisterFragment(){
         navigateExclusive(RegisterFragment())
     }
