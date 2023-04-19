@@ -8,7 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
-import com.chocolatecake.todoapp.features.register.presenter.RegistrationPresenter
+import com.chocolatecake.todoapp.features.register.presenter.RegisterPresenter
 import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
@@ -27,8 +27,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     private var validationPassword: Boolean = false
     private var validationConfirmPassword: Boolean = false
 
-    private val registrationPresenter: RegistrationPresenter by lazy {
-        RegistrationPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
+    private val registerPresenter: RegisterPresenter by lazy {
+        RegisterPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -129,7 +129,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
                     binding.textInputEditTextLayoutUsername.text.toString(),
                     binding.textInputEditTextPassword.text.toString()
                 )
-                registrationPresenter.makeRequest(newUser)
+                registerPresenter.makeRequest(newUser)
                 buttonRegister.hide()
                 binding.progressBarReload.show()
             }

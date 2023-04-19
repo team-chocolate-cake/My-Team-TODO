@@ -5,7 +5,7 @@ import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.features.register.RegisterView
 
-class RegistrationPresenter(
+class RegisterPresenter(
     private val view: RegisterView,
     private val preferences: TaskSharedPreferences
 ) {
