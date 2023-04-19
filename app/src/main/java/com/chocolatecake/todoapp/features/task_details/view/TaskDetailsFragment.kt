@@ -61,18 +61,24 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
             activity?.navigateBack()
         }
         binding.textViewStatus.setOnClickListener {
-            showBottomSheetDialog()
+            updateTaskStatus()
         }
     }
 
-    private fun showBottomSheetDialog() {
+    // this function shows the bottom sheet and makes the user choose the new status and then updates the status
+    private fun updateTaskStatus() {
         val args = arguments
         if (isPersonal) {
             val personalTask: PersonalTask? = args?.getParcelable(
                 PERSONAL_TASK_OBJECT
             )
             ChangeStatusBottomSheet(
-                { newStatus -> updateStatus(personalTask!!.id, newStatus) },
+                { newStatus ->
+                    taskDetailsPresenter.updatePersonalStatus(
+                        personalTask!!.id,
+                        newStatus
+                    )
+                },
                 personalTask!!.status
             )
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
@@ -81,21 +87,16 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 TEAM_TASK_OBJECT
             )
             ChangeStatusBottomSheet(
-                { newStatus -> updateStatus(teamTask!!.id, newStatus) },
+                { newStatus ->
+                    taskDetailsPresenter.updateTeamStatus(
+                        teamTask!!.id,
+                        newStatus
+                    )
+                },
                 teamTask!!.status
             )
                 .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
         }
-    }
-
-    private fun updateStatus(taskId: String, status: Int) {
-        val args = arguments
-        if (isPersonal) {
-            taskDetailsPresenter.updatePersonalStatus(taskId, status)
-        } else {
-            taskDetailsPresenter.updateTeamStatus(taskId, status)
-        }
-
     }
 
     override fun showTeamTaskData(result: TeamTask?) {
