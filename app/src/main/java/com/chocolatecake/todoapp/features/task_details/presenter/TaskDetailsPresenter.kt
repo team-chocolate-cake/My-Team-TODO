@@ -33,13 +33,13 @@ class TaskDetailsPresenter(private val preferences: TaskSharedPreferences) {
 
     private fun updateStatus(response: BaseResponse<String>, status: Int) {
         if (response.isSuccess) {
-            taskDetailsView.onUpdateSuccess(status)
+            taskDetailsView.showUpdatedStatus(status)
         } else {
-            taskDetailsView.onUpdateFailure()
+            taskDetailsView.showFailedStatusUpdate()
         }
     }
 
     private fun onFailure(message: String?, statusCode: Int) {
-        taskDetailsView.onUpdateFailure()
+        taskDetailsView.showFailedStatusUpdate()
     }
 }

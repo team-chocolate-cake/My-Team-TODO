@@ -43,7 +43,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 } else {
                     args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
                 }
-            setDataPersonal(personalResult)
+            showPersonalTaskData(personalResult)
         } else {
             val teamResult =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -51,7 +51,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 } else {
                     args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
-            setDataTeam(teamResult)
+            showTeamTaskData(teamResult)
         }
     }
 
@@ -118,7 +118,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
 
     }
 
-    override fun setDataTeam(result: TeamTask?) {
+    override fun showTeamTaskData(result: TeamTask?) {
         requireActivity().runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
@@ -130,7 +130,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         }
     }
 
-    override fun setDataPersonal(result: PersonalTask?) {
+    override fun showPersonalTaskData(result: PersonalTask?) {
         requireActivity().runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
@@ -145,11 +145,11 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         return creationTime.split("T").first()
     }
 
-    override fun onUpdateFailure() {
+    override fun showFailedStatusUpdate() {
         activity?.showSnackbar(getString(R.string.failed_update), binding.root)
     }
 
-    override fun onUpdateSuccess(status: Int) {
+    override fun showUpdatedStatus(status: Int) {
         activity?.run {
             showSnackbar(getString(R.string.success_update), binding.root)
             runOnUiThread {
