@@ -40,9 +40,3 @@ private fun changeNavigation(activity: FragmentActivity, state: NavigationState,
     }
     transaction.commit()
 }
-
-/**
- Example
- requireActivity().navigateExclusive((HomeFragment()))
- requireActivity().navigateTo(TaskFragment.newInstance(id))
-*/
