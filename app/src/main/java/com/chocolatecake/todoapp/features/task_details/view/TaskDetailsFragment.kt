@@ -14,6 +14,7 @@ import com.chocolatecake.todoapp.core.data.model.response.TeamTask
 import com.chocolatecake.todoapp.features.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.core.util.navigateBack
 import com.chocolatecake.todoapp.core.util.showSnackbar
+import com.chocolatecake.todoapp.features.home.model.Status
 
 class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDetailsView {
     private val isPersonal by lazy {
@@ -52,15 +53,6 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                     args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
                 }
             showTeamTaskData(teamResult)
-        }
-    }
-
-    private fun getStatusByNum(num: Int): String {
-        return when (num) {
-            0 -> getString(R.string.status_todo)
-            1 -> getString(R.string.status_inprogress)
-            2 -> getString(R.string.status_done)
-            else -> "unknown"
         }
     }
 
@@ -125,7 +117,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 textViewAssignee.text = result?.assignee
                 textViewDescription.text = result?.description
                 textViewDate.text = result?.creationTime?.let { getDate(it) }
-                textViewStatus.text = result?.status?.let { getStatusByNum(it) }
+                textViewStatus.text = result?.status?.let { Status.createStatus(it).name }
             }
         }
     }
@@ -136,7 +128,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                 textViewTitle.text = result?.title
                 textViewDescription.text = result?.description
                 textViewDate.text = result?.creationTime?.let { getDate(it) }
-                textViewStatus.text = result?.status?.let { getStatusByNum(it) }
+                textViewStatus.text = result?.status?.let { Status.createStatus(it).name }
             }
         }
     }
@@ -153,7 +145,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         activity?.run {
             showSnackbar(getString(R.string.success_update), binding.root)
             runOnUiThread {
-                binding.textViewStatus.text = getStatusByNum(status)
+                binding.textViewStatus.text = Status.createStatus(status).name
             }
         }
     }
