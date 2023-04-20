@@ -17,8 +17,8 @@ import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
-import com.chocolatecake.todoapp.features.login.LoginFragment
 import com.chocolatecake.todoapp.features.register.util.getUsernameStatus
+import com.chocolatecake.todoapp.login.LoginFragment
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
