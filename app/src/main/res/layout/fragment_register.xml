@@ -205,6 +205,7 @@
         android:text="@string/do_you_have_an_account"
         android:textColor="@color/on_primary_container_60"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.8"
         app:layout_constraintEnd_toStartOf="@+id/text_view_login"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"

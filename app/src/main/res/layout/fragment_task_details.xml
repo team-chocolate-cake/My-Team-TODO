@@ -72,14 +72,23 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view_assignee"
         tools:text="@string/status_todo" />
 
-    <TextView
-        android:id="@+id/text_view_description"
-        style="@style/TextStyle.TitleSmall"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/text_medium"
-        android:layout_marginTop="@dimen/text_medium"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_status"
-        tools:text="@tools:sample/lorem/random" />
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_status">
 
+        <TextView
+            android:id="@+id/text_view_description"
+            style="@style/TextStyle.TitleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_medium"
+            android:layout_marginTop="@dimen/text_medium"
+            android:scrollbars="vertical"
+            tools:text="@tools:sample/lorem/random"
+            android:textSize="@dimen/text_medium" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

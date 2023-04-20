@@ -59,6 +59,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/spacing_medium"
         android:paddingTop="@dimen/spacing_medium"
+        android:paddingBottom="@dimen/spacing_small"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/view">
 
