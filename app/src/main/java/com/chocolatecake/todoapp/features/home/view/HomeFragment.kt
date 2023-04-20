@@ -27,7 +27,7 @@ import com.chocolatecake.todoapp.features.home.model.Status
 import com.chocolatecake.todoapp.features.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.features.home.utils.toHomeItem
 import com.chocolatecake.todoapp.features.task_details.view.TaskDetailsFragment
-import com.chocolatecake.todoapp.login.LoginFragment
+import com.chocolatecake.todoapp.features.login.LoginFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 
