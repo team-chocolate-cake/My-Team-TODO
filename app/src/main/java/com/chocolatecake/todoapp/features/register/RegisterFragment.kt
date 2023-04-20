@@ -17,7 +17,6 @@ import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
 import com.chocolatecake.todoapp.features.login.LoginFragment
-import com.chocolatecake.todoapp.features.register.util.RegisterValidation
 import com.chocolatecake.todoapp.features.register.util.ValidationState
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
@@ -76,14 +75,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
 
     private fun onClickRegisterButton() {
         binding.buttonRegister.setOnClickListener {
-            val isValidateFailed =
-                validationState.isUsernameValid && validationState.isPasswordValid && validationState.isConfirmPasswordValid
+            val isValidateFailed = validationState.isUsernameValid && validationState.isPasswordValid && validationState.isConfirmPasswordValid
             val usernameText = binding.textInputEditTextLayoutUsername.text.toString()
             val passwordText = binding.textInputEditTextPassword.text.toString()
             val confirmPasswordText = binding.textInputEditTextConfirmPassword.text.toString()
-            registerPresenter.handleRegister(
-                isValidateFailed, usernameText, passwordText, confirmPasswordText
-            )
+            registerPresenter.handleRegister(isValidateFailed, usernameText, passwordText, confirmPasswordText)
         }
     }
 
@@ -140,8 +136,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
             binding.textViewValidateConfirm.hide()
             validationState.isConfirmPasswordValid = true
         } else {
-            binding.textViewValidateConfirm.text =
-                getText(R.string.error_validation_confirm_password_mismatch)
+            binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
             binding.textViewValidateConfirm.show()
             validationState.isConfirmPasswordValid = false
         }
@@ -150,8 +145,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override fun registerUser() {
         val newUser = UserRequest(
             binding.textInputEditTextLayoutUsername.text.toString(),
-            binding.textInputEditTextPassword.text.toString()
-        )
+            binding.textInputEditTextPassword.text.toString())
         registerPresenter.makeRequest(newUser)
         binding.buttonRegister.hide()
         binding.progressBarReload.show()
@@ -163,8 +157,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
 
     override fun showMismatchConfirmPassword() {
         binding.textViewValidateConfirm.show()
-        binding.textViewValidateConfirm.text =
-            getText(R.string.error_validation_confirm_password_mismatch)
+        binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
     }
 
 }

@@ -14,6 +14,7 @@ class RegisterPresenter(
     private val preferences: TaskSharedPreferences
 ) {
     private val authService: AuthService by lazy { AuthService() }
+    private val registerValidation = RegisterValidation()
 
     fun makeRequest(userRequest: UserRequest) {
         authService.register(userRequest,
@@ -39,7 +40,7 @@ class RegisterPresenter(
     }
 
     fun checkUsernameText(usernameText: String, requireContext: Context) {
-        when (RegisterValidation().getUsernameStatus(usernameText, requireContext)) {
+        when (registerValidation.getUsernameStatus(usernameText, requireContext)) {
             requireContext.getString(R.string.error_validation_user_name_special) -> setErrorUsername(
                 requireContext.getString(R.string.error_validation_user_name_special)
             )
@@ -64,7 +65,7 @@ class RegisterPresenter(
 
     fun checkPasswordText(passwordLength: Int) {
         when {
-            RegisterValidation().checkPasswordLength(passwordLength) -> {
+            registerValidation.checkPasswordLength(passwordLength) -> {
                 view.showErrorPasswordLength()
             }
 
@@ -75,7 +76,7 @@ class RegisterPresenter(
     }
 
     fun checkConfirmPasswordText(passwordText: String, confirmPasswordText: String) {
-        if (RegisterValidation().checkConfirmPasswordAndPasswordText(passwordText,confirmPasswordText)) {
+        if (registerValidation.checkConfirmPasswordAndPasswordText(passwordText,confirmPasswordText)) {
             view.showConfirmPassword(true)
         } else {
             view.showConfirmPassword(false)
