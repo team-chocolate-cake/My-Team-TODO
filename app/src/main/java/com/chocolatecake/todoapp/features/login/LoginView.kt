@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.login
+package com.chocolatecake.todoapp.features.login
 
 interface LoginView {
     fun navigateToHomeScreen()

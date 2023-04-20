@@ -1,4 +1,4 @@
-package com.chocolatecake.todoapp.login
+package com.chocolatecake.todoapp.features.login
 
 import android.os.Bundle
 import android.view.LayoutInflater

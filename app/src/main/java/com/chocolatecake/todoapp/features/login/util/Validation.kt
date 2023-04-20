@@ -5,7 +5,7 @@ import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 class Validation {
 
     fun isValidateUsername(value: String): Boolean {
-        return value.trim().length < 3
+        return value.trim().length < 4
     }
 
     fun isValidatePassword(value: String): Boolean {

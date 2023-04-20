@@ -20,7 +20,7 @@
     <string name="login" >Login</string>
     <string name="do_you_have_an_account" >Do you have an account ?</string>
     <string name="password_validate" >Password must be at least 8 characters long</string>
-    <string name="username_validate" >Username must be at least 3 characters long</string>
+    <string name="username_validate" >Username must be at least 4 characters long</string>
     <string name="password" >Password</string>
     <string name="orginize_your_brain_and_your_team" >Organize your brain and your team</string>
     <string name="search" >search</string>

@@ -6,7 +6,7 @@ import com.chocolatecake.todoapp.core.data.model.response.TokenResponse
 import com.chocolatecake.todoapp.core.data.model.response.BaseResponse
 import com.chocolatecake.todoapp.core.data.network.services.identity.AuthService
 import com.chocolatecake.todoapp.features.login.util.Validation
-import com.chocolatecake.todoapp.login.LoginView
+import com.chocolatecake.todoapp.features.login.LoginView
 
 class LoginPresenter(
     private val view: LoginView,
