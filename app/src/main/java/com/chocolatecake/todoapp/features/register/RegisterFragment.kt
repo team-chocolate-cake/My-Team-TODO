@@ -17,6 +17,7 @@ import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
 import com.chocolatecake.todoapp.features.login.LoginFragment
+import com.chocolatecake.todoapp.features.register.util.RegisterValidation
 import com.chocolatecake.todoapp.features.register.util.ValidationState
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
@@ -26,7 +27,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     private val registerPresenter: RegisterPresenter by lazy {
         RegisterPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
     }
-
+    private val validationState = ValidationState()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,11 +76,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
 
     private fun onClickRegisterButton() {
         binding.buttonRegister.setOnClickListener {
-            val isValidateFailed = ValidationState().isUsernameValid && ValidationState().isPasswordValid && ValidationState().isConfirmPasswordValid
+            val isValidateFailed =
+                validationState.isUsernameValid && validationState.isPasswordValid && validationState.isConfirmPasswordValid
             val usernameText = binding.textInputEditTextLayoutUsername.text.toString()
             val passwordText = binding.textInputEditTextPassword.text.toString()
             val confirmPasswordText = binding.textInputEditTextConfirmPassword.text.toString()
-            registerPresenter.handleRegister(isValidateFailed, usernameText, passwordText, confirmPasswordText
+            registerPresenter.handleRegister(
+                isValidateFailed, usernameText, passwordText, confirmPasswordText
             )
         }
     }
@@ -110,37 +113,37 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
 
     override fun hideUsername() {
         binding.textViewValidateUserName.hide()
-        ValidationState().isUsernameValid = true
+        validationState.isUsernameValid = true
     }
 
     override fun showErrorInvalidUsername(message: String?) {
         activity?.runOnUiThread {
             binding.textViewValidateUserName.text = message
             binding.textViewValidateUserName.show()
-            ValidationState().isUsernameValid = false
+            validationState.isUsernameValid = false
         }
     }
 
     override fun showErrorPasswordLength() {
         binding.textViewValidatePassword.text = getText(R.string.password_validate)
         binding.textViewValidatePassword.show()
-        ValidationState().isPasswordValid = false
+        validationState.isPasswordValid = false
     }
 
     override fun hideValidatePasswordText() {
         binding.textViewValidatePassword.hide()
-        ValidationState().isPasswordValid = true
+        validationState.isPasswordValid = true
     }
 
     override fun showConfirmPassword(isVisible: Boolean) {
         if (isVisible) {
             binding.textViewValidateConfirm.hide()
-            ValidationState().isConfirmPasswordValid = true
+            validationState.isConfirmPasswordValid = true
         } else {
             binding.textViewValidateConfirm.text =
                 getText(R.string.error_validation_confirm_password_mismatch)
             binding.textViewValidateConfirm.show()
-            ValidationState().isConfirmPasswordValid = false
+            validationState.isConfirmPasswordValid = false
         }
     }
 
