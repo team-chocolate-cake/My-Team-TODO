@@ -10,8 +10,6 @@ import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.features.add_new_task.view.AddNewTaskFragment
-import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
@@ -19,7 +17,10 @@ import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.navigateExclusive
 import com.chocolatecake.todoapp.core.util.navigateTo
 import com.chocolatecake.todoapp.core.util.show
+import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
+import com.chocolatecake.todoapp.features.add_new_task.view.AddNewTaskFragment
+import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.features.home.adapter.HomeAdapter
 import com.chocolatecake.todoapp.features.home.model.HomeItem
 import com.chocolatecake.todoapp.features.home.model.SearchQuery
@@ -61,8 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     }
 
     private fun setup() {
-        presenter.getTeamTask(getSelectedChips())
-        presenter.getTeamStatusListCount()
+        applySearch()
     }
 
     private fun addCallBacks() {
@@ -71,6 +71,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
             requireActivity().navigateTo(addNewTaskFragment)
         }
         binding.tabLayout.addOnTabSelectedListener(this)
+        binding.chipGroup.setOnCheckedStateChangeListener { _, _ ->
+            searchQuery = searchQuery.copy(status = getSelectedChips())
+            applySearch()
+        }
+        addSearchCallBack()
+    }
+
+    private fun addSearchCallBack() {
         binding.editTextSearch.addTextChangedListener {
             runnable?.let { it1 -> handler.removeCallbacks(it1) }
             runnable = Runnable {
@@ -78,23 +86,53 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
                     title = it.toString(),
                     status = getSelectedChips()
                 )
-                if (isPersonal) {
-                    presenter.searchPersonalTasks(searchQuery)
-                } else {
-                    presenter.searchTeamTasks(searchQuery)
-                }
+                applySearch()
             }
             handler.postDelayed(runnable!!, 500)
         }
-        binding.chipGroup.setOnCheckedStateChangeListener { _, _ ->
-            searchQuery = searchQuery.copy(status = getSelectedChips())
-            if (isPersonal) {
-                presenter.searchPersonalTasks(searchQuery)
-                presenter.getPersonalStatusListCount()
-            } else {
-                presenter.searchTeamTasks(searchQuery)
-                presenter.getTeamStatusListCount()
-            }
+    }
+
+    override fun showError(message: String?) {
+        activity?.showSnackbar(message, binding.root)
+    }
+
+    override fun showNoNetworkError() {
+        binding.recyclerView.hide()
+        binding.imageViewNoTasksResult.hide()
+        binding.lottieNoNetwork.show()
+        binding.textViewNoNetwork.show()
+    }
+
+    override fun showNoTasksResult() {
+        runOnUi {
+            binding.recyclerView.hide()
+            binding.imageViewNoTasksResult.show()
+            binding.textViewNoTasksResult.show()
+        }
+    }
+
+    override fun showTeamTasks(teamTasks: List<TeamTask>) {
+        runOnUi {
+            showRecyclerView()
+            setUpTeamTasksRecyclerView(teamTasks)
+        }
+    }
+
+    override fun showPersonalTasks(personalTasks: List<PersonalTask>) {
+        runOnUi {
+            showRecyclerView()
+            setUpPersonalTasksRecyclerView(personalTasks)
+        }
+    }
+
+    override fun navigateToLogin() {
+        activity?.navigateExclusive(LoginFragment())
+    }
+
+    override fun updateStatusCount(statusList: Triple<Int?, Int?, Int?>) {
+        runOnUi {
+            showRecyclerView()
+            updateChipsStatus(statusList)
         }
     }
 
@@ -108,83 +146,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
         return statusList.toList()
     }
 
-    override fun onAllTasksFailure(message: String?) {
-        runOnUi { showNoNetworkError() }
-    }
-
-    private fun showNoTasksError() {
-        binding.recyclerView.hide()
-        binding.imageViewNoTasksResult.show()
-        binding.textViewNoTasksResult.show()
-    }
-
-    private fun showNoNetworkError() {
-        binding.recyclerView.hide()
-        binding.imageViewNoTasksResult.hide()
-        binding.lottieNoNetwork.show()
-        binding.textViewNoNetwork.show()
-
-    }
-
     private fun showRecyclerView() {
         binding.groupNoNetwork.hide()
         binding.recyclerView.show()
-    }
-
-
-    override fun onTeamTasksSuccess(teamTasks: List<TeamTask>) {
-        runOnUi {
-            showRecyclerView()
-            if (teamTasks.isEmpty()) {
-                showNoTasksError()
-            }
-            setUpTeamTasksRecyclerView(teamTasks)
-        }
-    }
-
-    override fun onPersonalTasksSuccess(personalTasks: List<PersonalTask>) {
-        runOnUi {
-            showRecyclerView()
-            if (personalTasks.isEmpty()) {
-                showNoTasksError()
-            }
-            setUpPersonalTasksRecyclerView(personalTasks)
-        }
-    }
-
-    override fun onUnauthorizedResponse() {
-        activity?.navigateExclusive(LoginFragment())
-    }
-
-    override fun onSearchTeamResultSuccess(teamTasks: List<TeamTask>) {
-        runOnUi {
-            showRecyclerView()
-            if (teamTasks.isEmpty()) {
-                showNoTasksError()
-            }
-            val itemsList: MutableList<HomeItem> = mutableListOf()
-            itemsList.addAll(teamTasks.map { it.toHomeItem() })
-            homeAdapter.updateList(itemsList)
-        }
-    }
-
-    override fun onSearchPersonalResultSuccess(personalTasks: List<PersonalTask>) {
-        val itemsList: MutableList<HomeItem> = mutableListOf()
-        itemsList.addAll(personalTasks.map { it.toHomeItem() })
-        runOnUi {
-            showRecyclerView()
-            if (personalTasks.isEmpty()) {
-                showNoTasksError()
-            }
-            homeAdapter.updateList(itemsList)
-        }
-    }
-
-    override fun onStatusCountsSuccess(statusList: Triple<Int?, Int?, Int?>) {
-        runOnUi {
-            showRecyclerView()
-            updateChipsStatus(statusList)
-        }
     }
 
     private fun updateChipsStatus(tasksCount: Triple<Int?, Int?, Int?>) {
@@ -194,10 +158,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
                     R.id.toDoChip -> {
                         toDoChip.text = getString(R.string.to_do_task, tasksCount.first)
                     }
+
                     R.id.InProgressChip -> {
                         InProgressChip.text =
                             getString(R.string.in_progress_task, tasksCount.second)
                     }
+
                     R.id.DoneChip -> {
                         DoneChip.text = getString(R.string.done_task, tasksCount.third)
                     }
@@ -230,29 +196,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
 
     private fun runOnUi(runner: () -> Unit) = activity?.runOnUiThread { runner() }
 
-    private companion object {
-        const val TEAM_POSITION = 0
-        const val PERSONAL_POSITION = 1
+    private fun applySearch() {
+        if (isPersonal) {
+            presenter.searchPersonalTasks(searchQuery)
+        } else {
+            presenter.searchTeamTasks(searchQuery)
+        }
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         binding.apply {
             when (tab?.position) {
                 TEAM_POSITION -> {
-                    presenter.getTeamStatusListCount()
-                    presenter.searchTeamTasks(searchQuery)
                     isPersonal = false
                 }
+
                 PERSONAL_POSITION -> {
-                    presenter.getPersonalStatusListCount()
-                    presenter.searchPersonalTasks(searchQuery)
                     isPersonal = true
                 }
             }
+            applySearch()
         }
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
     override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+    private companion object {
+        const val TEAM_POSITION = 0
+        const val PERSONAL_POSITION = 1
+    }
 }
