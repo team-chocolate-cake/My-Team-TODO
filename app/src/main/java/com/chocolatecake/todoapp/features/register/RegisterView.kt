@@ -1,10 +1,27 @@
 package com.chocolatecake.todoapp.features.register
 
-import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
-
 interface RegisterView {
-    fun onRegisterSuccess(response: RegisterResponse)
-    fun onRegisterFailure(message: String?)
-    fun onLoginSuccess()
-    fun onFailure(message: String?)
+    fun navigationToHome()
+    fun showErrorRegister(message: String?)
+
+    fun showNoInternetConnection(message: String?)
+
+    fun hideUsername()
+
+    fun showErrorInvalidUsername(message: String?)
+
+    fun showErrorPasswordLength()
+
+    fun hideValidatePasswordText()
+
+    fun showConfirmPassword(isVisible: Boolean)
+
+    fun registerUser()
+
+    fun showEmptyUsernameError()
+
+    fun showEmptyPasswordError()
+
+    fun showMismatchConfirmPassword()
+
 }

@@ -12,13 +12,11 @@ import com.chocolatecake.todoapp.features.register.presenter.RegisterPresenter
 import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
-import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
 import com.chocolatecake.todoapp.features.login.LoginFragment
-import com.chocolatecake.todoapp.features.register.util.getUsernameStatus
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
@@ -51,148 +49,126 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     }
 
     private fun checkUsernameValidate() {
-        binding.apply {
-            textInputEditTextLayoutUsername.addTextChangedListener {
-                when (getUsernameStatus(
-                    textInputEditTextLayoutUsername.text.toString(),
+        binding.textInputEditTextLayoutUsername.addTextChangedListener {
+                registerPresenter.checkUsernameText(
+                    binding.textInputEditTextLayoutUsername.text.toString(),
                     requireContext()
-                )) {
-                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_special)
-                    )
-                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_space)
-                    )
-                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_should_grater_the_limit)
-                    )
-                    getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_start_with_digit)
-                    )
-                    else -> {
-                        textViewValidateUserName.hide()
-                        validationUserName = true
-                    }
-                }
+                )
             }
         }
-    }
 
     private fun checkPasswordValidate() {
-        binding.apply {
-            textInputEditTextPassword.addTextChangedListener { passwordText ->
+        binding.textInputEditTextPassword.addTextChangedListener { passwordText ->
                 val passwordLength = passwordText!!.length
-                when {
-                    passwordLength < VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text =
-                            getText(R.string.error_validation_password_text_length)
-                        textViewValidatePassword.show()
-                        validationPassword = false
-                    }
-                    else -> {
-                        textViewValidatePassword.hide()
-                        validationPassword = true
-                    }
-                }
+                registerPresenter.checkPasswordText(passwordLength)
             }
         }
-    }
 
     private fun checkConfirmPasswordValidate() {
-        binding.apply {
-            textInputEditTextConfirmPassword.addTextChangedListener {
-                if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
-                    textViewValidateConfirm.hide()
-                    validationConfirmPassword = true
-                } else {
-                    textViewValidateConfirm.text =
-                        getText(R.string.error_validation_confirm_password_mismatch)
-                    textViewValidateConfirm.show()
-                    validationConfirmPassword = false
-                }
+        binding.textInputEditTextConfirmPassword.addTextChangedListener {
+                registerPresenter.checkConfirmPasswordText(
+                    binding.textInputEditTextPassword.text.toString(),
+                    binding.textInputEditTextConfirmPassword.text.toString()
+                )
             }
+        }
+
+    private fun onClickRegisterButton() {
+        binding.buttonRegister.setOnClickListener {
+            val isValidateFailed = validationUserName && validationPassword && validationConfirmPassword
+            val usernameText = binding.textInputEditTextLayoutUsername.text.toString()
+            val passwordText = binding.textInputEditTextPassword.text.toString()
+            val confirmPasswordText = binding.textInputEditTextConfirmPassword.text.toString()
+           registerPresenter.handleRegister(isValidateFailed,usernameText,passwordText, confirmPasswordText)
         }
     }
 
-    private fun setErrorUsername(error: String) {
+    override fun navigationToHome() {
         activity?.runOnUiThread {
-            binding.textViewValidateUserName.text = error
+                binding.progressBarReload.hide()
+                binding.buttonRegister.show()
+                activity?.navigateExclusive((HomeFragment()))
+            }
+    }
+
+    override fun showErrorRegister(message: String?) {
+        activity?.runOnUiThread {
+            binding.progressBarReload.hide()
+            binding.buttonRegister.show()
+            message?.let { registerPresenter.setErrorUsername(it) }
+        }
+    }
+
+    override fun showNoInternetConnection(message: String?) {
+        activity?.runOnUiThread {
+            activity?.showSnackbar(getString(R.string.no_internet_connection), binding.root)
+            binding.progressBarReload.hide()
+            binding.buttonRegister.show()
+        }
+    }
+
+    override fun hideUsername() {
+        binding.textViewValidateUserName.hide()
+        validationUserName = true
+    }
+
+    override fun showErrorInvalidUsername(message: String?) {
+        activity?.runOnUiThread {
+            binding.textViewValidateUserName.text = message
             binding.textViewValidateUserName.show()
             validationUserName = false
         }
     }
 
-    private fun onClickRegisterButton() {
-        binding.buttonRegister.setOnClickListener { buttonRegister ->
-            if (validationUserName && validationPassword && validationConfirmPassword) {
-                val newUser = UserRequest(
-                    binding.textInputEditTextLayoutUsername.text.toString(),
-                    binding.textInputEditTextPassword.text.toString()
-                )
-                registerPresenter.makeRequest(newUser)
-                buttonRegister.hide()
-                binding.progressBarReload.show()
-            }
-            if (binding.textInputEditTextLayoutUsername.text.isNullOrEmpty()) {
-                binding.apply {
-                    textViewValidateUserName.show()
-                    textViewValidateUserName.text = getString(R.string.username_cannot_be_empty)
-                }
-            }
-            if (binding.textInputEditTextPassword.text.isNullOrEmpty()) {
-                binding.apply {
-                    textViewValidatePassword.show()
-                    textViewValidatePassword.text = getText(R.string.password_cannot_be_empty)
-                }
-            }
-            if (binding.textInputEditTextConfirmPassword.text.toString() != binding.textInputEditTextPassword.text.toString()) {
-                binding.textViewValidateConfirm.show()
-                binding.textViewValidateConfirm.text =
-                    getText(R.string.error_validation_confirm_password_mismatch)
-            }
+    override fun showErrorPasswordLength() {
+        binding.textViewValidatePassword.text = getText(R.string.error_validation_password_text_length)
+        binding.textViewValidatePassword.show()
+        validationPassword = false
+    }
+
+    override fun hideValidatePasswordText() {
+        binding.textViewValidatePassword.hide()
+        validationPassword = true
+    }
+
+    override fun showConfirmPassword(isVisible: Boolean) {
+        if (isVisible) {
+            binding.textViewValidateConfirm.hide()
+            validationConfirmPassword = true
+        } else {
+            binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
+            binding.textViewValidateConfirm.show()
+            validationConfirmPassword = false
         }
     }
 
-    override fun onRegisterSuccess(response: RegisterResponse) {
-        activity?.apply {
-            runOnUiThread {
-                binding.progressBarReload.hide()
-                binding.buttonRegister.show()
-            }
+    override fun registerUser() {
+        val newUser = UserRequest(
+            binding.textInputEditTextLayoutUsername.text.toString(),
+            binding.textInputEditTextPassword.text.toString()
+        )
+        registerPresenter.makeRequest(newUser)
+        binding.buttonRegister.hide()
+        binding.progressBarReload.show()
+    }
+
+    override fun showEmptyUsernameError() {
+        binding.apply {
+            textViewValidateUserName.show()
+            textViewValidateUserName.text = getString(R.string.username_cannot_be_empty)
         }
     }
 
-    override fun onRegisterFailure(message: String?) {
-        activity?.runOnUiThread {
-            binding.progressBarReload.hide()
-            binding.buttonRegister.show()
-            message?.let { setErrorUsername(it) }
+    override fun showEmptyPasswordError() {
+        binding.apply {
+            textViewValidatePassword.show()
+            textViewValidatePassword.text = getText(R.string.password_cannot_be_empty)
         }
     }
 
-    override fun onLoginSuccess() {
-        activity?.apply {
-            runOnUiThread {
-                binding.progressBarReload.hide()
-                binding.buttonRegister.show()
-                navigateExclusive((HomeFragment()))
-            }
-        }
+    override fun showMismatchConfirmPassword() {
+        binding.textViewValidateConfirm.show()
+        binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
     }
 
-    override fun onFailure(message: String?) {
-        activity?.runOnUiThread {
-            activity?.showSnackbar(
-                message = getString(R.string.no_internet_connection),
-                binding.root
-            )
-            binding.progressBarReload.hide()
-            binding.buttonRegister.show()
-        }
-    }
-
-    companion object {
-        const val VALIDATION_PASSWORD_LENGTH = 8
-        const val VALIDATION_USERNAME_LENGTH = 4
-    }
 }
