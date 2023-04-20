@@ -1,20 +1,19 @@
 package com.chocolatecake.todoapp.features.task_details.view
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
-import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
-import com.chocolatecake.todoapp.features.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.core.util.navigateBack
 import com.chocolatecake.todoapp.core.util.showSnackbar
+import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
+import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.features.home.model.Status
+import com.chocolatecake.todoapp.features.task_details.presenter.TaskDetailsPresenter
 
 class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDetailsView {
     private val isPersonal by lazy {
@@ -35,13 +34,6 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         addCallBack()
     }
 
-    /**
-     * This function retrieves the task data from the Parcelable object passed as an argument,
-     * and displays the data on the screen. If the task is a personal task, it calls the
-     * showPersonalTaskData() function with the retrieved task object as a parameter. If the
-     * task is a team task, it calls the showTeamTaskData() function with the retrieved task
-     * object as a parameter.
-     */
     private fun getTask() {
         arguments?.run {
             if (isPersonal) {
@@ -82,8 +74,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                         )
                     },
                     personalTask!!.status
-                )
-                    .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+                ).show(childFragmentManager, BOTTOM_SHEET_DIALOG)
             } else {
                 val teamTask: TeamTask? = getParcelable(
                     TEAM_TASK_OBJECT
@@ -96,15 +87,14 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
                         )
                     },
                     teamTask!!.status
-                )
-                    .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+                ).show(childFragmentManager, BOTTOM_SHEET_DIALOG)
             }
         }
 
     }
 
     override fun showTeamTaskData(result: TeamTask?) {
-        requireActivity().runOnUiThread {
+         activity?.runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
                 textViewAssignee.text = result?.assignee
@@ -116,7 +106,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
     }
 
     override fun showPersonalTaskData(result: PersonalTask?) {
-        requireActivity().runOnUiThread {
+         activity?.runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
                 textViewDescription.text = result?.description
