@@ -74,23 +74,24 @@
         <item name="checkedIconVisible">false</item>
         <item name="chipStartPadding">@dimen/spacing_medium</item>
         <item name="chipEndPadding">@dimen/spacing_medium</item>
-        <item name="chipMinHeight">44dp</item>
+        <item name="chipMinHeight">40dp</item>
         <item name="chipStrokeWidth">1dp</item>
-        <item name="chipStrokeColor">@color/chip_stroke_color</item>
     </style>
 
     <style name="TextStyle.LabelMedium.ChipStyle.Todo">
         <item name="chipBackgroundColor">@color/chip_background_todo</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color_todo</item>
     </style>
 
     <style name="TextStyle.LabelMedium.ChipStyle.InProgress">
         <item name="chipBackgroundColor">@color/chip_background_progress</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color_progress</item>
     </style>
 
     <style name="TextStyle.LabelMedium.ChipStyle.Done">
         <item name="chipBackgroundColor">@color/chip_background_done</item>
+        <item name="chipStrokeColor">@color/chip_stroke_color_done</item>
     </style>
-
 
     <style name="TopCornerCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cornerFamily">rounded</item>
