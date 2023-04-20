@@ -13,7 +13,6 @@ class TaskDetailsPresenter(private val preferences: TaskSharedPreferences) {
         TaskService(preferences)
     }
 
-    // this function sends the personal task new status and updates it
     fun updatePersonalStatus(id: String, status: Int) {
         taskService.updatePersonalStatus(
             id,
@@ -22,7 +21,6 @@ class TaskDetailsPresenter(private val preferences: TaskSharedPreferences) {
             onFailure = ::onFailure
         )
     }
-    // // this function sends the team task new status and updates it
     fun updateTeamStatus(id: String, status: Int) {
         taskService.updateTeamStatus(
             id,
