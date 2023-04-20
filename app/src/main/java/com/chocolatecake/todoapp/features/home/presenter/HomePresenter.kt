@@ -59,7 +59,7 @@ class HomePresenter(
     private fun onFailure(message: String?, statusCode: Int) {
         when (statusCode) {
             NO_NETWORK_CODE -> {
-                homeView.showError(message)
+                homeView.showNoNetworkError()
             }
 
             401 -> {

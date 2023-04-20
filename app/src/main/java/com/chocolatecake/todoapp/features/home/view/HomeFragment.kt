@@ -17,6 +17,7 @@ import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.navigateExclusive
 import com.chocolatecake.todoapp.core.util.navigateTo
 import com.chocolatecake.todoapp.core.util.show
+import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.databinding.FragmentHomeBinding
 import com.chocolatecake.todoapp.features.add_new_task.view.AddNewTaskFragment
 import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
@@ -92,7 +93,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     }
 
     override fun showError(message: String?) {
-        runOnUi { showNoNetworkError() }
+        activity?.showSnackbar(message, binding.root)
     }
 
     override fun showNoNetworkError() {
