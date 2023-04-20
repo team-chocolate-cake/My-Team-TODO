@@ -32,7 +32,7 @@
     <string name="username" >Username</string>
     <string name="confirm_password" >Confirm Password</string>
     <string name="welcome" >Welcome to TickTask</string>
-    <string name="status_todo" >TO DO</string>
+    <string name="status_todo" >To Do</string>
     <string name="status_inprogress" >In Progress</string>
     <string name="status_done" >Done</string>
     <string name="title_task" >Task Details</string>
@@ -55,4 +55,5 @@
     <string name="ok">Ok</string>
     <string name="tiltle_task">Task Details</string>
     <string name="add_task_success">Task Added successfully</string>
+    <string name="no_network_connection">No Network Connection</string>
 </resources>

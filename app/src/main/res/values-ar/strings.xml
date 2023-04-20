@@ -58,4 +58,5 @@
     <string name="ok">حسنا</string>
     <string name="tiltle_task">تفاصيل المهمة</string>
     <string name="add_task_success">تم اضافة المهمة بنجاح</string>
+    <string name="no_network_connection">لا يوجد اتصال بالانترنت</string>
 </resources>

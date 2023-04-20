@@ -1,19 +1,19 @@
 package com.chocolatecake.todoapp.features.task_details.view
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chocolatecake.todoapp.R
-import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
-import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
 import com.chocolatecake.todoapp.core.data.model.response.TeamTask
-import com.chocolatecake.todoapp.features.task_details.presenter.TaskDetailsPresenter
 import com.chocolatecake.todoapp.core.util.navigateBack
 import com.chocolatecake.todoapp.core.util.showSnackbar
+import com.chocolatecake.todoapp.databinding.FragmentTaskDetailsBinding
+import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
+import com.chocolatecake.todoapp.features.home.model.Status
+import com.chocolatecake.todoapp.features.task_details.presenter.TaskDetailsPresenter
 
 class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDetailsView {
     private val isPersonal by lazy {
@@ -35,32 +35,18 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
     }
 
     private fun getTask() {
-        val args = arguments
-        if (isPersonal) {
-            val personalResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
-                }
-            setDataPersonal(personalResult)
-        } else {
-            val teamResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(TEAM_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
-                }
-            setDataTeam(teamResult)
-        }
-    }
-
-    private fun getStatusByNum(num: Int): String {
-        return when (num) {
-            0 -> getString(R.string.status_todo)
-            1 -> getString(R.string.status_inprogress)
-            2 -> getString(R.string.status_done)
-            else -> "unknown"
+        arguments?.run {
+            if (isPersonal) {
+                val personalTask: PersonalTask? = getParcelable(
+                    PERSONAL_TASK_OBJECT
+                )
+                showPersonalTaskData(personalTask)
+            } else {
+                val teamTask: TeamTask? = getParcelable(
+                    TEAM_TASK_OBJECT
+                )
+                showTeamTaskData(teamTask)
+            }
         }
     }
 
@@ -69,57 +55,46 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
             activity?.navigateBack()
         }
         binding.textViewStatus.setOnClickListener {
-            showBottomSheetDialog()
+            updateTaskStatus()
         }
     }
 
-    private fun showBottomSheetDialog() {
-        val args = arguments
-        if (isPersonal) {
-            val personalResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
-                }
-            ChangeStatusBottomSheet(::updateStatus, personalResult!!.status)
-                .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
-        } else {
-            val teamResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(TEAM_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
-                }
-            ChangeStatusBottomSheet(::updateStatus, teamResult!!.status)
-                .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
-        }
-    }
 
-    private fun updateStatus(status: Int) {
-        val args = arguments
-        if (isPersonal) {
-            val personalResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(PERSONAL_TASK_OBJECT) as? PersonalTask
-                }
-            taskDetailsPresenter.updatePersonalStatus(personalResult!!.id, status)
-        } else {
-            val teamResult =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    args?.getParcelable(TEAM_TASK_OBJECT)
-                } else {
-                    args?.getParcelable(TEAM_TASK_OBJECT) as? TeamTask
-                }
-            taskDetailsPresenter.updateTeamStatus(teamResult!!.id, status)
+    private fun updateTaskStatus() {
+        arguments?.run {
+            if (isPersonal) {
+                val personalTask: PersonalTask? = getParcelable(
+                    PERSONAL_TASK_OBJECT
+                )
+                ChangeStatusBottomSheet(
+                    { newStatus ->
+                        taskDetailsPresenter.updatePersonalStatus(
+                            personalTask!!.id,
+                            newStatus
+                        )
+                    },
+                    personalTask!!.status
+                ).show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+            } else {
+                val teamTask: TeamTask? = getParcelable(
+                    TEAM_TASK_OBJECT
+                )
+                ChangeStatusBottomSheet(
+                    { newStatus ->
+                        taskDetailsPresenter.updateTeamStatus(
+                            teamTask!!.id,
+                            newStatus
+                        )
+                    },
+                    teamTask!!.status
+                ).show(childFragmentManager, BOTTOM_SHEET_DIALOG)
+            }
         }
 
     }
 
-    override fun setDataTeam(result: TeamTask?) {
-        requireActivity().runOnUiThread {
+    override fun showTeamTaskData(result: TeamTask?) {
+        activity?.runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
                 textViewAssignee.text = result?.assignee
@@ -130,8 +105,8 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         }
     }
 
-    override fun setDataPersonal(result: PersonalTask?) {
-        requireActivity().runOnUiThread {
+    override fun showPersonalTaskData(result: PersonalTask?) {
+        activity?.runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
                 textViewDescription.text = result?.description
@@ -145,11 +120,18 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         return creationTime.split("T").first()
     }
 
-    override fun onUpdateFailure() {
+    private fun getStatusByNum(num: Int) = when (num) {
+        0 -> getString(R.string.status_todo)
+        1 -> getString(R.string.status_inprogress)
+        2 -> getString(R.string.status_done)
+        else -> "unknown"
+    }
+
+    override fun showFailedStatusUpdate() {
         activity?.showSnackbar(getString(R.string.failed_update), binding.root)
     }
 
-    override fun onUpdateSuccess(status: Int) {
+    override fun showUpdatedStatus(status: Int) {
         activity?.run {
             showSnackbar(getString(R.string.success_update), binding.root)
             runOnUiThread {

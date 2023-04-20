@@ -5,17 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.databinding.FragmentLoginBinding
-import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
 import com.chocolatecake.todoapp.core.util.*
+import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
-import com.chocolatecake.todoapp.features.login.presenter.LoginPresenter
-import com.chocolatecake.todoapp.features.login.util.passwordLength
-import com.chocolatecake.todoapp.features.login.util.usernameLength
 import com.chocolatecake.todoapp.features.register.RegisterFragment
+import com.chocolatecake.todoapp.features.login.presenter.LoginPresenter
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
@@ -31,36 +28,29 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onCallBacks()
+
+        setUp()
+        addCallBacks()
     }
 
-    private fun onCallBacks() {
-        onClickLoginButton()
+    private fun setUp() {
         checkUsernameValidate()
         checkPasswordValidate()
+    }
+
+    private fun addCallBacks() {
+        onClickLoginButton()
         onClickRegisterButton()
     }
 
     private fun onClickLoginButton() {
         binding.buttonLogin.setOnClickListener {
-            val userRequest = UserRequest(
-                username = binding.editTextUsername.text.toString().trim(),
-                password = binding.editTextInputPassword.text.toString().trim(),
+            presenter.login(
+                UserRequest(
+                    username = binding.editTextUsername.text.toString().trim(),
+                    password = binding.editTextInputPassword.text.toString().trim(),
+                ),
             )
-
-            userRequest.apply {
-                if (username.isNotEmpty() && password.isNotEmpty()) {
-                    if (!username.usernameLength() && !password.passwordLength()) {
-                        presenter.login(this)
-                        showProgressBar()
-                    }
-                } else {
-                    requireActivity().showSnackbar(
-                        message = getString(R.string.please_fill_fields),
-                        binding.root
-                    )
-                }
-            }
         }
     }
 
@@ -68,11 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     private fun checkUsernameValidate() {
         binding.editTextUsername.apply {
             doOnTextChanged { text, start, before, count ->
-                if (text.toString().usernameLength() && text.toString().isNotEmpty()) {
-                    binding.textViewUsernameValidate.show()
-                } else {
-                    binding.textViewUsernameValidate.hide()
-                }
+                presenter.checkUsernameValidate(text.toString())
             }
         }
     }
@@ -80,28 +66,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
     private fun checkPasswordValidate() {
         binding.editTextInputPassword.apply {
             doOnTextChanged { text, start, before, count ->
-                if (text.toString().passwordLength() && text.toString().isNotEmpty()) {
-                    binding.textViewPasswordValidate.show()
-                } else {
-                    binding.textViewPasswordValidate.hide()
-                }
+                presenter.checkPasswordValidate(text.toString())
             }
         }
     }
 
-    override fun onFailure(message: String?) {
-        requireActivity().runOnUiThread {
-            requireActivity().showSnackbar(message = message, binding.root)
-            hideProgressBar()
-        }
-    }
 
-    override fun onSuccessLogin() {
+    override fun navigateToHomeScreen() {
         requireActivity().navigateExclusive(HomeFragment())
-    }
-
-    override fun showLoginError() {
-
     }
 
     private fun onClickRegisterButton() {
@@ -110,13 +82,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(), LoginView {
         }
     }
 
-    private fun showProgressBar() {
-        binding.buttonLogin.hide()
-        binding.progressBar.show()
+
+    override fun showLoginFailedError(message: String?) {
+        requireActivity().runOnUiThread {
+            requireActivity().showSnackbar(message = message, binding.root)
+        }
     }
 
-    private fun hideProgressBar() {
-        binding.progressBar.hide()
-        binding.buttonLogin.show()
+    override fun showUsernameValidationFailedError(visible: Boolean) {
+        if (visible) {
+            binding.textViewUsernameValidate.show()
+        } else {
+            binding.textViewUsernameValidate.hide()
+        }
+    }
+
+    override fun showPasswordValidationFailedError(visible: Boolean) {
+        if (visible) {
+            binding.textViewPasswordValidate.show()
+        } else {
+            binding.textViewPasswordValidate.hide()
+        }
+    }
+
+    override fun showProgressBar(visible: Boolean) {
+        requireActivity().runOnUiThread {
+            if (visible) {
+                binding.progressBar.show()
+                binding.buttonLogin.hide()
+            } else {
+                binding.progressBar.hide()
+                binding.buttonLogin.show()
+            }
+        }
     }
 }
