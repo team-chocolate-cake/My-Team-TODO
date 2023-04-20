@@ -27,7 +27,7 @@ class HomePresenter(
                 personalTasks?.let {
                     val statusCountResult = getSelectedPersonalCount(searchQuery, response.value, it)
                     homeView.updateStatusCount(statusCountResult)
-                    homeView.showPersonalTasks(it)
+                    homeView.showPersonalTasks(it.reversed())
                     if (it.isEmpty()) {
                         homeView.showNoTasksResult()
                     }
@@ -48,7 +48,7 @@ class HomePresenter(
             teamTasks?.let {
                 val statusCountResult = getSelectedTeamCount(searchQuery, response.value, it)
                 homeView.updateStatusCount(statusCountResult)
-                homeView.showTeamTasks(it)
+                homeView.showTeamTasks(it.reversed())
                 if (it.isEmpty()) {
                     homeView.showNoTasksResult()
                 }
