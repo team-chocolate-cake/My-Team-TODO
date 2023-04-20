@@ -18,9 +18,7 @@ interface RegisterView {
 
     fun registerUser()
 
-    fun showEmptyUsernameError()
-
-    fun showEmptyPasswordError()
+    fun showEmptyValidError()
 
     fun showMismatchConfirmPassword()
 

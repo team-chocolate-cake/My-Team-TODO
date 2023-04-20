@@ -48,8 +48,8 @@ class RegisterPresenter(
                 requireContext.getString(R.string.error_validation_user_name_space)
             )
 
-            requireContext.getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(
-                requireContext.getString(R.string.error_validation_user_name_should_grater_the_limit)
+            requireContext.getString(R.string.username_validate) -> setErrorUsername(
+                requireContext.getString(R.string.username_validate)
             )
 
             requireContext.getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(
@@ -64,7 +64,7 @@ class RegisterPresenter(
 
     fun checkPasswordText(passwordLength: Int) {
         when {
-            passwordLength < VALIDATION_PASSWORD_LENGTH -> {
+            RegisterValidation().checkPasswordLength(passwordLength) -> {
                 view.showErrorPasswordLength()
             }
 
@@ -75,7 +75,7 @@ class RegisterPresenter(
     }
 
     fun checkConfirmPasswordText(passwordText: String, confirmPasswordText: String) {
-        if (passwordText == confirmPasswordText) {
+        if (RegisterValidation().checkConfirmPasswordAndPasswordText(passwordText,confirmPasswordText)) {
             view.showConfirmPassword(true)
         } else {
             view.showConfirmPassword(false)
@@ -86,11 +86,8 @@ class RegisterPresenter(
         if (isValidateFailed) {
             view.registerUser()
         }
-        if (usernameText.isEmpty()) {
-            view.showEmptyUsernameError()
-        }
-        if (passwordText.isEmpty()) {
-            view.showEmptyPasswordError()
+        if (usernameText.isEmpty() || passwordText.isEmpty()) {
+            view.showEmptyValidError()
         }
         if (confirmPasswordText != passwordText) {
             view.showMismatchConfirmPassword()
@@ -101,8 +98,4 @@ class RegisterPresenter(
         view.showErrorInvalidUsername(error)
     }
 
-    companion object {
-        const val VALIDATION_PASSWORD_LENGTH = 8
-        const val VALIDATION_USERNAME_LENGTH = 4
-    }
 }
