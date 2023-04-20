@@ -9,7 +9,9 @@ import com.chocolatecake.todoapp.databinding.FragmentAddNewTaskBinding
 import com.chocolatecake.todoapp.features.add_new_task.presenter.AddNewTaskPresenter
 import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
+import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.navigateBack
+import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 
 class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTaskView {
@@ -53,9 +55,6 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
             .show(childFragmentManager, BOTTOM_SHEET_DIALOG)
     }
 
-    private fun createTask() {
-        createAndPushTaskToApi()
-    }
 
     private fun isInputValid(): Boolean {
         return if (isPersonal) {
@@ -93,7 +92,7 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
     private fun setPersonalOrTeamLayout(isPersonal: Boolean) {
         binding.apply {
             if (isPersonal) {
-                removeAssigneeInputField()
+                hideAssigneeInputField()
             } else {
                 appbar.title = resources.getString(R.string.title_add_new_team_task)
                 showAssigneeInputField()
@@ -103,19 +102,19 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
 
     private fun showAssigneeInputField() {
         binding.apply {
-            editTextAssignee.visibility = View.VISIBLE
-            textViewAssignee.visibility = View.VISIBLE
+            editTextAssignee.show()
+            textViewAssignee.show()
         }
     }
 
-    private fun removeAssigneeInputField() {
+    private fun hideAssigneeInputField() {
         binding.apply {
-            editTextAssignee.visibility = View.GONE
-            textViewAssignee.visibility = View.GONE
+            editTextAssignee.hide()
+            textViewAssignee.hide()
         }
     }
 
-    private fun createAndPushTaskToApi() {
+    private fun createTask() {
         val title = binding.editTextTitle.text.toString().trim()
         val description = binding.editTextDescription.text.toString().trim()
         val assignee = binding.editTextAssignee.text.toString().trim()
@@ -131,13 +130,18 @@ class AddNewTaskFragment : BaseFragment<FragmentAddNewTaskBinding>(), AddNewTask
         return arguments?.getBoolean(IS_PERSONAL, true)!!
     }
 
-    override fun onCreateTaskFailure() {
-        activity?.showSnackbar(message = getString(R.string.no_internet_connection), binding.root)
-    }
-
-    override fun onCreateTaskSuccess() {
+    override fun showAddTaskSuccess() {
         activity?.showSnackbar(message = getString(R.string.add_task_success), binding.root)
         returnToHomeFragment()
+    }
+
+    override fun showNoNetworkError() {
+        activity?.showSnackbar(message = getString(R.string.no_internet_connection), binding.root)
+
+    }
+
+    override fun showError(message: String) {
+        activity?.showSnackbar(message, binding.root)
     }
 
     companion object {
