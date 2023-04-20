@@ -2,6 +2,7 @@ package com.chocolatecake.todoapp.features.register
 
 interface RegisterView {
     fun navigateToHome()
+
     fun showErrorRegister(message: String?)
 
     fun showNoInternetConnection(message: String?)
