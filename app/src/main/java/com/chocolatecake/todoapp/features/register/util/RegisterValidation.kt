@@ -5,6 +5,7 @@ import com.chocolatecake.todoapp.R
 import java.lang.Character.isDigit
 
 class RegisterValidation {
+
     fun getUsernameStatus(username: String, context: Context): String {
         for (i in username.trim().indices) {
             when {

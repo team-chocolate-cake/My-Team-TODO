@@ -15,6 +15,9 @@ class RegisterPresenter(
 ) {
     private val authService: AuthService by lazy { AuthService() }
     private val registerValidation = RegisterValidation()
+    var isUsernameValid: Boolean = false
+    var isPasswordValid: Boolean = false
+    var isConfirmPasswordValid: Boolean = false
 
     fun makeRequest(userRequest: UserRequest) {
         authService.register(userRequest,
@@ -59,6 +62,7 @@ class RegisterPresenter(
 
             else -> {
                 view.hideUsername()
+                isUsernameValid = true
             }
         }
     }
@@ -67,10 +71,12 @@ class RegisterPresenter(
         when {
             registerValidation.checkPasswordLength(passwordLength) -> {
                 view.showErrorPasswordLength()
+                isPasswordValid = false
             }
 
             else -> {
                 view.hideValidatePasswordText()
+                isPasswordValid = true
             }
         }
     }
@@ -78,8 +84,10 @@ class RegisterPresenter(
     fun checkConfirmPasswordText(passwordText: String, confirmPasswordText: String) {
         if (registerValidation.checkConfirmPasswordAndPasswordText(passwordText,confirmPasswordText)) {
             view.showConfirmPassword(true)
+            isConfirmPasswordValid = true
         } else {
             view.showConfirmPassword(false)
+            isConfirmPasswordValid = false
         }
     }
 

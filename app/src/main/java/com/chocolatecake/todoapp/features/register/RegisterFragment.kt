@@ -17,7 +17,6 @@ import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
 import com.chocolatecake.todoapp.features.login.LoginFragment
-import com.chocolatecake.todoapp.features.register.util.ValidationState
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
@@ -26,8 +25,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     private val registerPresenter: RegisterPresenter by lazy {
         RegisterPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
     }
-    private val validationState = ValidationState()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,7 +72,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
 
     private fun onClickRegisterButton() {
         binding.buttonRegister.setOnClickListener {
-            val isValidateFailed = validationState.isUsernameValid && validationState.isPasswordValid && validationState.isConfirmPasswordValid
+            val isValidateFailed = registerPresenter.isUsernameValid && registerPresenter.isPasswordValid && registerPresenter.isConfirmPasswordValid
             val usernameText = binding.textInputEditTextLayoutUsername.text.toString()
             val passwordText = binding.textInputEditTextPassword.text.toString()
             val confirmPasswordText = binding.textInputEditTextConfirmPassword.text.toString()
@@ -109,36 +106,31 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
 
     override fun hideUsername() {
         binding.textViewValidateUserName.hide()
-        validationState.isUsernameValid = true
     }
 
     override fun showErrorInvalidUsername(message: String?) {
         activity?.runOnUiThread {
             binding.textViewValidateUserName.text = message
             binding.textViewValidateUserName.show()
-            validationState.isUsernameValid = false
         }
+
     }
 
     override fun showErrorPasswordLength() {
         binding.textViewValidatePassword.text = getText(R.string.password_validate)
         binding.textViewValidatePassword.show()
-        validationState.isPasswordValid = false
     }
 
     override fun hideValidatePasswordText() {
         binding.textViewValidatePassword.hide()
-        validationState.isPasswordValid = true
     }
 
     override fun showConfirmPassword(isVisible: Boolean) {
         if (isVisible) {
             binding.textViewValidateConfirm.hide()
-            validationState.isConfirmPasswordValid = true
         } else {
             binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
             binding.textViewValidateConfirm.show()
-            validationState.isConfirmPasswordValid = false
         }
     }
 
