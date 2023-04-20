@@ -12,6 +12,4 @@
         android:name="com.chocolatecake.todoapp.features.home.view.HomeFragment"
         tools:layout="@layout/fragment_home"/>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

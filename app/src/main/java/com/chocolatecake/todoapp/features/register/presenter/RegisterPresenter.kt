@@ -23,7 +23,6 @@ class RegisterPresenter(
         authService.register(userRequest,
             onSuccess = { response ->
                 if (response.isSuccess) {
-                    response.value?.let { view.navigateToHome() }
                     loginUser(userRequest)
                 } else {
                     view.showErrorRegister(response.message)
