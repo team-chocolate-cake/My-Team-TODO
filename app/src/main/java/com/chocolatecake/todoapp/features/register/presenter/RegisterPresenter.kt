@@ -29,13 +29,13 @@ class RegisterPresenter(
                     view.showErrorRegister(response.message)
                 }
             },
-            onFailure = { message: String?, statusCode: Int -> view.showNoInternetConnection(message) }
+            onFailure = { message: String?, _: Int -> view.showNoInternetConnection(message) }
         )
     }
 
     private fun loginUser(userRequest: UserRequest) {
         authService.login(userRequest,
-            onFailure = { message: String?, statusCode: Int -> view.showNoInternetConnection(message) }
+            onFailure = { message: String?, _: Int -> view.showNoInternetConnection(message) }
         ) { response ->
             preferences.token = response.value?.token
             view.navigationToHome()
@@ -68,30 +68,39 @@ class RegisterPresenter(
     }
 
     fun checkPasswordText(passwordLength: Int) {
-        when {
+        isPasswordValid = when {
             registerValidation.checkPasswordLength(passwordLength) -> {
                 view.showErrorPasswordLength()
-                isPasswordValid = false
+                false
             }
 
             else -> {
                 view.hideValidatePasswordText()
-                isPasswordValid = true
+                true
             }
         }
     }
 
     fun checkConfirmPasswordText(passwordText: String, confirmPasswordText: String) {
-        if (registerValidation.checkConfirmPasswordAndPasswordText(passwordText,confirmPasswordText)) {
+        isConfirmPasswordValid = if (registerValidation.checkConfirmPasswordAndPasswordText(
+                passwordText,
+                confirmPasswordText
+            )
+        ) {
             view.showConfirmPassword(true)
-            isConfirmPasswordValid = true
+            true
         } else {
             view.showConfirmPassword(false)
-            isConfirmPasswordValid = false
+            false
         }
     }
 
-    fun handleRegister(isValidateFailed: Boolean,usernameText: String,passwordText: String,confirmPasswordText: String){
+    fun handleRegister(
+        isValidateFailed: Boolean,
+        usernameText: String,
+        passwordText: String,
+        confirmPasswordText: String
+    ) {
         if (isValidateFailed) {
             view.registerUser()
         }
