@@ -94,30 +94,37 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
     }
 
     override fun showTeamTaskData(result: TeamTask?) {
-         activity?.runOnUiThread {
+        activity?.runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
                 textViewAssignee.text = result?.assignee
                 textViewDescription.text = result?.description
                 textViewDate.text = result?.creationTime?.let { getDate(it) }
-                textViewStatus.text = result?.status?.let { Status.createStatus(it).name }
+                textViewStatus.text = result?.status?.let { getStatusByNum(it) }
             }
         }
     }
 
     override fun showPersonalTaskData(result: PersonalTask?) {
-         activity?.runOnUiThread {
+        activity?.runOnUiThread {
             with(binding) {
                 textViewTitle.text = result?.title
                 textViewDescription.text = result?.description
                 textViewDate.text = result?.creationTime?.let { getDate(it) }
-                textViewStatus.text = result?.status?.let { Status.createStatus(it).name }
+                textViewStatus.text = result?.status?.let { getStatusByNum(it) }
             }
         }
     }
 
     private fun getDate(creationTime: String): String {
         return creationTime.split("T").first()
+    }
+
+    private fun getStatusByNum(num: Int) = when (num) {
+        0 -> getString(R.string.status_todo)
+        1 -> getString(R.string.status_inprogress)
+        2 -> getString(R.string.status_done)
+        else -> "unknown"
     }
 
     override fun showFailedStatusUpdate() {
@@ -128,7 +135,7 @@ class TaskDetailsFragment : BaseFragment<FragmentTaskDetailsBinding>(), TaskDeta
         activity?.run {
             showSnackbar(getString(R.string.success_update), binding.root)
             runOnUiThread {
-                binding.textViewStatus.text = Status.createStatus(status).name
+                binding.textViewStatus.text = getStatusByNum(status)
             }
         }
     }
