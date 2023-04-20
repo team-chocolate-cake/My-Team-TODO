@@ -163,25 +163,25 @@
         android:layout_height="wrap_content"
         android:text="@string/you_don_t_have_an_account"
         android:textColor="@color/on_background_60"
-        app:layout_constraintBottom_toBottomOf="@+id/text_view_register_body"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/text_view_register_body"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_view_register_body" />
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
 
     <TextView
         android:id="@+id/text_view_register_body"
         style="@style/TextStyle.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_tiny"
         android:clickable="true"
         android:text="@string/register"
         android:textColor="@color/primary"
-        android:layout_marginStart="@dimen/spacing_tiny"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/text_view_dont_have_an_account_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_view_dont_have_an_account_login"
-        app:layout_constraintTop_toBottomOf="@+id/button_login" />
+        app:layout_constraintTop_toTopOf="@+id/text_view_dont_have_an_account_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
