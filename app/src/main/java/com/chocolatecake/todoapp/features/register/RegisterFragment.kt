@@ -8,27 +8,22 @@ import androidx.core.widget.addTextChangedListener
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.core.util.*
 import com.chocolatecake.todoapp.databinding.FragmentRegisterBinding
-import com.chocolatecake.todoapp.features.register.presenter.RegistrationPresenter
+import com.chocolatecake.todoapp.features.register.presenter.RegisterPresenter
 import com.chocolatecake.todoapp.features.base.fragment.BaseFragment
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.request.UserRequest
-import com.chocolatecake.todoapp.core.data.model.response.RegisterResponse
 import com.chocolatecake.todoapp.core.util.hide
 import com.chocolatecake.todoapp.core.util.show
 import com.chocolatecake.todoapp.core.util.showSnackbar
 import com.chocolatecake.todoapp.features.home.view.HomeFragment
-import com.chocolatecake.todoapp.features.register.util.getUsernameStatus
 import com.chocolatecake.todoapp.features.login.LoginFragment
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegisterBinding =
         FragmentRegisterBinding::inflate
-    private var validationUserName: Boolean = false
-    private var validationPassword: Boolean = false
-    private var validationConfirmPassword: Boolean = false
 
-    private val registrationPresenter: RegistrationPresenter by lazy {
-        RegistrationPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
+    private val registerPresenter: RegisterPresenter by lazy {
+        RegisterPresenter(this, TaskSharedPreferences(requireActivity().applicationContext))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,158 +36,115 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         checkPasswordValidate()
         checkConfirmPasswordValidate()
         onClickRegisterButton()
-        navigationToLoginScreen()
+        navigateToLoginScreen()
     }
 
-    private fun navigationToLoginScreen() {
+    private fun navigateToLoginScreen() {
         binding.textViewLogin.setOnClickListener {
             activity?.navigateExclusive(LoginFragment())
         }
     }
 
     private fun checkUsernameValidate() {
-        binding.apply {
-            textInputEditTextLayoutUsername.addTextChangedListener {
-                when (getUsernameStatus(
-                    textInputEditTextLayoutUsername.text.toString(),
-                    requireContext()
-                )) {
-                    getString(R.string.error_validation_user_name_special) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_special)
-                    )
-                    getString(R.string.error_validation_user_name_space) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_space)
-                    )
-                    getString(R.string.error_validation_user_name_should_grater_the_limit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_should_grater_the_limit)
-                    )
-                    getString(R.string.error_validation_user_name_start_with_digit) -> setErrorUsername(
-                        getString(R.string.error_validation_user_name_start_with_digit)
-                    )
-                    else -> {
-                        textViewValidateUserName.hide()
-                        validationUserName = true
-                    }
-                }
-            }
+        binding.textInputEditTextLayoutUsername.addTextChangedListener {
+            registerPresenter.checkUsernameText(
+                binding.textInputEditTextLayoutUsername.text.toString(),
+                requireContext()
+            )
         }
     }
 
     private fun checkPasswordValidate() {
-        binding.apply {
-            textInputEditTextPassword.addTextChangedListener { passwordText ->
-                val passwordLength = passwordText!!.length
-                when {
-                    passwordLength < VALIDATION_PASSWORD_LENGTH -> {
-                        textViewValidatePassword.text =
-                            getText(R.string.error_validation_password_text_length)
-                        textViewValidatePassword.show()
-                        validationPassword = false
-                    }
-                    else -> {
-                        textViewValidatePassword.hide()
-                        validationPassword = true
-                    }
-                }
-            }
+        binding.textInputEditTextPassword.addTextChangedListener { passwordText ->
+            val passwordLength = passwordText!!.length
+            registerPresenter.checkPasswordText(passwordLength)
         }
     }
 
     private fun checkConfirmPasswordValidate() {
-        binding.apply {
-            textInputEditTextConfirmPassword.addTextChangedListener {
-                if (textInputEditTextPassword.text.toString() == textInputEditTextConfirmPassword.text.toString()) {
-                    textViewValidateConfirm.hide()
-                    validationConfirmPassword = true
-                } else {
-                    textViewValidateConfirm.text =
-                        getText(R.string.error_validation_confirm_password_mismatch)
-                    textViewValidateConfirm.show()
-                    validationConfirmPassword = false
-                }
-            }
-        }
-    }
-
-    private fun setErrorUsername(error: String) {
-        activity?.runOnUiThread {
-            binding.textViewValidateUserName.text = error
-            binding.textViewValidateUserName.show()
-            validationUserName = false
+        binding.textInputEditTextConfirmPassword.addTextChangedListener {
+            registerPresenter.checkConfirmPasswordText(
+                binding.textInputEditTextPassword.text.toString(),
+                binding.textInputEditTextConfirmPassword.text.toString()
+            )
         }
     }
 
     private fun onClickRegisterButton() {
-        binding.buttonRegister.setOnClickListener { buttonRegister ->
-            if (validationUserName && validationPassword && validationConfirmPassword) {
-                val newUser = UserRequest(
-                    binding.textInputEditTextLayoutUsername.text.toString(),
-                    binding.textInputEditTextPassword.text.toString()
-                )
-                registrationPresenter.makeRequest(newUser)
-                buttonRegister.hide()
-                binding.progressBarReload.show()
-            }
-            if (binding.textInputEditTextLayoutUsername.text.isNullOrEmpty()) {
-                binding.apply {
-                    textViewValidateUserName.show()
-                    textViewValidateUserName.text = getString(R.string.username_cannot_be_empty)
-                }
-            }
-            if (binding.textInputEditTextPassword.text.isNullOrEmpty()) {
-                binding.apply {
-                    textViewValidatePassword.show()
-                    textViewValidatePassword.text = getText(R.string.password_cannot_be_empty)
-                }
-            }
-            if (binding.textInputEditTextConfirmPassword.text.toString() != binding.textInputEditTextPassword.text.toString()) {
-                binding.textViewValidateConfirm.show()
-                binding.textViewValidateConfirm.text =
-                    getText(R.string.error_validation_confirm_password_mismatch)
-            }
+        binding.buttonRegister.setOnClickListener {
+            val isValidateFailed = registerPresenter.isUsernameValid && registerPresenter.isPasswordValid && registerPresenter.isConfirmPasswordValid
+            val usernameText = binding.textInputEditTextLayoutUsername.text.toString()
+            val passwordText = binding.textInputEditTextPassword.text.toString()
+            val confirmPasswordText = binding.textInputEditTextConfirmPassword.text.toString()
+            registerPresenter.handleRegister(isValidateFailed, usernameText, passwordText, confirmPasswordText)
         }
     }
 
-    override fun onRegisterSuccess(response: RegisterResponse) {
-        activity?.apply {
-            runOnUiThread {
-                binding.progressBarReload.hide()
-                binding.buttonRegister.show()
-            }
-        }
-    }
-
-    override fun onRegisterFailure(message: String?) {
+    override fun navigateToHome() {
         activity?.runOnUiThread {
             binding.progressBarReload.hide()
             binding.buttonRegister.show()
-            message?.let { setErrorUsername(it) }
+            activity?.navigateExclusive((HomeFragment()))
         }
     }
 
-    override fun onLoginSuccess() {
-        activity?.apply {
-            runOnUiThread {
-                binding.progressBarReload.hide()
-                binding.buttonRegister.show()
-                navigateExclusive((HomeFragment()))
-            }
-        }
-    }
-
-    override fun onFailure(message: String?) {
+    override fun showErrorRegister(message: String?) {
         activity?.runOnUiThread {
-            activity?.showSnackbar(
-                message = getString(R.string.no_internet_connection),
-                binding.root
-            )
+            binding.progressBarReload.hide()
+            binding.buttonRegister.show()
+            message?.let { registerPresenter.setErrorUsername(it) }
+        }
+    }
+
+    override fun showNoInternetConnection(message: String?) {
+        activity?.runOnUiThread {
+            activity?.showSnackbar(getString(R.string.no_internet_connection), binding.root)
             binding.progressBarReload.hide()
             binding.buttonRegister.show()
         }
     }
 
-    companion object {
-        const val VALIDATION_PASSWORD_LENGTH = 8
-        const val VALIDATION_USERNAME_LENGTH = 4
+    override fun hideTextValidateUsername() = binding.textViewValidateUserName.hide()
+
+    override fun showErrorInvalidUsername(message: String?) {
+        activity?.runOnUiThread {
+            binding.textViewValidateUserName.text = message
+            binding.textViewValidateUserName.show()
+        }
+
     }
+
+    override fun showErrorPasswordLength() {
+        binding.textViewValidatePassword.text = getText(R.string.password_validate)
+        binding.textViewValidatePassword.show()
+    }
+
+    override fun hideValidatePasswordText() = binding.textViewValidatePassword.hide()
+
+
+    override fun showConfirmPassword(isVisible: Boolean) {
+        if (isVisible) {
+            binding.textViewValidateConfirm.hide()
+        } else {
+            binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
+            binding.textViewValidateConfirm.show()
+        }
+    }
+
+    override fun registerUser() {
+        val newUser = UserRequest(
+            binding.textInputEditTextLayoutUsername.text.toString(),
+            binding.textInputEditTextPassword.text.toString())
+        registerPresenter.makeRequest(newUser)
+        binding.buttonRegister.hide()
+        binding.progressBarReload.show()
+    }
+
+    override fun showEmptyValidError() = requireActivity().showSnackbar("Please fill all fields", binding.root)
+
+    override fun showMismatchConfirmPassword() {
+        binding.textViewValidateConfirm.show()
+        binding.textViewValidateConfirm.text = getText(R.string.error_validation_confirm_password_mismatch)
+    }
+
 }
