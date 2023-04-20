@@ -6,7 +6,7 @@ import java.lang.Character.isDigit
 
 class RegisterValidation {
 
-    fun getUsernameStatus(username: String, context: Context): String {
+    fun checkUsernameStatus(username: String, context: Context): String {
         for (i in username.trim().indices) {
             when {
                 username[i].isSpecial()-> return context.getString(R.string.error_validation_user_name_special)

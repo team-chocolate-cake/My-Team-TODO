@@ -23,7 +23,7 @@ class RegisterPresenter(
         authService.register(userRequest,
             onSuccess = { response ->
                 if (response.isSuccess) {
-                    response.value?.let { view.navigationToHome() }
+                    response.value?.let { view.navigateToHome() }
                     loginUser(userRequest)
                 } else {
                     view.showErrorRegister(response.message)
@@ -38,12 +38,12 @@ class RegisterPresenter(
             onFailure = { message: String?, _: Int -> view.showNoInternetConnection(message) }
         ) { response ->
             preferences.token = response.value?.token
-            view.navigationToHome()
+            view.navigateToHome()
         }
     }
 
     fun checkUsernameText(usernameText: String, requireContext: Context) {
-        when (registerValidation.getUsernameStatus(usernameText, requireContext)) {
+        when (registerValidation.checkUsernameStatus(usernameText, requireContext)) {
             requireContext.getString(R.string.error_validation_user_name_special) -> setErrorUsername(
                 requireContext.getString(R.string.error_validation_user_name_special)
             )
@@ -61,7 +61,7 @@ class RegisterPresenter(
             )
 
             else -> {
-                view.hideUsername()
+                view.hideTextValidateUsername()
                 isUsernameValid = true
             }
         }

@@ -36,10 +36,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         checkPasswordValidate()
         checkConfirmPasswordValidate()
         onClickRegisterButton()
-        navigationToLoginScreen()
+        navigateToLoginScreen()
     }
 
-    private fun navigationToLoginScreen() {
+    private fun navigateToLoginScreen() {
         binding.textViewLogin.setOnClickListener {
             activity?.navigateExclusive(LoginFragment())
         }
@@ -80,7 +80,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    override fun navigationToHome() {
+    override fun navigateToHome() {
         activity?.runOnUiThread {
             binding.progressBarReload.hide()
             binding.buttonRegister.show()
@@ -104,9 +104,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         }
     }
 
-    override fun hideUsername() {
-        binding.textViewValidateUserName.hide()
-    }
+    override fun hideTextValidateUsername() = binding.textViewValidateUserName.hide()
 
     override fun showErrorInvalidUsername(message: String?) {
         activity?.runOnUiThread {
@@ -121,9 +119,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         binding.textViewValidatePassword.show()
     }
 
-    override fun hideValidatePasswordText() {
-        binding.textViewValidatePassword.hide()
-    }
+    override fun hideValidatePasswordText() = binding.textViewValidatePassword.hide()
+
 
     override fun showConfirmPassword(isVisible: Boolean) {
         if (isVisible) {
@@ -143,9 +140,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(), RegisterView {
         binding.progressBarReload.show()
     }
 
-    override fun showEmptyValidError() {
-        requireActivity().showSnackbar("Please fill all fields", binding.root)
-    }
+    override fun showEmptyValidError() = requireActivity().showSnackbar("Please fill all fields", binding.root)
 
     override fun showMismatchConfirmPassword() {
         binding.textViewValidateConfirm.show()

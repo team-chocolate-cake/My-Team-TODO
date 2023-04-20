@@ -1,12 +1,12 @@
 package com.chocolatecake.todoapp.features.register
 
 interface RegisterView {
-    fun navigationToHome()
+    fun navigateToHome()
     fun showErrorRegister(message: String?)
 
     fun showNoInternetConnection(message: String?)
 
-    fun hideUsername()
+    fun hideTextValidateUsername()
 
     fun showErrorInvalidUsername(message: String?)
 
