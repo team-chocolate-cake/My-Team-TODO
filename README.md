@@ -10,6 +10,7 @@ TickTask is an Android task management app that allows teams to collaborate and 
 - **Task Filtering:** Filter tasks by status and assignee
 - **Task Details:** View task details and comments
 - **Task Status:** Update task status
+- **Search:** Search for tasks by title or content
 - **Network Connection Handling:** Use Lottie animation to handle no network connection
 
 ## Technical Details
@@ -42,7 +43,7 @@ TickTask was developed using the following technical requirements:
 
 ## Usage
 
-To use the application, you must first create an account or log in using your existing credentials. Once you have logged in, you can create tasks and assign them to team members. You can also update the status of tasks as they are completed. You can filter tasks by status and assignee to help you keep track of everything.
+To use the application, you must first create an account or log in using your existing credentials. Once you have logged in, you can create tasks and assign them to team members. You can also update the status of tasks as they are completed. You can filter tasks by status and assignee to help you keep track of everything. Additionally, you can search for tasks by their title or content.
 
 If there is no network connection, a Lottie animation is displayed to notify the user.
 
