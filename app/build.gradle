@@ -56,4 +56,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     //lottie
     implementation 'com.airbnb.android:lottie:6.0.0'
+    //rx java
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 }

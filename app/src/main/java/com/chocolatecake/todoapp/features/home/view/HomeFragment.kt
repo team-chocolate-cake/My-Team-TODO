@@ -3,12 +3,14 @@ package com.chocolatecake.todoapp.features.home.view
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
@@ -27,10 +29,15 @@ import com.chocolatecake.todoapp.features.home.model.SearchQuery
 import com.chocolatecake.todoapp.features.home.model.Status
 import com.chocolatecake.todoapp.features.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.features.home.utils.toHomeItem
-import com.chocolatecake.todoapp.features.task_details.view.TaskDetailsFragment
 import com.chocolatecake.todoapp.features.login.LoginFragment
+import com.chocolatecake.todoapp.features.task_details.view.TaskDetailsFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
@@ -54,6 +61,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     private var isPersonal = false
     private val handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,17 +87,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     }
 
     private fun addSearchCallBack() {
-        binding.editTextSearch.addTextChangedListener {
-            runnable?.let { it1 -> handler.removeCallbacks(it1) }
-            runnable = Runnable {
-                searchQuery = searchQuery.copy(
-                    title = it.toString(),
-                    status = getSelectedChips()
-                )
-                applySearch()
-            }
-            handler.postDelayed(runnable!!, 500)
-        }
+         Observable.create { emitting->
+             binding.editTextSearch.addTextChangedListener { text ->
+                 searchQuery = searchQuery.copy(
+                     title = text.toString(),
+                     status = getSelectedChips()
+                 )
+                 emitting.onNext(searchQuery)
+             }
+         }.debounce(500,TimeUnit.MILLISECONDS)
+             .subscribe(::onNext,::onError)
+             .add(compositeDisposable)
+    }
+
+    private fun onNext(searchQuery: SearchQuery) {
+        applySearch()
+    }
+
+    private fun onError(throwable: Throwable) {
+        Log.i(TAG, "onError: $throwable")
+    }
+
+    private fun Disposable.add(compositeDisposable: CompositeDisposable){
+        compositeDisposable.add(this)
     }
 
     override fun showError(message: String?) {
@@ -222,9 +242,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
     override fun onTabReselected(tab: TabLayout.Tab?) {}
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
+    }
 
     private companion object {
         const val TEAM_POSITION = 0
         const val PERSONAL_POSITION = 1
+        const val TAG = "HOME_FRAGMENT"
     }
 }
