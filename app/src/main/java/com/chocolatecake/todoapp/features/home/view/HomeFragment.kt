@@ -1,14 +1,12 @@
 package com.chocolatecake.todoapp.features.home.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.view.forEachIndexed
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import com.chocolatecake.todoapp.R
 import com.chocolatecake.todoapp.core.data.local.TaskSharedPreferences
 import com.chocolatecake.todoapp.core.data.model.response.PersonalTask
@@ -27,10 +25,13 @@ import com.chocolatecake.todoapp.features.home.model.SearchQuery
 import com.chocolatecake.todoapp.features.home.model.Status
 import com.chocolatecake.todoapp.features.home.presenter.HomePresenter
 import com.chocolatecake.todoapp.features.home.utils.toHomeItem
-import com.chocolatecake.todoapp.features.task_details.view.TaskDetailsFragment
 import com.chocolatecake.todoapp.features.login.LoginFragment
+import com.chocolatecake.todoapp.features.task_details.view.TaskDetailsFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
@@ -52,8 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     }
     private var searchQuery: SearchQuery = SearchQuery()
     private var isPersonal = false
-    private val handler = Handler(Looper.getMainLooper())
-    private var runnable: Runnable? = null
+    private lateinit var disposible:Disposable
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,16 +79,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
     }
 
     private fun addSearchCallBack() {
-        binding.editTextSearch.addTextChangedListener {
-            runnable?.let { it1 -> handler.removeCallbacks(it1) }
-            runnable = Runnable {
-                searchQuery = searchQuery.copy(
-                    title = it.toString(),
-                    status = getSelectedChips()
-                )
-                applySearch()
-            }
-            handler.postDelayed(runnable!!, 500)
+         disposible=Observable.create { emitter ->
+                binding.editTextSearch.doOnTextChanged { text, start, before, count ->
+                    emitter.onNext(text.toString())
+                }
+            }.debounce(500,TimeUnit.MILLISECONDS).subscribe { t ->
+            searchQuery = searchQuery.copy(
+                title = t,
+                status = getSelectedChips()
+            )
+            applySearch()
         }
     }
 
@@ -219,6 +219,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeView,
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposible.dispose()
+    }
     override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
     override fun onTabReselected(tab: TabLayout.Tab?) {}
